@@ -1,0 +1,27 @@
+.children {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid red;
+  
+  margin: 0 auto;
+  
+
+  &__header {
+    color: white;
+  
+    text-align: center;
+    margin: 0 auto;
+
+  }
+
+  &__list {
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 0px;
+    margin: 0 auto;
+  }
+}
+.add-button {
+  margin-top: 10px;
+  width: 100px;
+}
