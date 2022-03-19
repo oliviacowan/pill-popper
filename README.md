@@ -45,8 +45,18 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 - get users/:id/children
 - post users/:id/children/new
 
-#### medication
+### medication
 - get users/:id/children/:id/medications
 - post users/:id/children/:id/medications/new
 - delete users/:id/children/:id/medications/:id/delete
 - edit users/:id/children/:id/medications/:id/edit
+
+## Components
+- calendar (Andrew)
+- dayList (list of medications for the chosen day) (Olivia)
+- dayList item (Olivia)
+- childList (plus add child form)
+- form (add medication) (Paul)
+- nav bar (Paul)
+- confirmation
+- status
