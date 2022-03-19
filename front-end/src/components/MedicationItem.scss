@@ -9,14 +9,15 @@
 
 .medication-item{
   display: flex;
-  background-color: $light-backgound;
+  background-color: white;
   border-radius: 1.5em;
   height: 8em;
+  margin: 1em;
 }
 
 .scheduled-time{
   flex-direction: row;
-  font-family: $font-family;
+  // font-family: $font-family;
   position: relative;
   width: 3em;
   height: 1em;
@@ -25,7 +26,7 @@
 
 .medication-name{
   
-  font-family: $font-family;
+  // font-family: $font-family;
   align-self: center;
   position: relative;
   top: -1.5em;
