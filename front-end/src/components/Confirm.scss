@@ -1,0 +1,46 @@
+@import "../styles/variables.scss";
+
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
+@import "../styles/variables.scss";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css);
+
+* {
+  box-sizing: border-box;
+}
+
+.confirm__card{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1.5em;
+  min-height: $card-height;
+  margin: 1em;
+  justify-content: center;
+  align-content: center;
+}
+
+.message{
+  padding: 1em;
+  width: auto;
+  align-self: center;
+  font-size: 1.25em
+}
+.confirm__card--buttons {
+ height: 1.5em;
+ width: auto;
+ border: none;
+ background-color: rgb(240, 121, 113);
+ margin-left: 2em;
+ margin-right: 2em;
+
+}
+
+.confirm__card--buttons--container {
+  align-self: center;
+  justify-content: flex-end;
+  width: auto;
+  padding-bottom: .5em;
+
+}
+
