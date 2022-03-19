@@ -1,0 +1,24 @@
+@import '../styles/variables.scss';
+
+.medication {
+  &__form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &--main {
+      height: 70%
+    
+    }
+    &--create {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+  }
+  
+}
+
