@@ -1,11 +1,25 @@
+import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
-import './App.css';
+import './App.scss';
 
-function App() {
+function App(props) {
+  
   return (
-    <div >
-      <h1>REACT!!!</h1>
-    </div>
+    <main className="layout">
+      <nav>
+        < FontAwesomeIcon icon={ faUsers } className="nav-icon" />
+        <div>This is the app</div>
+        < FontAwesomeIcon icon={ faCalendarDays } className="nav-icon"/>
+      </nav>
+      <section>
+        {/* components here */}
+      </section>
+      <footer>
+        <button>Add Medication</button>
+      </footer>
+    </main>
   );
 }
 
