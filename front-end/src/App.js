@@ -17,7 +17,7 @@ function App(props) {
         < FontAwesomeIcon icon={ faCalendarDays } className="nav-icon"/>
       </nav>
       <section className="component">
-        
+        < Form />
       </section>
       <footer>
         <button>Add Medication</button>

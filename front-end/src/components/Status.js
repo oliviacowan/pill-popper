@@ -4,17 +4,16 @@ import { faHandHolding, faPrescriptionBottleMedical } from '@fortawesome/free-so
 import './Status.scss';
 
 export default function Status(props) {
-  const hand = <FontAwesomeIcon icon={faHandHolding} className="status-icon hand"/>
-  const prescription = <FontAwesomeIcon icon={faPrescriptionBottleMedical} className="status-icon bottle"/>
+  
   return (
     <section className="status__card">
       <h1>LOADING/SAVING</h1>
       <div className="animated">
         <div className="bottle-container">
-          { prescription }
+          <FontAwesomeIcon icon={faPrescriptionBottleMedical} className="status-icon bottle"/>
         </div>
         <div className="hand-container">
-          { hand }
+          <FontAwesomeIcon icon={faHandHolding} className="status-icon hand"/>
         </div>
       </div>
     </section>
