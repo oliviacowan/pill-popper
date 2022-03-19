@@ -1,23 +1,27 @@
 import react from 'react';
 import './MedicationItem.scss'
-export default function MedicationItem() {
+
+
+
+export default function MedicationItem({time, name, id}) {
+  
 
   function getInfo() {
-    console.log('clicked info icon')
+    console.log('clicked info icon', id)
   }
   function destroy() {
-    console.log('clicked delete icon')
+    console.log('clicked delete icon', id)
   }
   function edit() {
-    console.log('clicked edit icon')
+    console.log('clicked edit icon', id)
   }
 
   return (
   <li className='medication-item'>
     
    <div className='medication-time-name'>
-      <p className='scheduled-time'>time</p>
-      <h2 className='medication-name'>Medication Name</h2>
+      <p className='scheduled-time'>{time}</p>
+      <h2 className='medication-name'>{name}</h2>
     </div>
     <section className='medication-item-icons'>
       <p onClick={edit}><i className="fa-solid fa-user-pen"></i></p> 
