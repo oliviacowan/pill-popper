@@ -8,6 +8,9 @@ import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 import './App.scss';
 
+import Form from './components/Form'
+import Status from './components/Status'
+
 function App(props) {
 
   return (
@@ -17,9 +20,10 @@ function App(props) {
         <div>This is the app</div>
         < FontAwesomeIcon icon={faCalendarDays} className="nav-icon" />
       </nav>
-      <section>
 
-      {/* For testing ChildrenList component */}
+      <section className="component">
+        < Form />
+          {/* For testing ChildrenList component */}
 
         {/* <ChildrenList children={[{id: 1, name: "Alex", avatar:logo, selected:1},
       {id: 2, name: "Andrew", avatar:logo, selected:1}, 
@@ -29,6 +33,7 @@ function App(props) {
        /> */}
 
         {/* components here */}
+
       </section>
       <footer>
         <button>Add Medication</button>
