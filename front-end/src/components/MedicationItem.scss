@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
+@import "../styles/variables.scss";
+// @import url('/font-awesome-4.6.3/css/font-awesome.min.css');
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css);
+
+* {
+  box-sizing: border-box;
+}
+
+.medication-item{
+  display: flex;
+  background-color: $light-backgound;
+  border-radius: 1.5em;
+  height: 8em;
+}
+
+.scheduled-time{
+  flex-direction: row;
+  font-family: $font-family;
+  position: relative;
+  width: 3em;
+  height: 1em;
+  left: 1em;
+}
+
+.medication-name{
+  
+  font-family: $font-family;
+  align-self: center;
+  position: relative;
+  top: -1.5em;
+  justify-content: center;
+
+}
+.medication-time-name{
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  flex-grow: 9;
+}
+.medication-item-icons{
+  width: .5em;
+  align-self: flex-end;
+  justify-content: flex-end;
+  flex-grow: .75;
+}
