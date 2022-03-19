@@ -38,3 +38,15 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 ### ¿Map to local pharmacies?
 ### call emergency number
 ### input field for fever / symptoms
+
+## Routes
+
+### Children
+- get users/:id/children
+- post users/:id/children/new
+
+#### medication
+- get users/:id/children/:id/medications
+- post users/:id/children/:id/medications/new
+- delete users/:id/children/:id/medications/:id/delete
+- edit users/:id/children/:id/medications/:id/edit
