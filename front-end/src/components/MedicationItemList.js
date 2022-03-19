@@ -19,7 +19,8 @@ export default function MedicationItemList() {
 
 
   const medicationItemList = medications.map((medication) => (
-   <MedicationItem className='medication-list'
+   <MedicationItem 
+  //  className='medication-list'
       key={medication.id}
       id={medication.id}
       time={medication.time}
@@ -28,6 +29,6 @@ export default function MedicationItemList() {
 
   ));
 
-  return <ul>{medicationItemList}</ul>
+  return <div class="medication-item-list">{medicationItemList}</div>
 
 }
