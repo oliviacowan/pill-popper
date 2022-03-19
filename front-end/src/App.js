@@ -4,6 +4,8 @@ import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 import './App.scss';
 
+import Form from './components/Form'
+
 function App(props) {
   
   return (
@@ -13,8 +15,8 @@ function App(props) {
         <div>This is the app</div>
         < FontAwesomeIcon icon={ faCalendarDays } className="nav-icon"/>
       </nav>
-      <section>
-        {/* components here */}
+      <section className="component">
+        <Form />
       </section>
       <footer>
         <button>Add Medication</button>
