@@ -5,6 +5,7 @@ import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import './App.scss';
 
 import Form from './components/Form'
+import Status from './components/Status'
 
 function App(props) {
   
@@ -16,7 +17,7 @@ function App(props) {
         < FontAwesomeIcon icon={ faCalendarDays } className="nav-icon"/>
       </nav>
       <section className="component">
-        <Form />
+        
       </section>
       <footer>
         <button>Add Medication</button>
