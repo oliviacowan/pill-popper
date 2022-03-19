@@ -1,0 +1,40 @@
+.children {
+  &__item {
+
+    display:flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
+
+    &-image {
+      width: 50px;
+      height: 50px;
+      margin: 10px
+    }
+
+    &--selected {
+
+      border-radius: 16px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding-left: 2px;
+      padding-right: 1rem;
+      user-select: none;
+    }
+
+    &--selected &-image {
+      width: 28px;
+      height: 28px;
+      margin-right: 0.5rem;
+    }
+
+    &--selected,
+    &:hover {
+      background-color: white;
+    }
+  }
+}
