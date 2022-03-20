@@ -2,11 +2,11 @@ import CalendarComponent from 'react-calendar'
 import './Calendar.scss';
 import {useState} from 'react'
 
-const Calendar = () => {
+const Calendar = ({value, onChange}) => {
 
-  const [value, onChange] = useState(new Date());
+  // const [value, onChange] = useState(new Date());
 
-return (
+  return (
   <> 
   <CalendarComponent onChange={onChange} value={value} calendarType='US'/>
   </>
