@@ -8,7 +8,7 @@ const Calendar = () => {
 
 return (
   <> 
-  <CalendarComponent onChange={onChange} value={value}/>
+  <CalendarComponent onChange={onChange} value={value} calendarType='US'/>
   </>
 )
 }
