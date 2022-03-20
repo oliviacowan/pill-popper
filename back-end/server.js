@@ -34,7 +34,7 @@ app.use(BodyParser.json());
 app.use(Express.static('public'));
 
 // data base routes
-app.use('/users/:id/children', childrenRoutes(db));
+app.use('/users/', childrenRoutes(db));
 app.use('/medications/', medRoutes(db));
 
 app.listen(PORT, () => {

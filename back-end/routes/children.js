@@ -1,19 +1,19 @@
-const router = require ('express').Router();
+const { response } = require('express');
+const express = require('express')
+const router = require('express').Router();
 
 module.exports = (db) => {
-  console.log('Inside children routes function')
   //get list of children
-  router.get('/', (req, res) => {
-    const userId = Number(req.params.id);
+  router.get('/:userId/children', (req, res) => {
+    const userId = Number(req.params.userId);
+    console.log(userId);
     db.query(
       `SELECT * FROM children
-      JOIN users
-      ON users.id = users_id
-      WHERE user.id =$1;`, [userId]
+      WHERE user_id = $1;`, [userId]
     ).then(({rows: children}) => {
       res.json(
         children.reduce((prev, curr) =>({
-          ...prev, [current.id]: current
+          ...prev, [curr.id]: curr
         }), {})
       );
     }); 
