@@ -1,7 +1,9 @@
-import react from "react";
+
 import "./MedicationItem.scss";
 
-export default function MedicationItem({ time, name, id }) {
+
+export default function MedicationItem({ time, name, id, child}) {
+  
   function getInfo() {
     console.log("clicked info icon", id);
   }
@@ -15,7 +17,7 @@ export default function MedicationItem({ time, name, id }) {
   return (
     <li className="medication-item">
       <div className="medication-time-name">
-        <p className="scheduled-time">{time}</p>
+        <p className="scheduled-time">{time}   <i class="fa-solid fa-arrow-right-long"></i>   {child}</p>
         <h2 className="medication-name">{name}</h2>
       </div>
       <section className="medication-item-icons">
