@@ -20,12 +20,12 @@ module.exports = (db) => {
   });
 
   //add child
-  router.post('/new', (req, res) => {
-    const userId = Number(req.params.id);
-    const { name, avatar } = req.body.name;
+  router.post('/:userId/children/new', (req, res) => {
+    const userId = Number(req.params.userId);
+    const { name, avatar } = req.body;
     db.query(
-      `INSERT INTO children (name, user_id)
-      VALUES ($1, $2);`, [newChild, avatar]
+      `INSERT INTO children (name, user_id, avatar_url)
+      VALUES ($1, $2, $3);`, [name, userId, avatar]
     );
   });
   return router;
