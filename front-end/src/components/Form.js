@@ -41,7 +41,7 @@ export default function Form(props){
           </div>
 
           <div>
-            <label>Enter the Medication Name:</label>
+            <label>Medication Name:</label>
             <input 
               type="text" 
               placeholder="Medication" 
@@ -74,12 +74,14 @@ export default function Form(props){
             </div>
           </div>
           <div>
+            <span className="checkbox">
+              <label> Take with food?</label>
             <input 
             type="checkbox"
             value={input}
             onClick={handleChange}
             />
-            <label> Take with food?</label>
+          </span>
           </div>
         </form>
       </section>
