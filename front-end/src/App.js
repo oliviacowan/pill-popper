@@ -72,7 +72,7 @@ function App(props) {
             )}
             
          {viewCalendar && <Calendar onChange={onChange} value={value} />}
-            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm}/>}
+            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={children} />}
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
