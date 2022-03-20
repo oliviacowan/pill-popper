@@ -46,7 +46,7 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 - post users/:id/children/new
 
 ### medication
-- get users/:id/children/:id/medications
+- get /medications/:childId
 - post users/:id/children/:id/medications/new
 - delete users/:id/children/:id/medications/:id/delete
 - edit users/:id/children/:id/medications/:id/edit
