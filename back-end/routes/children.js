@@ -22,10 +22,10 @@ module.exports = (db) => {
   //add child
   router.post('/new', (req, res) => {
     const userId = Number(req.params.id);
-    const newChild = req.body.name;
+    const { name, avatar } = req.body.name;
     db.query(
       `INSERT INTO children (name, user_id)
-      VALUES ($1, $2);`, [newChild, ]
+      VALUES ($1, $2);`, [newChild, avatar]
     );
   });
 
