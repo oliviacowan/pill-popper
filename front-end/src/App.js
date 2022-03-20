@@ -76,7 +76,7 @@ function App(props) {
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
-        <MedicationItemList />
+        <MedicationItemList date={value}/>
         {/* components here */}
         {/* <Calendar /> */}
       </span>
