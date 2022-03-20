@@ -1,15 +1,16 @@
 const { response } = require('express');
-
+const express = require('express')
 const router = require('express').Router();
 
-module.export = (db) => {
-  router.get('/', (req, res) => {
-    childId = Number(req.params.id);
+module.exports = (db) => {
+  router.get('/:childId', (req, res) => {
+    childId = Number(req.params.childId);
+    console.log(childId)
     db.query(
-      `SELECT medications.* FROM medications
+      `SELECT childrens_medications.* FROM childrens_medications
       JOIN children ON children.id = child_id
       WHERE children.id = $1::integer;`, [childId] 
-    ).then(({rows: medication}) => response.json(medication));
+    ).then(({ rows: medication }) => { res.json(medication) });
   });
 
   router.post('/new', (req, res) => {
@@ -41,5 +42,7 @@ module.export = (db) => {
       `DELETE FROM childerns-medications
       WHERE id = $1::integer`, [req.params.med_id]
     )
-  })
+  });
+
+  return router;
 }

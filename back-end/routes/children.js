@@ -1,7 +1,7 @@
-const router = require ('express').router();
+const router = require ('express').Router();
 
 module.exports = (db) => {
-
+  console.log('Inside children routes function')
   //get list of children
   router.get('/', (req, res) => {
     const userId = Number(req.params.id);
@@ -28,5 +28,5 @@ module.exports = (db) => {
       VALUES ($1, $2);`, [newChild, avatar]
     );
   });
-
+  return router;
 }
