@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 // For testing:
+
 import ChildrenList from "./components/ChildrenList";
 import logo from "./favicon.ico";
+
 
 import "./App.scss";
 

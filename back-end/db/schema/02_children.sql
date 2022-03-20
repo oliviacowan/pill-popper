@@ -1,0 +1,9 @@
+
+DROP TABLE IF EXISTS children CASCADE;
+
+CREATE TABLE children (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  avatar_url VARCHAR(1000) NOT NULL,
+);
