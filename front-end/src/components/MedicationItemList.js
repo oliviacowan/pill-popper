@@ -16,6 +16,13 @@ const medications = [
     date: "11/19/2022",
     child: 2
   },
+  {
+    name: "advil",
+    time: "3pm",
+    id: 3,
+    date: "03/20/2022",
+    child: 2
+  },
 ];
 
 export default function MedicationItemList(props) {
@@ -46,6 +53,8 @@ export default function MedicationItemList(props) {
           time={medication.time}
           name={medication.name}
           child={child.name}
+          destroy={props.destroy}
+          setDestroy={props.setDestroy}
           // date={medication.date}
         />
       )
