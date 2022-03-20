@@ -9,9 +9,11 @@
 .medication-item{
   display: flex;
   background-color: white;
-  border-radius: 1.5em;
+  border-radius: 12px;
   height: 8em;
   margin: 1em;
+  width: 90%;
+  border: 3px solid #0b6952
 }
 
 .scheduled-time{
@@ -40,4 +42,5 @@
   align-self: flex-end;
   justify-content: flex-end;
   flex-grow: .5;
+  cursor: pointer;
 }

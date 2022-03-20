@@ -23,6 +23,11 @@ export default function Form(props){
       'name: ', name, 'medication: ', medicationName, 'dosage: ', dose, 'interval: ', interval, 'checkbox: ', input
     )
   }
+  const cancel = function() {
+
+    // closes form 
+    props.setViewForm(false)
+  }
   
   return (
     <main className="medication__form">
@@ -88,7 +93,7 @@ export default function Form(props){
 
       <section className="medication__form--actions">
           <button onClick={save}>Save</button>
-          <button>Cancel</button>
+          <button onClick={cancel}>Cancel</button>
         </section>
     </main>
   );
