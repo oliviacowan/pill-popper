@@ -1,5 +1,5 @@
 import CalendarComponent from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
+import './Calendar.scss';
 import {useState} from 'react'
 
 const Calendar = () => {
