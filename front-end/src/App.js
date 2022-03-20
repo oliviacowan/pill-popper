@@ -4,7 +4,7 @@ import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import Calendar from './components/Calendar'
 // For testing:
 import ChildrenList from "./components/ChildrenList"
-// import logo from './favicon.ico'
+import logo from './favicon.ico'
 
 
 import './App.scss';
@@ -44,11 +44,11 @@ function App(props) {
       <section className="component">
          
           {viewUser && <ChildrenList children={[
-            {id: 1, name: "Alex", avatar:'logo', selected:1},
-            {id: 2, name: "Andrew", avatar:'logo', selected:1}, 
-            {id: 3, name: "Jack", avatar:'logo', selected:1}, 
-            {id: 4, name: "Tilda", avatar:'logo', selected:1}, 
-            {id: 5, name: "Gary", avatar:'logo', selected:1}
+            {id: 1, name: "Alex", avatar:logo, selected:1},
+            {id: 2, name: "Andrew", avatar:logo, selected:1}, 
+            {id: 3, name: "Jack", avatar:logo, selected:1}, 
+            {id: 4, name: "Tilda", avatar:logo, selected:1}, 
+            {id: 5, name: "Gary", avatar:logo, selected:1}
           ]}/>}
           {viewCalendar && <Calendar />}
         < Form />
