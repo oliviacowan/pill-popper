@@ -17,13 +17,18 @@ const medications = [
 ];
 
 export default function MedicationItemList(props) {
+  // turn date into string, take substring of first 10 values
   const medicationDate = props.date.toLocaleString().substring(0, 10);
+  // declare 0 to concat to if needed
   const zero = "0";
 
   const formatDate = function () {
+    // check if month is only one character long
     if (props.date.getMonth() < 10) {
+      // if it is, add zero to beginning and remove trailing space
       return zero.concat(medicationDate).slice(0, -1);
     } else {
+      // otherwise, return string as is
       return medicationDate;
     }
   };
