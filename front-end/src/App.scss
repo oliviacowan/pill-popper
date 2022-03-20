@@ -7,13 +7,16 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 2em;
 }
 
 .component {
   height: 70vh;
   display: flex;
+  // flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-flow: column wrap;
 }
 
 footer {

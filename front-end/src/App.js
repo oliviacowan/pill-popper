@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import Calendar from './components/Calendar'
 // For testing:
 // import ChildrenList from "./components/ChildrenList"
 // import logo from './favicon.ico'
@@ -12,16 +13,29 @@ import Form from './components/Form'
 import Status from './components/Status'
 
 function App(props) {
+  const [viewCalendar, setViewCalendar] = useState(true);
+    
+  const calendarBoolean = function() {
+      if (viewCalendar) {
+        setViewCalendar(false)
+      } else{
+        setViewCalendar(true)
+      }
+    }
+
+  
 
   return (
     <main className="layout">
       <nav>
         < FontAwesomeIcon icon={faUsers} className="nav-icon" />
         <div>This is the app</div>
-        < FontAwesomeIcon icon={faCalendarDays} className="nav-icon" />
+        < FontAwesomeIcon icon={faCalendarDays} className="nav-icon" onClick={calendarBoolean}/>
       </nav>
 
       <section className="component">
+         
+          {viewCalendar && <Calendar />}
         < Form />
           {/* For testing ChildrenList component */}
 
@@ -33,7 +47,7 @@ function App(props) {
        /> */}
 
         {/* components here */}
-
+       {/* <Calendar /> */}
       </section>
       <footer>
         <button>Add Medication</button>
