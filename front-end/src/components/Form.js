@@ -1,100 +1,129 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 
-import './Form.scss';
+import "./Form.scss";
 
-export default function Form(props){
-  const [medicationName, setMedicationName] = useState('')
-  const [name, setName] = useState('')
-  const [dose, setDose] = useState('')
-  const [interval, setInterval] = useState('')
-  const [input, setInput] = useState(false)
+export default function Form(props) {
+  const [medicationName, setMedicationName] = useState("");
+  const [name, setName] = useState("");
+  const [dose, setDose] = useState("");
+  const [interval, setInterval] = useState("");
+  const [input, setInput] = useState(false);
 
-  const handleChange = function() {
+  const handleChange = function () {
     if (input) {
-      setInput(false)
+      setInput(false);
     } else {
-      setInput(true)
+      setInput(true);
     }
-    console.log(input)
-  }
+    console.log(input);
+  };
 
-  const save = function() {
+  const save = function () {
     console.log(
-      'name: ', name, 'medication: ', medicationName, 'dosage: ', dose, 'interval: ', interval, 'checkbox: ', input
-    )
-  }
-  const cancel = function() {
+      "name: ",
+      name,
+      "medication: ",
+      medicationName,
+      "dosage: ",
+      dose,
+      "interval: ",
+      interval,
+      "checkbox: ",
+      input
+    );
+  };
+  const cancel = function () {
+    // closes form
+    //add code to clear input values
+    props.setViewForm(false);
+  };
 
-    // closes form 
-    props.setViewForm(false)
-  }
+  // const selectName = function() {
+  //   let selected = document.getElementById("names")
+  //   const nameValue = selected.options[selected.selectedIndex].text;
+  //   console.log(nameValue)
+  // }
+  const childNames = props.children.map((child) => {
+    return <option key={child.name} value={child.name} >{child.name}</option>
+  })
+
   
+
   return (
     <main className="medication__form">
-      <section className="medication__form--main" > 
-        <form className="medication__form--create" >
+      <section className="medication__form--main">
+        <form className="medication__form--create">
           <div>
             <label>Choose Family Member:</label>
-            <input 
+            {/* <input 
               type="text" 
               placeholder="Name"
               value={name}
               onChange={event => {setName(event.target.value);
                 console.log('name: ', name)
               }}
-            />
+            /> */}
+            <select onChange={(event) => setName(event.target.value)} name="names" className="name-menu" id="names">
+              <option value="select">Select</option>
+              {/* <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option> */}
+              {childNames}
+            </select>
           </div>
 
           <div>
             <label>Medication Name:</label>
-            <input 
-              type="text" 
-              placeholder="Medication" 
+            <input
+              type="text"
+              placeholder="Medication"
               value={medicationName}
-              onChange={(event) => {setMedicationName(event.target.value);
-              console.log('medicationName: ', medicationName)}}
+              onChange={(event) => {
+                setMedicationName(event.target.value);
+                console.log("medicationName: ", medicationName);
+              }}
             />
           </div>
 
           <div>
             <div>
               <label>Dosage mg:</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="doseage"
                 value={dose}
-                onChange={event => {setDose(event.target.value);
-                console.log('dose: ', dose)}}
+                onChange={(event) => {
+                  setDose(event.target.value);
+                  console.log("dose: ", dose);
+                }}
               />
             </div>
             <div>
               <label>Dosage Insterval:</label>
-              <input 
-              type="text" 
-              placeholder="Times per day"
-              value={interval}
-              onChange={event => {setInterval(event.target.value);
-              console.log('interval: ', interval)}}
+              <input
+                type="text"
+                placeholder="Times per day"
+                value={interval}
+                onChange={(event) => {
+                  setInterval(event.target.value);
+                  console.log("interval: ", interval);
+                }}
               />
             </div>
           </div>
           <div>
             <span className="checkbox">
               <label> Take with food?</label>
-            <input 
-            type="checkbox"
-            value={input}
-            onClick={handleChange}
-            />
-          </span>
+              <input type="checkbox" value={input} onClick={handleChange} />
+            </span>
           </div>
         </form>
       </section>
 
       <section className="medication__form--actions">
-          <button onClick={save}>Save</button>
-          <button onClick={cancel}>Cancel</button>
-        </section>
+        <button onClick={save}>Save</button>
+        <button onClick={cancel}>Cancel</button>
+      </section>
     </main>
   );
 }

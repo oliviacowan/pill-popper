@@ -14,6 +14,11 @@ input {
   align-items: center;
 }
 
+.name-menu{
+  border-radius: .3em;
+  border: none;
+  margin-left: .4em;
+}
 
 .medication {
   &__form {
