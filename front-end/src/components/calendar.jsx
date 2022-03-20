@@ -1,5 +1,5 @@
 import CalendarComponent from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
+import './Calendar.scss';
 import {useState} from 'react'
 
 const Calendar = () => {
@@ -8,7 +8,7 @@ const Calendar = () => {
 
 return (
   <> 
-  <CalendarComponent onChange={onChange} value={value}/>
+  <CalendarComponent onChange={onChange} value={value} calendarType='US'/>
   </>
 )
 }
