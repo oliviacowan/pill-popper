@@ -14,6 +14,14 @@ import Form from "./components/Form";
 import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
 
+const children = [
+  { id: 1, name: "Alex", avatar: logo, selected: 1 },
+  { id: 2, name: "Andrew", avatar: logo, selected: 1 },
+  { id: 3, name: "Jack", avatar: logo, selected: 1 },
+  { id: 4, name: "Tilda", avatar: logo, selected: 1 },
+  { id: 5, name: "Gary", avatar: logo, selected: 1 }
+  ]
+
 function App(props) {
   const [viewCalendar, setViewCalendar] = useState(false);
   const [viewUser, setViewUser] = useState(false);
@@ -60,15 +68,7 @@ function App(props) {
       </nav>
       <span className="component">
         {viewUser && (
-          <ChildrenList
-          children={[
-            { id: 1, name: "Alex", avatar: logo, selected: 1 },
-            { id: 2, name: "Andrew", avatar: logo, selected: 1 },
-            { id: 3, name: "Jack", avatar: logo, selected: 1 },
-            { id: 4, name: "Tilda", avatar: logo, selected: 1 },
-              { id: 5, name: "Gary", avatar: logo, selected: 1 },
-            ]}
-            />
+          <ChildrenList children={children} />
             )}
             
          {viewCalendar && <Calendar onChange={onChange} value={value} />}
@@ -76,7 +76,7 @@ function App(props) {
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
-        <MedicationItemList date={value}/>
+        <MedicationItemList date={value} children={children}/>
         {/* components here */}
         {/* <Calendar /> */}
       </span>

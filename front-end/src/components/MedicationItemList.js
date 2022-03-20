@@ -7,12 +7,14 @@ const medications = [
     time: "4pm",
     id: 1,
     date: "03/20/2022",
+    child: 3
   },
   {
     name: "tylenol",
     time: "3pm",
     id: 2,
     date: "11/19/2022",
+    child: 2
   },
 ];
 
@@ -33,17 +35,21 @@ export default function MedicationItemList(props) {
     }
   };
 
+
   const medicationItemList = medications.map(
-    (medication) =>
+    (medication) => props.children.map((child) => 
+      child.id === medication.child &&
       medication.date === formatDate(medicationDate) && (
         <MedicationItem
           key={medication.id}
           id={medication.id}
           time={medication.time}
           name={medication.name}
-          date={medication.date}
+          child={child.name}
+          // date={medication.date}
         />
       )
+    )
   );
 
   return <>{medicationItemList}</>;
