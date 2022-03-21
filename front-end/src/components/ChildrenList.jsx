@@ -11,9 +11,9 @@ const ChildrenList = (props) => {
     <ChildrenListItem
         key={child.id}
         name={child.name}
-        avatar={child.avatar}
-        selected={child.id}
-        // setChild={() => props.onChange(child.id)}
+        avatar={child.avatar_url}
+        selected={child.id === props.value}   
+        setChild={() => props.onChange(child.id)}
        />
         )
 })
@@ -30,8 +30,10 @@ return (
             type="text"
             placeholder="Enter Name"
             onChange={null}
+            avatar='text'
           />
         </form>
+        
         <button className="add-button">Add</button>
   </section>
 )

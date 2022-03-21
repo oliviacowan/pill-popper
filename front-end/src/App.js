@@ -17,21 +17,35 @@ import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
 
 
-
-const children = [
-  { id: 1, name: "Alex", avatar: logo, selected: 1 },
-  { id: 2, name: "Andrew", avatar: logo, selected: 1 },
-  { id: 3, name: "Jack", avatar: logo, selected: 1 },
-  { id: 4, name: "Tilda", avatar: logo, selected: 1 },
-  { id: 5, name: "Gary", avatar: logo, selected: 1 }
-  ]
-
 function App(props) {
   const [viewCalendar, setViewCalendar] = useState(false);
   const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
   const [viewForm, setViewForm] = useState(false);
   const [medications, setMedications] = useState([]);
+
+
+  const [state, setState] = useState({
+    child: '',
+    children: {},
+  });
+
+  const hasValue = Object.keys(state.children).length !== 0
+
+  const setSectedChild = child => setState({ ...state, child });
+
+  useEffect(() => {
+
+   axios.get('/users/1/children')
+      .then(res => setState(prev => ({
+        ...prev,
+        children: res.data,
+      })))
+      .catch((error) => {
+        console.log(error)
+    });
+  }, [])
+  
 
   
   useEffect(()=>{
@@ -50,6 +64,7 @@ function App(props) {
   })
     
   },[])
+
 
   const calendarBoolean = function () {
     if (viewCalendar) {
@@ -90,12 +105,13 @@ function App(props) {
           />
       </nav>
       <span className="component">
-        {viewUser && (
-          <ChildrenList children={children} />
+        {viewUser && hasValue && (
+          <ChildrenList children={Object.values(state.children)} value={state.child}
+              onChange={setSectedChild}/>
             )}
             
          {viewCalendar && <Calendar onChange={onChange} value={value} />}
-            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={children} />}
+            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={state.children} />}
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
