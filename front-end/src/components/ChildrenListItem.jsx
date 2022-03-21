@@ -1,19 +1,19 @@
 import "./ChildrenListItem.scss"
+import classNames from 'classnames';
 
-const ChildrenListItem = ({ name, avatar, selected, setChildren }) => {
+const ChildrenListItem = ({ id, name, avatar, selected, setChild }) => {
 
-  // const interviewerClass = classNames("interviewers__item", {
-  //   "interviewers__item--selected": selected
-  // });
-
+  const interviewerClass = classNames("children__item", {
+    "children__item--selected": selected
+  });
   return (
-    <li className="children__item" onClick={setChildren}>
+    <li className={interviewerClass} onClick={()=> setChild(id)}>
       <img
         className="children__item-image"
         src={avatar}
         alt={name}
       />
-      {selected && name}
+      {name}
     </li>
   )
 
