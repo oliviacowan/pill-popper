@@ -24,7 +24,7 @@ function App(props) {
   const [viewForm, setViewForm] = useState(false);
   const [medications, setMedications] = useState([]);
 
-
+console.log(medications)
   const [state, setState] = useState({
     child: '',
     children: {},
@@ -111,7 +111,7 @@ function App(props) {
             )}
             
          {viewCalendar && <Calendar onChange={onChange} value={value} />}
-            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={state.children} />}
+            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={Object.values(state.children)} />}
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
