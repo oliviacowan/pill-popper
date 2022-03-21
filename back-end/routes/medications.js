@@ -1,27 +1,27 @@
 const { response } = require('express');
-const express = require('express')
+const express = require('express');
 const router = require('express').Router();
 
 module.exports = (db) => {
   router.get('/:childId', (req, res) => {
-    childId = Number(req.params.childId);
-    console.log(childId)
     db.query(
-      `SELECT childrens_medications.* FROM childrens_medications
-      JOIN children ON children.id = child_id
-      WHERE children.id = $1::integer;`, [childId] 
+      `SELECT * FROM childrens_medications
+      JOIN times ON childrens_medications.id = childrens_medications_id
+      WHERE child_id = $1::integer
+      ORDER BY time
+      ;`, [Number(req.params.childId)] 
     ).then(({ rows: medication }) => { res.json(medication) });
   });
 
-  router.post('/new', (req, res) => {
-    childId = Number(req.params.id);
-    const { interval, dose, medication_name, with_food } = req.body.medication;
+  router.post('/:childId/new', (req, res) => {
+    childId = Number(req.params.childId);
+    const { dose, name, with_food, start_date} = req.body;
 
     db.query(
       `INSERT INTO childrens_medications 
-      (child_id, interval, dose, medication_name, with_food)
-      Values ($1, $2, $3);`, [interval, dose, medication_name, with_food]
-      );
+      (child_id, name, dose, with_food, start_date)
+      Values ($1, $2, $3, $4, NOW());`, [childId, name, dose, with_food]
+      ).then(()=> { res.send({ status: 'good' }) });
   });
 
   router.put('/:med_id/edit', (req, res) => {
@@ -33,14 +33,14 @@ module.exports = (db) => {
       with_food = $2,
       dose = $3
       WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
-      );
+      ).then(()=> { res.send({ status: 'good' }) });
   });
 
   router.delete('/:medId/delete', (req, res) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    )
+    ).then(()=> { res.send({ status: 'good' }) })
   });
 
   return router;

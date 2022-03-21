@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./Form.scss";
 
 export default function Form(props) {
+  console.log('form props', props)
   const [medicationName, setMedicationName] = useState("");
-  const [name, setName] = useState("");
+  const [childId, setChildId] = useState("");
   const [dose, setDose] = useState("");
-  const [interval, setInterval] = useState("");
   const [input, setInput] = useState(false);
 
   const handleChange = function () {
@@ -19,19 +19,19 @@ export default function Form(props) {
   };
 
   const save = function () {
-    console.log(
-      "name: ",
-      name,
-      "medication: ",
-      medicationName,
-      "dosage: ",
-      dose,
-      "interval: ",
-      interval,
-      "checkbox: ",
-      input
-    );
+    axios.post(`/medications/${childId}/new`, {
+      child_id: childId,
+      name: medicationName,
+      dose: dose,
+      with_food: input,
+    })
+    .then(() => {
+      console.log('Medication added successfully!')
+      props.setViewForm(false);
+    })
+    .catch(err => console.log('There has been an ERROR: ', err));
   };
+  
   const cancel = function () {
     // closes form
     //add code to clear input values
@@ -44,7 +44,7 @@ export default function Form(props) {
   //   console.log(nameValue)
   // }
   const childNames = props.children.map((child) => {
-    return <option key={child.name} value={child.name} >{child.name}</option>
+    return <option key={child.id} value={child.id} >{child.name}</option>
   })
 
   
@@ -63,7 +63,7 @@ export default function Form(props) {
                 console.log('name: ', name)
               }}
             /> */}
-            <select onChange={(event) => setName(event.target.value)} name="names" className="name-menu" id="names">
+            <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
               <option value="select">Select</option>
               {/* <option value="saab">Saab</option>
               <option value="mercedes">Mercedes</option>
@@ -98,7 +98,7 @@ export default function Form(props) {
                 }}
               />
             </div>
-            <div>
+            {/* <div>
               <label>Dosage Insterval:</label>
               <input
                 type="text"
@@ -109,7 +109,7 @@ export default function Form(props) {
                   console.log("interval: ", interval);
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <div>
             <span className="checkbox">
