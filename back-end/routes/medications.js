@@ -20,8 +20,8 @@ module.exports = (db) => {
     db.query(
       `INSERT INTO childrens_medications 
       (child_id, name, dose, with_food, start_date)
-      Values ($1, $2, $3, $4, $5);`, [childId, name, dose, with_food, start_date]
-      );
+      Values ($1, $2, $3, $4, NOW());`, [childId, name, dose, with_food]
+      ).then(()=> { res.send({ status: 'good' }) });
   });
 
   router.put('/:med_id/edit', (req, res) => {
@@ -33,14 +33,14 @@ module.exports = (db) => {
       with_food = $2,
       dose = $3
       WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
-      );
+      ).then(()=> { res.send({ status: 'good' }) });
   });
 
   router.delete('/:medId/delete', (req, res) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    )
+    ).then(()=> { res.send({ status: 'good' }) })
   });
 
   return router;
