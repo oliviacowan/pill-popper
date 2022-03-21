@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
@@ -31,16 +31,23 @@ function App(props) {
   const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
   const [viewForm, setViewForm] = useState(false);
+  const [medications, setMedications] = useState([]);
 
+  
   useEffect(()=>{
     axios
-    .get(`http://localhost:8080/users/1/children`)
+    .get("/medications/2")
     .then(response => {
         console.log(response)
+        setMedications((prev) => ([{
+          ...prev,
+          medications: response.data
+        }]))
     })
-    .catch(function(error) {
-        // manipulate the error response here
-    });
+  
+  .catch(error => {
+    console.log(error.message);
+  })
     
   },[])
 
@@ -92,7 +99,7 @@ function App(props) {
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
-        <MedicationItemList date={value} children={children}/>
+       {medications.length > 0 && <MedicationItemList medications={medications} date={value} children={children}/>}
         {/* components here */}
         {/* <Calendar /> */}
       </span>
