@@ -2,11 +2,11 @@ import react, { useState } from "react";
 import Confirm from "./medicationActions/Confirm";
 import "./MedicationItem.scss";
 
-export default function MedicationItem({ time, name, id, child }) {
+export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
 
   function getInfo() {
-    console.log("clicked info icon", id);
+    console.log("clicked info icon", props.id);
   }
  
   const destroyBoolean = function () {
@@ -16,20 +16,20 @@ export default function MedicationItem({ time, name, id, child }) {
   };
 
   function edit() {
-    console.log("clicked edit icon", id);
+    console.log("clicked edit icon", props.id);
   }
 
   return (
     <>
       {destroy ? (
         <Confirm destroy={destroy} setDestroy={setDestroy} />
-      ) : (
+      ) : ( 
         <li className="medication-item">
           <div className="medication-time-name">
             <p className="scheduled-time">
-              {time} <i className="fa-solid fa-arrow-right-long"></i> {child}
+              {props.time} <i className="fa-solid fa-arrow-right-long"></i>
             </p>
-            <h2 className="medication-name">{name}</h2>
+            <h2 className="medication-name">{props.name}</h2>
           </div>
           <section className="medication-item-icons">
             <p onClick={edit}>

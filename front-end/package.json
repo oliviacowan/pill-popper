@@ -1,4 +1,5 @@
 {
+  "proxy": "http://[::1]:8080",
   "name": "pill-popper",
   "version": "0.1.0",
   "private": true,
