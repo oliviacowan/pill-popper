@@ -1,15 +1,13 @@
 const { response } = require('express');
-const express = require('express')
+const express = require('express');
 const router = require('express').Router();
 
 module.exports = (db) => {
   router.get('/:childId', (req, res) => {
-    childId = Number(req.params.childId);
-    console.log(childId)
     db.query(
-      `SELECT childrens_medications.* FROM childrens_medications
-      JOIN children ON children.id = child_id
-      WHERE children.id = $1::integer;`, [childId] 
+      `SELECT * FROM childrens_medications
+      JOIN times ON childrens_medications.id = childrens_medications_id
+      WHERE child_id = $1::integer;`, [Number(req.params.childId)] 
     ).then(({ rows: medication }) => { res.json(medication) });
   });
 
