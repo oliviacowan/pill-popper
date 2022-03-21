@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
+import axios from "axios";
 // For testing:
+
 
 import ChildrenList from "./components/ChildrenList";
 import logo from "./favicon.ico";
@@ -13,6 +15,8 @@ import "./App.scss";
 import Form from "./components/Form";
 import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
+
+
 
 const children = [
   { id: 1, name: "Alex", avatar: logo, selected: 1 },
@@ -27,6 +31,18 @@ function App(props) {
   const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
   const [viewForm, setViewForm] = useState(false);
+
+  useEffect(()=>{
+    axios
+    .get(`http://localhost:8080/users/1/children`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(function(error) {
+        // manipulate the error response here
+    });
+    
+  },[])
 
   const calendarBoolean = function () {
     if (viewCalendar) {
