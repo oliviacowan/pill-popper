@@ -25,22 +25,21 @@ module.exports = (db) => {
   });
 
   router.put('/:med_id/edit', (req, res) => {
-    const { interval, dose, medication_name, with_food } = req.body.medication;
+    const { dose, name, with_food } = req.body;
 
     db.query(
       `UPDATE childrens_medications
-      SET interval = $1,
-      does = $2
-      medication_name = $3
-      with_food = $4
-      WHERE id = $5::interger`, [interval, dose, medication_name, with_food, req.params.med_id]
+      SET name = $1,
+      with_food = $2,
+      dose = $3
+      WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
       );
   });
 
-  router.delete('/:med_id/delete', (req, res) => {
+  router.delete('/:medId/delete', (req, res) => {
     db.query(
-      `DELETE FROM childerns-medications
-      WHERE id = $1::integer`, [req.params.med_id]
+      `DELETE FROM childrens_medications
+      WHERE id = $1::integer`, [req.params.medId]
     )
   });
 
