@@ -7,7 +7,9 @@ module.exports = (db) => {
     db.query(
       `SELECT * FROM childrens_medications
       JOIN times ON childrens_medications.id = childrens_medications_id
-      WHERE child_id = $1::integer;`, [Number(req.params.childId)] 
+      WHERE child_id = $1::integer
+      ORDER BY time
+      ;`, [Number(req.params.childId)] 
     ).then(({ rows: medication }) => { res.json(medication) });
   });
 
