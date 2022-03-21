@@ -115,7 +115,7 @@ function App(props) {
             <footer>
               <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
             </footer>
-       {medications.length > 0 && <MedicationItemList medications={medications} date={value} children={children}/>}
+       {medications.length > 0 && <MedicationItemList medications={medications} date={value} children={state.children}/>}
         {/* components here */}
         {/* <Calendar /> */}
       </span>
