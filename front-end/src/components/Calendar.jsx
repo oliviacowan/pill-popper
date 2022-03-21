@@ -11,5 +11,7 @@ const Calendar = ({value, onChange}) => {
   <CalendarComponent onChange={onChange} value={value} calendarType='US'/>
   </>
 )
+
 }
+
 export default Calendar
