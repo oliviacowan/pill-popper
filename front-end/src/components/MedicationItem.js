@@ -29,7 +29,9 @@ export default function MedicationItem(props) {
             <p className="scheduled-time">
               {props.time} <i className="fa-solid fa-arrow-right-long"></i>
             </p>
-            <h2 className="medication-name">{props.name}</h2>
+
+            <h2 className="medication-name">{props.name} <span className='name-dose'>{props.dose}mg</span></h2>
+
           </div>
           <section className="medication-item-icons">
             <p onClick={edit}>

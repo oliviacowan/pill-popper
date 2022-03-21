@@ -24,11 +24,18 @@
   left: 1em;
 }
 
+
 .medication-name{
   align-self: center;
   position: relative;
   top: -1.5em;
   justify-content: center;
+
+  .name-dose{
+    flex-direction: row;
+    font-size: 14px;
+    align-content: center;
+  }
 
 }
 .medication-time-name{
