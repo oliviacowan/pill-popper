@@ -13,14 +13,14 @@ module.exports = (db) => {
     ).then(({ rows: medication }) => { res.json(medication) });
   });
 
-  router.post('/new', (req, res) => {
-    childId = Number(req.params.id);
-    const { interval, dose, medication_name, with_food } = req.body.medication;
+  router.post('/:childId/new', (req, res) => {
+    childId = Number(req.params.childId);
+    const { dose, name, with_food, start_date} = req.body;
 
     db.query(
       `INSERT INTO childrens_medications 
-      (child_id, interval, dose, medication_name, with_food)
-      Values ($1, $2, $3);`, [interval, dose, medication_name, with_food]
+      (child_id, name, dose, with_food, start_date)
+      Values ($1, $2, $3, $4, $5);`, [childId, name, dose, with_food, start_date]
       );
   });
 

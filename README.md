@@ -47,9 +47,9 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 
 ### medication
 - get /medications/:childId
-- post users/:id/children/:id/medications/new
-- delete users/:id/children/:id/medications/:id/delete
-- edit users/:id/children/:id/medications/:id/edit
+- post /medications/:childId/new
+- delete medications/:id/delete
+- edit medications/:id/edit
 
 ## Components
 - calendar (Andrew)
