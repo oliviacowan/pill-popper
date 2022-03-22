@@ -21,6 +21,7 @@ function App(props) {
   const [viewForm, setViewForm] = useState(false);
   const [medications, setMedications] = useState([]);
 
+
   const [state, setState] = useState({
     child: "",
     children: {},
@@ -102,34 +103,17 @@ function App(props) {
       </nav>
       <span className="component">
         {viewUser && hasValue && (
-          <ChildrenList
-            children={Object.values(state.children)}
-            value={state.child}
-            onChange={setSectedChild}
-          />
-        )}
 
-        {viewCalendar && <Calendar onChange={onChange} value={value} />}
-        {viewForm && (
-          <Form
-            viewForm={viewForm}
-            setViewForm={setViewForm}
-            children={state.children}
-          />
-        )}
-        <footer>
-          <button className="add-medication" onClick={medicationFormBoolean}>
-            Add Medication
-          </button>
-        </footer>
-        {medications.length > 0 && (
-          <MedicationItemList
-            childrenState={state.children}
-            medications={medications}
-            date={value}
-            children={state.children}
-          />
-        )}
+          <ChildrenList children={Object.values(state.children)} value={state.child}
+              onChange={setSectedChild}/>
+            )}
+            
+         {viewCalendar && <Calendar onChange={onChange} value={value} />}
+            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={Object.values(state.children)} />}
+            <footer>
+              <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
+            </footer>
+       {medications.length > 0 && <MedicationItemList medications={medications} date={value} children={state.children}/>}
         {/* components here */}
         {/* <Calendar /> */}
       </span>
