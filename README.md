@@ -41,6 +41,9 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 
 ## Routes
 
+### Users
+- get users/:id/medications;
+
 ### Children
 - get users/:id/children
 - post users/:id/children/new
