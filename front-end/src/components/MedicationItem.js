@@ -19,9 +19,10 @@ export default function MedicationItem(props) {
 
   // const deleteMe = function() {
   //   console.log('click', props.id)
-  //   axios.delete(`/medications/${props.id}/delete`)
+  //   axios.delete(`/medications/${props.id}/delete`).then(()=> props.setMedications(...props.medication))
   // }
 
+  
   function edit() {
     console.log("clicked edit icon", props.id);
   }

@@ -32,6 +32,7 @@ function App(props) {
 
 
   const [state, setState] = useState({
+    medications:[],
     child: "",
     children: {},
   });
@@ -70,7 +71,7 @@ function App(props) {
       .catch((error) => {
         console.log(error.message);
       });
-  }, []);
+  }, [medications]);
 
   const calendarBoolean = function () {
     if (viewCalendar) {
