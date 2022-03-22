@@ -33,8 +33,10 @@ return (
             avatar='text'
           />
         </form>
-        
+        <section className="children-actions">
         <button className="add-button">Add</button>
+        <button className="add-button" onClick={() => props.onChange("")}>View all</button>
+        </section>
   </section>
 )
 

@@ -31,3 +31,9 @@
   margin: 1em 1em 0 1em;
 
 }
+
+.children-actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
