@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./Form.scss";
+import Time from "./Time"
 
 export default function Form(props) {
   const children = Object.values(props.children)
@@ -8,6 +9,8 @@ export default function Form(props) {
   const [childId, setChildId] = useState("" || props.ChildId);
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
+  const [times, setTime] = useState('10:00');
+  const [sevedTime, setSavedTime] = useState([]);
 
   const toggleWithFood = function () {
     if (withFood) {
@@ -23,6 +26,7 @@ export default function Form(props) {
       name: medicationName,
       dose: dose,
       with_food: withFood,
+      times: times,
     })
     .then(() => {
       console.log('Medication added successfully!')
@@ -47,7 +51,7 @@ export default function Form(props) {
     <main className="medication__form">
       <section className="medication__form--main">
         <form className="medication__form--create">
-          <div>
+          <div className='medication-form'>
             <label>Choose Family Member:</label>
             
             <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
@@ -59,7 +63,7 @@ export default function Form(props) {
             </select>
           </div>
 
-          <div>
+          <div className='medication-form'>
             <label>Medication Name:</label>
             <input
               type="text"
@@ -73,7 +77,7 @@ export default function Form(props) {
           </div>
 
           <div>
-            <div>
+            <div className='medication-form'>
               <label>Dosage mg:</label>
               <input
                 type="text"
@@ -93,6 +97,12 @@ export default function Form(props) {
             </span>
           </div>
         </form>
+        <div className="time">
+        <Time time={times} setTime={setTime} />
+        <button onClick={()=>setSavedTime((prev) => [...prev, times])}>Add time</button>
+        {sevedTime}
+         </div>
+        
       </section>
 
       <section className="medication__form--actions">
