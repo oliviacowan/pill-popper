@@ -1,4 +1,5 @@
 import react, { useState } from "react";
+import axios from "axios";
 import Confirm from "./medicationActions/Confirm";
 import "./MedicationItem.scss";
 
@@ -12,8 +13,14 @@ export default function MedicationItem(props) {
   const destroyBoolean = function () {
     if (!destroy) {
       setDestroy(true);
+      console.log("clicked delete icon", props.id);
     }
   };
+
+  // const deleteMe = function() {
+  //   console.log('click', props.id)
+  //   axios.delete(`/medications/${props.id}/delete`)
+  // }
 
   function edit() {
     console.log("clicked edit icon", props.id);
@@ -22,7 +29,7 @@ export default function MedicationItem(props) {
   return (
     <>
       {destroy ? (
-        <Confirm destroy={destroy} setDestroy={setDestroy} />
+        <Confirm destroy={destroy} setDestroy={setDestroy} deleteMe={props.deleteMe} />
       ) : (
         <li className="medication-item">
           <div className="medication-time-name">

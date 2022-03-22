@@ -94,7 +94,6 @@ function App(props) {
       setViewForm(true);
     }
   };
-
   return (
     <main className="layout">
       <nav>
@@ -121,7 +120,7 @@ function App(props) {
             <footer>
               <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
             </footer>
-       {medications.length > 0 && <MedicationItemList childrenState={state.children} medications={medications} date={value} children={state.children}/>}
+       {medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications}/>}
         {/* components here */}
         {/* <Calendar /> */}
       </span>

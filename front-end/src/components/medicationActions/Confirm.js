@@ -3,6 +3,8 @@ import "./Confirm.scss";
 
 export default function Confirm(props) {
   
+  
+
   const cancel = function () {
     props.setDestroy(false);
   };
@@ -17,7 +19,7 @@ export default function Confirm(props) {
         >
           Cancel
         </button>
-        <button className="confirm__card--buttons">Delete</button>
+        <button className="confirm__card--buttons" onClick={props.deleteMe} >Delete</button>
       </div>
     </div>
   );
