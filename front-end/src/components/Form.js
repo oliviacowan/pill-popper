@@ -3,19 +3,18 @@ import axios from 'axios';
 import "./Form.scss";
 
 export default function Form(props) {
-  console.log('form props', props)
-  const [medicationName, setMedicationName] = useState("");
-  const [childId, setChildId] = useState("");
-  const [dose, setDose] = useState("");
-  const [input, setInput] = useState(false);
+  const children = Object.values(props.children)
+  const [medicationName, setMedicationName] = useState("" || props.medName);
+  const [childId, setChildId] = useState("" || props.ChildId);
+  const [dose, setDose] = useState("" || props.dose);
+  const [withFood, setWithFood] = useState(false || props.withFood);
 
-  const handleChange = function () {
-    if (input) {
-      setInput(false);
+  const toggleWithFood = function () {
+    if (withFood) {
+      setWithFood(false);
     } else {
-      setInput(true);
+      setWithFood(true);
     }
-    console.log(input);
   };
 
   const save = function () {
@@ -23,7 +22,7 @@ export default function Form(props) {
       child_id: childId,
       name: medicationName,
       dose: dose,
-      with_food: input,
+      with_food: withFood,
     })
     .then(() => {
       console.log('Medication added successfully!')
@@ -38,14 +37,9 @@ export default function Form(props) {
     props.setViewForm(false);
   };
 
-  // const selectName = function() {
-  //   let selected = document.getElementById("names")
-  //   const nameValue = selected.options[selected.selectedIndex].text;
-  //   console.log(nameValue)
-  // }
-  const childNames = props.children.map((child) => {
+  const childNames = (children.map((child) => {
     return <option key={child.id} value={child.id} >{child.name}</option>
-  })
+  }))
 
   
 
@@ -55,14 +49,7 @@ export default function Form(props) {
         <form className="medication__form--create">
           <div>
             <label>Choose Family Member:</label>
-            {/* <input 
-              type="text" 
-              placeholder="Name"
-              value={name}
-              onChange={event => {setName(event.target.value);
-                console.log('name: ', name)
-              }}
-            /> */}
+            
             <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
               <option value="select">Select</option>
               {/* <option value="saab">Saab</option>
@@ -98,23 +85,11 @@ export default function Form(props) {
                 }}
               />
             </div>
-            {/* <div>
-              <label>Dosage Insterval:</label>
-              <input
-                type="text"
-                placeholder="Times per day"
-                value={interval}
-                onChange={(event) => {
-                  setInterval(event.target.value);
-                  console.log("interval: ", interval);
-                }}
-              />
-            </div> */}
           </div>
           <div>
-            <span className="checkbox">
+            <span className="withFood">
               <label> Take with food?</label>
-              <input type="checkbox" value={input} onClick={handleChange} />
+              <input type="checkbox" value={withFood} onClick={toggleWithFood} defaultChecked={withFood}/>
             </span>
           </div>
         </form>

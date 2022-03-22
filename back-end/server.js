@@ -12,7 +12,8 @@ const db = new Pool(dbParams);
 db.connect();
 
 const childrenRoutes = require('./routes/children');
-const medRoutes = require('./routes/medications')
+const medRoutes = require('./routes/medications');
+const userRoutes = require('./routes/users');
 const { application } = require('express');
 
 
@@ -36,6 +37,7 @@ app.use(Express.static('public'));
 // data base routes
 app.use('/users/', childrenRoutes(db));
 app.use('/medications/', medRoutes(db));
+app.use('/users/', userRoutes(db));
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

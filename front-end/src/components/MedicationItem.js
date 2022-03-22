@@ -4,7 +4,7 @@ import "./MedicationItem.scss";
 
 export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
-
+  
   function getInfo() {
     console.log("clicked info icon", props.id);
   }
