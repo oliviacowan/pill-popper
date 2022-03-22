@@ -1,9 +1,21 @@
+import axios from "axios"
+import { useState } from "react"
 import "./ChildrenList.scss"
 
 import ChildrenListItem from "./ChildrenListItem"
 
 const ChildrenList = (props) => {
+  const [name, setName] = useState("")
   
+  const addChild = function() {
+    axios.post('/users/1/children/new', {
+      name: name,
+      avatar: 'https://img.favpng.com/1/10/3/computer-icons-child-avatar-png-favpng-1KY4gtPN1Fab6LrVpVM8AjtnH.jpg',
+    })
+    // console.log(name)
+    .then(setName(''))
+    .catch((err) => console.log(err))
+  }
 
   
   const parsedChildren = props.children.map(child => {
@@ -27,14 +39,15 @@ return (
           <input
             className="text--semi-bold"
             name="name"
+            value={name}
             type="text"
             placeholder="Enter Name"
-            onChange={null}
+            onChange={(event) => setName(event.target.value)}
             avatar='text'
           />
         </form>
         <section className="children-actions">
-        <button className="add-button">Add</button>
+        <button className="add-button" onClick={addChild} >Add</button>
         <button className="add-button" onClick={() => props.onChange("")}>View all</button>
         </section>
   </section>

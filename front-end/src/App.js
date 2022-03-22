@@ -53,13 +53,13 @@ function App(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [state.children]);
 
   useEffect(() => {
     axios
       .get("users/1/medications")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setMedications((prev) => [
           {
             ...prev,
