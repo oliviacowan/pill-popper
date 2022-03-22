@@ -71,7 +71,7 @@ function App(props) {
       .catch((error) => {
         console.log(error.message);
       });
-  }, []);
+  }, [medications]);
   
   function edit(medication) {
      setSelectedMed({
