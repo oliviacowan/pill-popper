@@ -16,19 +16,19 @@ import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
 
 function App(props) {
+  const NONE = "NONE";
   const CALENDAR = "CALENDAR";
   const CHILDLIST = "CHILDLIST";
-  const MEDLIST = "MEDLIST";
   const CREATE = "CREATE";
   const EDIT = 'EDIT';
-  const { mode, transition } = useVisualMode(MEDLIST)
+  const { mode, transition } = useVisualMode(NONE)
 
 
-  const [viewCalendar, setViewCalendar] = useState(false);
-  const [viewUser, setViewUser] = useState(false);
+  //const [viewCalendar, setViewCalendar] = useState(false);
+  //const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
-  const [viewForm, setViewForm] = useState(false);
   const [medications, setMedications] = useState([]);
+  const [selectedMed, setSelectedMed] = useState({})
 
 
   const [state, setState] = useState({
@@ -71,30 +71,21 @@ function App(props) {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [medications]);
+  }, []);
+  
+  function edit(medication) {
+     setSelectedMed({
+       childName: medication.child_name,
+       childId: medication.child_id,
+       medName: medication.name,
+       medId: medication.id,
+       withFood: medication.with_food,
+       dose: medication.dose
+     })
+     transition(EDIT);
+  }
 
-  const calendarBoolean = function () {
-    if (viewCalendar) {
-      setViewCalendar(false);
-    } else {
-      setViewCalendar(true);
-    }
-  };
-  const userListBoolean = function () {
-    if (viewUser) {
-      setViewUser(false);
-    } else {
-      setViewUser(true);
-    }
-  };
-
-  const medicationFormBoolean = function () {
-    if (viewForm) {
-      setViewForm(false);
-    } else {
-      setViewForm(true);
-    }
-  };
+  
   return (
     <main className="layout">
       <nav>
@@ -111,19 +102,18 @@ function App(props) {
         />
       </nav>
       <span className="component">
-        {mode === CHILDLIST && (
+        { mode === CHILDLIST && (
           <ChildrenList children={Object.values(state.children)} value={state.child}
               onChange={setSectedChild}/>
             )}
             
-         {mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
-         {mode === CREATE && <Form viewForm={viewForm} setViewForm={setViewForm} children={Object.values(state.children)} />}
-            <footer>
-              <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
-            </footer>
-       {medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications}/>}
-        {/* components here */}
-        {/* <Calendar /> */}
+          { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
+          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} />}
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } /> }
+          { mode !== CREATE && mode !== EDIT && <footer>
+            <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
+          </footer> }
+       { medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ edit } />}
       </span>
     </main>
   );
