@@ -22,10 +22,9 @@ export default function MedicationItem(props) {
   //   axios.delete(`/medications/${props.id}/delete`).then(()=> props.setMedications(...props.medication))
   // }
 
-  
-  function edit() {
-    console.log("clicked edit icon", props.id);
-  }
+  // function edit() {
+  //   console.log("clicked edit icon", props.id);
+  // }
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function MedicationItem(props) {
             </h2>
           </div>
           <section className="medication-item-icons">
-            <p onClick={edit}>
+            <p onClick={ props.onEdit }>
               <i className="fa-solid fa-user-pen"></i>
             </p>
             <p>

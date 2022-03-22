@@ -37,6 +37,7 @@ export default function MedicationItemList(props) {
               destroy={props.destroy}
               setDestroy={props.setDestroy}
               child={childObj.name}
+              onEdit= { ()=> { props.edit(medication) } }
             />
           );
         }
@@ -51,6 +52,7 @@ export default function MedicationItemList(props) {
               setDestroy={props.setDestroy}
               child={childObj.name}
               deleteMe={deleteMe}
+              onEdit= { ()=> { props.edit(medication) } }
             />
           );
         }

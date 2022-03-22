@@ -4,7 +4,15 @@ import "./Form.scss";
 import Time from "./Time"
 
 export default function Form(props) {
-  const children = Object.values(props.children)
+  let childNames;
+  let children;
+
+  if (props.children){
+    children = Object.values(props.children)
+  } else {
+    childNames = <option key={props.childId} value={props.childId} >{props.childName}</option>
+  }
+
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState("" || props.ChildId);
   const [dose, setDose] = useState("" || props.dose);
@@ -30,7 +38,7 @@ export default function Form(props) {
     })
     .then(() => {
       console.log('Medication added successfully!')
-      props.setViewForm(false);
+      props.transition("NONE");
     })
     .catch(err => console.log('There has been an ERROR: ', err));
   };
@@ -38,12 +46,14 @@ export default function Form(props) {
   const cancel = function () {
     // closes form
     //add code to clear input values
-    props.setViewForm(false);
+    props.transition("NONE");
   };
-
-  const childNames = (children.map((child) => {
-    return <option key={child.id} value={child.id} >{child.name}</option>
-  }))
+  
+  if (props.children) {
+    childNames = (children.map((child) => {
+      return <option key={child.id} value={child.id} >{child.name}</option>
+    }))
+  }
 
   
 
