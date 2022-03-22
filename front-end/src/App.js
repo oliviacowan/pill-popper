@@ -10,11 +10,20 @@ import logo from "./favicon.ico";
 
 import "./App.scss";
 
+import useVisualMode from './hooks/useVisualMode'
 import Form from "./components/Form";
 import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
 
 function App(props) {
+  const CALENDAR = "CALENDAR";
+  const CHILDLIST = "CHILDLIST";
+  const MEDLIST = "MEDLIST";
+  const CREATE = "CREATE";
+  const EDIT = 'EDIT';
+  const { mode, transition } = useVisualMode(MEDLIST)
+
+
   const [viewCalendar, setViewCalendar] = useState(false);
   const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
@@ -92,26 +101,25 @@ function App(props) {
         <FontAwesomeIcon
           icon={faUsers}
           className="nav-icon"
-          onClick={userListBoolean}
+          onClick={ () => { transition(CHILDLIST) }}
         />
         <div className="day-name">{value.toString().substring(0, 15)}</div>
         <FontAwesomeIcon
           icon={faCalendarDays}
           className="nav-icon"
-          onClick={calendarBoolean}
+          onClick={ () => { transition(CALENDAR) }}
         />
       </nav>
       <span className="component">
-        {viewUser && hasValue && (
-
+        {mode === CHILDLIST && (
           <ChildrenList children={Object.values(state.children)} value={state.child}
               onChange={setSectedChild}/>
             )}
             
-         {viewCalendar && <Calendar onChange={onChange} value={value} />}
-            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={Object.values(state.children)} />}
+         {mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
+         {mode === CREATE && <Form viewForm={viewForm} setViewForm={setViewForm} children={Object.values(state.children)} />}
             <footer>
-              <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
+              <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
             </footer>
        {medications.length > 0 && <MedicationItemList childrenState={state.children} medications={medications} date={value} children={state.children}/>}
         {/* components here */}
