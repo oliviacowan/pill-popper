@@ -8,7 +8,7 @@ export default function MedicationItem(props) {
   function getInfo() {
     console.log("clicked info icon", props.id);
   }
- 
+
   const destroyBoolean = function () {
     if (!destroy) {
       setDestroy(true);
@@ -23,15 +23,17 @@ export default function MedicationItem(props) {
     <>
       {destroy ? (
         <Confirm destroy={destroy} setDestroy={setDestroy} />
-      ) : ( 
+      ) : (
         <li className="medication-item">
           <div className="medication-time-name">
             <p className="scheduled-time">
-              {props.time} <i className="fa-solid fa-arrow-right-long"></i>
+              {props.time} <i className="fa-solid fa-arrow-right-long"></i>{" "}
+              {props.child}
             </p>
 
-            <h2 className="medication-name">{props.name} <span className='name-dose'>{props.dose}mg</span></h2>
-
+            <h2 className="medication-name">
+              {props.name} <span className="name-dose">{props.dose}mg</span>
+            </h2>
           </div>
           <section className="medication-item-icons">
             <p onClick={edit}>

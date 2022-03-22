@@ -1,21 +1,18 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 import axios from "axios";
 // For testing:
 
-
 import ChildrenList from "./components/ChildrenList";
 import logo from "./favicon.ico";
-
 
 import "./App.scss";
 
 import Form from "./components/Form";
 import Status from "./components/Status";
 import MedicationItemList from "./components/MedicationItemList";
-
 
 function App(props) {
   const [viewCalendar, setViewCalendar] = useState(false);
@@ -24,47 +21,46 @@ function App(props) {
   const [viewForm, setViewForm] = useState(false);
   const [medications, setMedications] = useState([]);
 
-
   const [state, setState] = useState({
-    child: '',
+    child: "",
     children: {},
   });
 
-  const hasValue = Object.keys(state.children).length !== 0
+  const hasValue = Object.keys(state.children).length !== 0;
 
-  const setSectedChild = child => setState({ ...state, child });
+  const setSectedChild = (child) => setState({ ...state, child });
 
   useEffect(() => {
-
-   axios.get('/users/1/children')
-      .then(res => setState(prev => ({
-        ...prev,
-        children: res.data,
-      })))
-      .catch((error) => {
-        console.log(error)
-    });
-  }, [])
-  
-
-  
-  useEffect(()=>{
     axios
-    .get("/medications/2")
-    .then(response => {
-        console.log(response)
-        setMedications((prev) => ([{
+      .get("/users/1/children")
+      .then((res) =>
+        setState((prev) => ({
           ...prev,
-          medications: response.data
-        }]))
-    })
-  
-  .catch(error => {
-    console.log(error.message);
-  })
-    
-  },[])
+          children: res.data,
+        }))
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  useEffect(() => {
+    axios
+      .get("/medications/2")
+      .then((response) => {
+        console.log(response);
+        setMedications((prev) => [
+          {
+            ...prev,
+            medications: response.data,
+          },
+        ]);
+      })
+
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   const calendarBoolean = function () {
     if (viewCalendar) {
@@ -96,26 +92,44 @@ function App(props) {
           icon={faUsers}
           className="nav-icon"
           onClick={userListBoolean}
-          />
+        />
         <div className="day-name">{value.toString().substring(0, 15)}</div>
         <FontAwesomeIcon
           icon={faCalendarDays}
           className="nav-icon"
           onClick={calendarBoolean}
-          />
+        />
       </nav>
       <span className="component">
         {viewUser && hasValue && (
-          <ChildrenList children={Object.values(state.children)} value={state.child}
-              onChange={setSectedChild}/>
-            )}
-            
-         {viewCalendar && <Calendar onChange={onChange} value={value} />}
-            {viewForm && <Form viewForm={viewForm} setViewForm={setViewForm} children={state.children} />}
-            <footer>
-              <button className="add-medication" onClick={medicationFormBoolean}>Add Medication</button>
-            </footer>
-       {medications.length > 0 && <MedicationItemList medications={medications} date={value} children={state.children}/>}
+          <ChildrenList
+            children={Object.values(state.children)}
+            value={state.child}
+            onChange={setSectedChild}
+          />
+        )}
+
+        {viewCalendar && <Calendar onChange={onChange} value={value} />}
+        {viewForm && (
+          <Form
+            viewForm={viewForm}
+            setViewForm={setViewForm}
+            children={state.children}
+          />
+        )}
+        <footer>
+          <button className="add-medication" onClick={medicationFormBoolean}>
+            Add Medication
+          </button>
+        </footer>
+        {medications.length > 0 && (
+          <MedicationItemList
+            childrenState={state.children}
+            medications={medications}
+            date={value}
+            children={state.children}
+          />
+        )}
         {/* components here */}
         {/* <Calendar /> */}
       </span>
