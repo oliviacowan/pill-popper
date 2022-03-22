@@ -47,7 +47,7 @@ function App(props) {
 
   useEffect(() => {
     axios
-      .get("/medications/2")
+      .get("users/1/medications")
       .then((response) => {
         console.log(response);
         setMedications((prev) => [
