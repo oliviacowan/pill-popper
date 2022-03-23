@@ -40,7 +40,7 @@ app.use('/users/', childrenRoutes(db));
 app.use('/medications/', medRoutes(db));
 app.use('/users/', userRoutes(db));
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   // eslint-disable-next-line no-console
   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });
