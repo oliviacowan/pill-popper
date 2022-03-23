@@ -6,7 +6,7 @@ import Time from "./Time"
 export default function Form(props) {
   let childNames;
   let children;
-
+  console.log(props);
   if (props.children){
     children = Object.values(props.children)
   } else {
@@ -14,11 +14,11 @@ export default function Form(props) {
   }
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
-  const [childId, setChildId] = useState("" || props.ChildId);
+  const [childId, setChildId] = useState("" || props.childId);
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
-  const [times, setTime] = useState('10:00');
-  const [savedTime, setSavedTime] = useState([]);
+  const [times, setTime] = useState('10:00' || props.time);
+  const [savedTime, setSavedTime] = useState(props.times || []);
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
@@ -51,6 +51,7 @@ export default function Form(props) {
         name: medicationName,
         dose: dose,
         with_food: withFood,
+        times: savedTime
       })
       .then((res) => {
       
@@ -72,10 +73,10 @@ export default function Form(props) {
       return <option key={child.id} value={child.id} >{child.name}</option>
     }))
   }
-
+  console.log(savedTime);
   const timeList = savedTime.map(time => (
     <div>
-     <span>{time}</span>
+     <span>{ time }</span>
       <button onClick={() => handleRemoveTime(time)}>x</button>
      
     </div>
@@ -138,7 +139,7 @@ export default function Form(props) {
          </div>
          <div>
            <ul>
-           {timeList}
+           { timeList }
            </ul>
          </div>
         

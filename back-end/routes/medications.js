@@ -3,15 +3,16 @@ const express = require('express');
 const router = require('express').Router();
 
 module.exports = (db) => {
-  router.get('/:childId', (req, res) => {
+  router.get('/:id', (req, res) => {
     db.query(
-      `SELECT * FROM childrens_medications
+      `SELECT childrens_medications.*, ARRAY[times.time] AS times
+      FROM childrens_medications
       JOIN times ON childrens_medications.id = childrens_medications_id
-      WHERE child_id = $1::integer
-      ORDER BY time
-      ;`, [Number(req.params.childId)] 
-    ).then(({ rows: medication }) => { res.json(medication) });
-  });
+      WHERE childrens_medications.id = $1::integer
+      GROUP BY childrens_medications.id, time;`, [Number(req.params.id)] 
+    ).then(({ rows: medication }) => { res.json(medication) })
+    .catch(err => console.log('There has been an ERROR: ', err));
+  })
 
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);

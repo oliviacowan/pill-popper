@@ -49,7 +49,7 @@ https://app.diagrams.net/#G11XnTpn527XG-SrhhKbyg9ziJlCg-m373
 - post users/:id/children/new
 
 ### medication
-- get /medications/:childId
+- get /medications/:id
 - post /medications/:childId/new
 - delete medications/:id/delete
 - edit medications/:id/edit
