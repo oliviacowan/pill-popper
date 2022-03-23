@@ -7,7 +7,6 @@ export default function Form(props) {
   let childNames;
   let children;
 
-console.log("FORM",props)
   if (props.children){
     children = Object.values(props.children)
   } else {
@@ -145,8 +144,8 @@ console.log("FORM",props)
       </section>
 
       <section className="medication__form--actions">
-        <button onClick={() => save(props.mode)}>Save</button>
-        <button onClick={cancel}>Cancel</button>
+        <button className="form-button" onClick={() => save(props.mode)}>Save</button>
+        <button className="form-button" onClick={cancel}>Cancel</button>
       </section>
     </main>
   );
