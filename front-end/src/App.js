@@ -22,7 +22,7 @@ function App(props) {
   const CREATE = "CREATE";
   const EDIT = 'EDIT';
   const { mode, transition } = useVisualMode(NONE)
-
+console.log("EEEEEEEEEEEEEE")
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -36,11 +36,12 @@ function App(props) {
     child: "",
     children: {},
   });
-
+console.log(state.children)
   const hasValue = Object.keys(state.children).length !== 0;
 
   const setSectedChild = (child) => setState({ ...state, child });
 
+  
   useEffect(() => {
     axios
       .get("/users/1/children")
@@ -53,8 +54,9 @@ function App(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, [state.children]);
+  }, []);
 
+  // state.children
   useEffect(() => {
     axios
       .get("users/1/medications")
@@ -71,7 +73,7 @@ function App(props) {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [medications]);
+  }, []);
   
   function editor(medication) {
      setSelectedMed({
@@ -108,8 +110,8 @@ function App(props) {
             )}
             
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
-          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} />}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } /> }
+          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} />}
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode}/> }
           { mode !== CREATE && mode !== EDIT && <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
           </footer> }

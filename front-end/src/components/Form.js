@@ -30,20 +30,35 @@ export default function Form(props) {
     }
   };
 
-  const save = function () {
-    axios.post(`/medications/${childId}/new`, {
-      child_id: childId,
-      name: medicationName,
-      dose: dose,
-      with_food: withFood,
-      times: times,
-    })
-    .then(() => {
-      console.log('Medication added successfully!')
-      props.transition("NONE");
-    })
-    .catch(err => console.log('There has been an ERROR: ', err));
-  };
+  const save = (mode) => {
+    if (mode === "CREATE"){
+      axios.post(`/medications/${childId}/new`, {
+        child_id: childId,
+        name: medicationName,
+        dose: dose,
+        with_food: withFood,
+        times: times,
+      })
+      .then(() => {
+        console.log('Medication added successfully!')
+        props.transition("NONE");
+      })
+      .catch(err => console.log('There has been an ERROR: ', err));
+    } else if (mode === "EDIT") {
+      axios.put(`/medications/${props.medId}/edit`, {
+        child_id: childId,
+        name: medicationName,
+        dose: dose,
+        with_food: withFood,
+       
+      })
+      .then(() => {
+        console.log('Medication changed successfully!')
+        props.transition("NONE");
+      })
+      .catch(err => console.log('There has been an ERROR: ', err));
+    }
+  }
   
   const cancel = function () {
     // closes form
@@ -129,7 +144,7 @@ export default function Form(props) {
       </section>
 
       <section className="medication__form--actions">
-        <button className="form-button" onClick={save}>Save</button>
+        <button className="form-button" onClick={() => save(props.mode)}>Save</button>
         <button className="form-button" onClick={cancel}>Cancel</button>
       </section>
     </main>
