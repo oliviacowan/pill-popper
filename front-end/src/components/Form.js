@@ -37,7 +37,7 @@ export default function Form(props) {
         name: medicationName,
         dose: dose,
         with_food: withFood,
-        times: times,
+        times: savedTime,
       })
       .then(() => {
         console.log('Medication added successfully!')
@@ -50,7 +50,6 @@ export default function Form(props) {
         name: medicationName,
         dose: dose,
         with_food: withFood,
-       
       })
       .then(() => {
         console.log('Medication changed successfully!')
