@@ -39,15 +39,31 @@ module.exports = (db) => {
   });
 
   router.put('/:med_id/edit', (req, res) => {
-    const { dose, name, with_food } = req.body;
-
-    db.query(
-      `UPDATE childrens_medications
-      SET name = $1,
-      with_food = $2,
-      dose = $3
-      WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
-      ).then(()=> { res.send({ status: 'good' }) });
+    const { dose, name, with_food, times } = req.body;
+    const medId = req.params.medId;
+    Promise.all([
+      db.query(
+        `DELETE FROM times
+        WHERE childrens_medications_id = $1;`, [medId]
+        ),
+      db.query(
+        `UPDATE childrens_medications
+        SET name = $1,
+        with_food = $2,
+        dose = $3
+        WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
+        )
+    ]).then(() => {
+      Promise.all([
+        times.map((time) => {
+          db.query(
+            `INSERT INTO times
+            (time, childrens_medications_id)
+            VALUES ($1, $2);`, [time, medId]
+          )
+        })
+      ]).then(() => { res.send({ status: "good" }) });
+    }).catch((err) => { console.log('There was an ERROR: ', err) });
   });
 
   router.delete('/:medId/delete', (req, res) => {
