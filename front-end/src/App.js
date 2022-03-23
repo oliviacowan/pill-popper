@@ -77,15 +77,20 @@ function App(props) {
   }, []);
   
   function editor(medication) {
-     setSelectedMed({
-       childName: medication.child_name,
-       childId: medication.child_id,
-       medName: medication.name,
-       medId: medication.id,
-       withFood: medication.with_food,
-       dose: medication.dose
-     })
-     transition(EDIT);
+    axios.get(`medications/${medication.id}`)
+    .then((res) => {
+      const data = res.data[0];
+      setSelectedMed({
+        childName: medication.child_name,
+        childId: data.child_id,
+        medName: data.name,
+        medId: data.id,
+        withFood: data.with_food,
+        dose: data.dose,
+        times: data.times
+      })
+      transition(EDIT);
+    });
   }
 
   
