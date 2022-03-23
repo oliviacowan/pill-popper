@@ -18,8 +18,10 @@ export default function Form(props) {
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
   const [times, setTime] = useState('10:00');
-  const [sevedTime, setSavedTime] = useState([]);
+  const [savedTime, setSavedTime] = useState([]);
 
+  const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
+  
   const toggleWithFood = function () {
     if (withFood) {
       setWithFood(false);
@@ -55,7 +57,14 @@ export default function Form(props) {
     }))
   }
 
-  
+  const timeList = savedTime.map(time => (
+    <div>
+     <span>{time}</span>
+      <button onClick={() => handleRemoveTime(time)}>x</button>
+     
+    </div>
+  ))
+
 
   return (
     <main className="medication__form">
@@ -110,7 +119,11 @@ export default function Form(props) {
         <div className="time">
         <Time time={times} setTime={setTime} />
         <button onClick={()=>setSavedTime((prev) => [...prev, times])}>Add time</button>
-        {sevedTime}
+         </div>
+         <div>
+           <ul>
+           {timeList}
+           </ul>
          </div>
         
       </section>
@@ -121,4 +134,4 @@ export default function Form(props) {
       </section>
     </main>
   );
-}
+  }
