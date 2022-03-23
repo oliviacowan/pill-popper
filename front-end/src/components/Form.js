@@ -10,9 +10,9 @@ export default function Form(props) {
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
   const [times, setTime] = useState('10:00');
-  const [sevedTime, setSavedTime] = useState([]);
+  const [savedTime, setSavedTime] = useState([]);
 
-  const handleRemoveItem = name => { setSavedTime(sevedTime.filter(item => item !== name))}
+  const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
   const toggleWithFood = function () {
     if (withFood) {
@@ -47,10 +47,10 @@ export default function Form(props) {
     return <option key={child.id} value={child.id} >{child.name}</option>
   }))
 
-  const timeList = sevedTime.map(item => (
+  const timeList = savedTime.map(time => (
     <div>
-     <span>{item}</span>
-      <button onClick={() => handleRemoveItem(item)}>x</button>
+     <span>{time}</span>
+      <button onClick={() => handleRemoveTime(time)}>x</button>
      
     </div>
   ))
