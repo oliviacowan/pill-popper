@@ -116,8 +116,8 @@ export default function Form(props) {
       </section>
 
       <section className="medication__form--actions">
-        <button onClick={save}>Save</button>
-        <button onClick={cancel}>Cancel</button>
+        <button className="form-button" onClick={save}>Save</button>
+        <button className="form-button" onClick={cancel}>Cancel</button>
       </section>
     </main>
   );
