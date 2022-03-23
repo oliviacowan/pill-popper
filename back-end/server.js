@@ -5,7 +5,7 @@ const Express = require('express');
 const app = Express();
 const BodyParser = require('body-parser');
 const sassMiddleware = require("./lib/sass-middlewear");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const { Pool, Query } = require("pg");
 const dbParams = require("./lib/db");
