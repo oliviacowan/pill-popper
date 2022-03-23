@@ -40,6 +40,7 @@ export default function Form(props) {
         times: times,
       })
       .then(() => {
+        
         console.log('Medication added successfully!')
         props.transition("NONE");
       })
@@ -52,7 +53,8 @@ export default function Form(props) {
         with_food: withFood,
        
       })
-      .then(() => {
+      .then((res) => {
+      
         console.log('Medication changed successfully!')
         props.transition("NONE");
       })
