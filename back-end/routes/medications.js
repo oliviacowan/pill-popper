@@ -15,13 +15,27 @@ module.exports = (db) => {
 
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
-    const { dose, name, with_food, start_date} = req.body;
+    const { dose, name, with_food, start_date, times} = req.body;
 
     db.query(
       `INSERT INTO childrens_medications 
       (child_id, name, dose, with_food, start_date)
-      Values ($1, $2, $3, $4, NOW());`, [childId, name, dose, with_food]
-      ).then(()=> { res.send({ status: 'good' }) });
+      Values ($1, $2, $3, $4, NOW())
+      RETURNING id;`, [childId, name, dose, with_food]
+      ).then((response)=> {
+         const medId = response.rows[0].id;
+          Promise.all(
+            times.map((time) => {
+              db.query(
+                `INSERT INTO times
+                (time, childrens_medications_id)
+                VALUES ($1, $2);`, [time, medId]
+              )
+            })
+          ).then(() => {
+            res.send( { status: 'good'} )
+          }).catch(err => console.log('There has been an ERROR: ', err));
+        }).catch(err => console.log('There has been an ERROR: ', err));
   });
 
   router.put('/:med_id/edit', (req, res) => {

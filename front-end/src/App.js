@@ -73,7 +73,7 @@ function App(props) {
       });
   }, []);
   
-  function edit(medication) {
+  function editor(medication) {
      setSelectedMed({
        childName: medication.child_name,
        childId: medication.child_id,
@@ -113,7 +113,7 @@ function App(props) {
           { mode !== CREATE && mode !== EDIT && <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
           </footer> }
-       { medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ edit } />}
+       { medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ editor } />}
       </span>
     </main>
   );
