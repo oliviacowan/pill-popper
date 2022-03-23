@@ -41,7 +41,8 @@ module.exports = (db) => {
 
   router.put('/:med_id/edit', (req, res) => {
     const { dose, name, with_food, times } = req.body;
-    const medId = req.params.medId;
+    const medId = req.params.med_id;
+    console.log(times);
     Promise.all([
       db.query(
         `DELETE FROM times
@@ -52,7 +53,7 @@ module.exports = (db) => {
         SET name = $1,
         with_food = $2,
         dose = $3
-        WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
+        WHERE id = $4;`, [name, with_food, dose, medId]
         )
     ]).then(() => {
       Promise.all([
