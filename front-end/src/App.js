@@ -22,7 +22,7 @@ function App(props) {
   const CREATE = "CREATE";
   const EDIT = 'EDIT';
   const { mode, transition } = useVisualMode(NONE)
-console.log("EEEEEEEEEEEEEE")
+
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -30,13 +30,14 @@ console.log("EEEEEEEEEEEEEE")
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
 
+  console.log("Rendering App")
 
   const [state, setState] = useState({
     medications:[],
     child: "",
     children: {},
   });
-console.log(state.children)
+
   const hasValue = Object.keys(state.children).length !== 0;
 
   const setSectedChild = (child) => setState({ ...state, child });
@@ -111,7 +112,7 @@ console.log(state.children)
             
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
           { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} />}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode}/> }
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications}/> }
           { mode !== CREATE && mode !== EDIT && <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
           </footer> }

@@ -13,9 +13,12 @@ export default function MedicationItemList(props) {
       //   ...props.medications[medication.id]
       // }
 
-      console.log('click', medication.id)
+     
       axios.delete(`/medications/${medication.id}/delete`)
-      .then(() => props.setMedications((prev) => [{...prev, medications: props.medications}]))
+      .then(() => { 
+        console.log("PROPS.MEDICA", props.medications)
+        props.setMedications((prev) => [{...prev, medications: props.medications[0].medications.filter(med => med.id !== medication.id)}])
+      } )
     }
 
     const medStartDate = new Date(medication.start_date);
