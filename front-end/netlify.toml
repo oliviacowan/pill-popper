@@ -12,5 +12,5 @@
   command = "CI= npm run build"
 
 [build.environment]
-  REACT_APP_API_BASE_URL = "https://pill-popper.herokuapp.com/"
+  REACT_APP_API_BASE_URL = "https://pill-popper.herokuapp.com"
   
