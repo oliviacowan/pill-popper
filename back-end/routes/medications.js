@@ -20,8 +20,8 @@ module.exports = (db) => {
     console.log(times);
     db.query(
       `INSERT INTO childrens_medications 
-      (child_id, name, dose, with_food, start_date)
-      Values ($1, $2, $3, $4, NOW())
+      (child_id, name, dose, with_food)
+      Values ($1, $2, $3, $4)
       RETURNING id;`, [childId, name, dose, with_food]
       ).then((response)=> {
          const medId = response.rows[0].id;
@@ -34,7 +34,7 @@ module.exports = (db) => {
               )
             })
           ).then(() => {
-            setTimeout(() => { res.send({ status: "good"}, 3000) })
+            setTimeout(() => { res.send({ status: "good"}) }, 3000)
           }).catch(err => console.log('There has been an ERROR: ', err));
         }).catch(err => console.log('There has been an ERROR: ', err));
   });

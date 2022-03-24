@@ -2,6 +2,7 @@ require('dotenv').config();
 //comment
 
 const Express = require('express');
+const cors = require('cors');
 const app = Express();
 const BodyParser = require('body-parser');
 const sassMiddleware = require("./lib/sass-middlewear");
@@ -17,6 +18,7 @@ const medRoutes = require('./routes/medications');
 const userRoutes = require('./routes/users');
 const { application } = require('express');
 
+app.use(cors())
 
 app.use(
   "/styles",
