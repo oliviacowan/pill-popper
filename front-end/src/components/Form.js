@@ -86,9 +86,9 @@ export default function Form(props) {
     }))
   }
 
-  const timeList = savedTime.map(time => (
-    <div>
-     <span>{ time }</span>
+  const timeList = savedTime.map( time => (
+    <div> 
+     <span> { time }</span>
       <button onClick={() => handleRemoveTime(time)}>x</button>
      
     </div>
