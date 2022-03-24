@@ -1,5 +1,5 @@
 {
-  "proxy": "https://pill-popper.herokuapp.com/",
+  "proxy": "https://pill-popper.herokuapp.com",
   "name": "pill-popper",
   "version": "0.1.0",
   "private": true,
