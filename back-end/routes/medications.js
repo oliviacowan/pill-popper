@@ -10,7 +10,7 @@ module.exports = (db) => {
       JOIN times ON childrens_medications.id = childrens_medications_id
       WHERE childrens_medications.id = $1::integer
       GROUP BY childrens_medications.id, time;`, [Number(req.params.id)] 
-    ).then(({ rows: medication }) => { res.json(medication) })
+    ).then(({ rows: medication }) => { setTimeout(() => { res.json(medication)} , 3000) }) 
     .catch(err => console.log('There has been an ERROR: ', err));
   })
 
@@ -34,7 +34,7 @@ module.exports = (db) => {
               )
             })
           ).then(() => {
-            res.send( { status: 'good'} )
+            setTimeout(() => { res.send({ status: "good"}, 3000) })
           }).catch(err => console.log('There has been an ERROR: ', err));
         }).catch(err => console.log('There has been an ERROR: ', err));
   });
@@ -64,7 +64,7 @@ module.exports = (db) => {
             VALUES ($1, $2);`, [time, medId]
           )
         })
-      ]).then(() => { res.send({ status: "good" }) });
+      ]).then(() => { setTimeout(() => { res.send({ status: "good"}) },3000) });
     }).catch((err) => { console.log('There was an ERROR: ', err) });
   });
 
@@ -72,8 +72,9 @@ module.exports = (db) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    ).then(()=> { res.send({ status: 'good' }) })
+    ).then(()=> { setTimeout(() => { res.send({ status: "good" }) }, 3000) })
   });
 
   return router;
 }
+

@@ -8,12 +8,13 @@ module.exports = (db) => {
     db.query(
       `SELECT * FROM children
       WHERE user_id = $1;`, [Number(req.params.userId)]
-    ).then(({rows: children}) => {
+    ).then(({rows: children}) => { setTimeout(() => { 
       res.json(
         children.reduce((prev, curr) =>({
           ...prev, [curr.id]: curr
         }), {})
-      );
+        );
+    }, 3000)
     }); 
   });
 
@@ -24,7 +25,7 @@ module.exports = (db) => {
     db.query(
       `INSERT INTO children (name, user_id, avatar_url)
       VALUES ($1, $2, $3);`, [name, userId, avatar]
-    ).then(()=> { res.send({ status: 'good' }) });
+    ).then(()=> { setTimeout(() => { res.send({ status: "good" }) }, 3000) });
   });
   return router;
 }
