@@ -57,8 +57,7 @@ function App(props) {
       });
   }, []);
 
-  // state.children
-  useEffect(() => {
+  const loaderMedications = ()=>{
     axios
       .get("users/1/medications")
       .then((response) => {
@@ -74,6 +73,10 @@ function App(props) {
       .catch((error) => {
         console.log(error.message);
       });
+  }
+  // state.children
+  useEffect(() => {
+    loaderMedications()
   }, []);
   
   function editor(medication) {
@@ -116,8 +119,8 @@ function App(props) {
             )}
             
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
-          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} />}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications}/> }
+          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications}/>}
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} loaderMedications={loaderMedications} medications={medications} setMedications={setMedications}/> }
           { mode !== CREATE && mode !== EDIT && <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
           </footer> }
