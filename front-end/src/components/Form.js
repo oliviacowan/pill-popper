@@ -14,7 +14,7 @@ export default function Form(props) {
   }
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
-  const [childId, setChildId] = useState("" || props.childId);
+  const [childId, setChildId] = useState(props.childId || "");
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
   const [times, setTime] = useState('10:00' || props.time);
@@ -89,6 +89,7 @@ export default function Form(props) {
         <form className="medication__form--create">
           <div className='medication-form'>
             <label>Choose Family Member:</label>
+            {props.mode !== "EDIT" &&
             
             <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
               <option value="select">Select</option>
@@ -96,7 +97,8 @@ export default function Form(props) {
               <option value="mercedes">Mercedes</option>
               <option value="audi">Audi</option> */}
               {childNames}
-            </select>
+            </select> }
+            {props.mode === "EDIT" && <div><p>{ props.childName }</p></div> }
           </div>
 
           <div className='medication-form'>
