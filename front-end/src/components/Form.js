@@ -31,6 +31,7 @@ export default function Form(props) {
   };
 
   const save = (mode) => {
+    props.transition("SAVING");
     if (mode === "CREATE"){
       axios.post(`/medications/${childId}/new`, {
         child_id: childId,
