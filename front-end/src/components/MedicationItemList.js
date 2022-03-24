@@ -5,31 +5,43 @@ import MedicationItem from "./MedicationItem";
 export default function MedicationItemList(props) {
   const medications = props.medications[0].medications;
 
+
   const medicationItemList = medications.map((medication) => {
 
-    const deleteMe = function() {
+    const deleteMe = function () {
 
       // const med = {
       //   ...props.medications[medication.id]
       // }
 
-      console.log('click', medication.id)
-      axios.delete(`/medications/${medication.id}/delete`)
-      .then(() => props.setMedications((prev) => [{...prev, medications: props.medications}]))
-    }
 
+      axios.delete(`/medications/${medication.id}/delete`)
+        .then(() => {
+          props.setMedications((prev) => [{ ...prev, medications: props.medications[0].medications.filter(med => med.id !== medication.id) }])
+        })
+    }
+    const medEndDate = (medication) => {
+
+      if (medication.end_date) {
+        return new Date(medication.end_date)
+
+      } else {
+        return new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+      }
+    }
+    console.log("medication START", medication.start_date)
+    console.log("medEndDate BEEFF", medication.end_date)
     const medStartDate = new Date(medication.start_date);
-    const medEndDate = new Date(medication.end_date);
+    // const medEndDate = new Date(medication.end_date);
+    console.log("medication END", medEndDate(medication))
     const today = props.date;
-    
-    
+
+    console.log("medStartDate", medStartDate)
     for (let child in props.childrenState) {
       const childObj = props.childrenState[child];
-      if (medStartDate <= today && medEndDate >= today) {
+      if (medStartDate <= today && medEndDate(medication) >= today) {
 
         if (props.childState && props.childState === childObj.id && childObj.id === medication.child_id) {
-          console.log('hereeee');
-          console.log(childObj.name)
           return (
             <MedicationItem
               key={medication.id}
@@ -37,13 +49,13 @@ export default function MedicationItemList(props) {
               destroy={props.destroy}
               setDestroy={props.setDestroy}
               child={childObj.name}
-              onEdit= { ()=> { props.edit(medication) } }
+              onEdit={() => { props.edit(medication) }}
             />
           );
         }
 
         else if (!props.childState && childObj.id === medication.child_id) {
-
+          console.log(medication)
           return (
             <MedicationItem
               key={medication.id}
@@ -52,7 +64,7 @@ export default function MedicationItemList(props) {
               setDestroy={props.setDestroy}
               child={childObj.name}
               deleteMe={deleteMe}
-              onEdit= { ()=> { props.edit(medication) } }
+              onEdit={() => { props.edit(medication) }}
             />
           );
         }

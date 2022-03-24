@@ -14,11 +14,11 @@ export default function Form(props) {
   }
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
-  const [childId, setChildId] = useState("" || props.ChildId);
+  const [childId, setChildId] = useState(props.childId || "");
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
-  const [times, setTime] = useState('10:00');
-  const [savedTime, setSavedTime] = useState([]);
+  const [times, setTime] = useState('10:00' || props.time);
+  const [savedTime, setSavedTime] = useState(props.times || []);
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
@@ -31,6 +31,7 @@ export default function Form(props) {
   };
 
   const save = (mode) => {
+    props.transition("SAVING");
     if (mode === "CREATE"){
       axios.post(`/medications/${childId}/new`, {
         child_id: childId,
@@ -40,18 +41,33 @@ export default function Form(props) {
         times: savedTime,
       })
       .then(() => {
+        props.loaderMedications()
         console.log('Medication added successfully!')
         props.transition("NONE");
       })
       .catch(err => console.log('There has been an ERROR: ', err));
+
     } else if (mode === "EDIT") {
       axios.put(`/medications/${props.medId}/edit`, {
         child_id: childId,
         name: medicationName,
         dose: dose,
         with_food: withFood,
+        times: savedTime
       })
-      .then(() => {
+      .then((res) => {
+        props.loaderMedications()
+        // props.loaderMedications()
+      //   console.log("medID",props.medId)
+      //   const medicationsNew = [...props.medications]
+      //   medicationsNew[0]["medications"][props.medId] = {...medicationsNew[props.medId], 
+      //     child_id: childId,
+      //     name: medicationName,
+      //     dose: dose,
+      //     with_food: withFood,
+      //     time: savedTime}
+      //  console.log("MEDICATIONS",medicationsNew[0]["medications"][props.medId])
+      //   // props.setMedications((prev)=> [...prev, medicationsNew])
         console.log('Medication changed successfully!')
         props.transition("NONE");
       })
@@ -71,9 +87,9 @@ export default function Form(props) {
     }))
   }
 
-  const timeList = savedTime.map(time => (
-    <div>
-     <span>{time}</span>
+  const timeList = savedTime.map( time => (
+    <div> 
+     <span> { time }</span>
       <button onClick={() => handleRemoveTime(time)}>x</button>
      
     </div>
@@ -86,6 +102,7 @@ export default function Form(props) {
         <form className="medication__form--create">
           <div className='medication-form'>
             <label>Choose Family Member:</label>
+            {props.mode !== "EDIT" &&
             
             <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
               <option value="select">Select</option>
@@ -93,7 +110,8 @@ export default function Form(props) {
               <option value="mercedes">Mercedes</option>
               <option value="audi">Audi</option> */}
               {childNames}
-            </select>
+            </select> }
+            {props.mode === "EDIT" && <div><p>{ props.childName }</p></div> }
           </div>
 
           <div className='medication-form'>
@@ -104,7 +122,7 @@ export default function Form(props) {
               value={medicationName}
               onChange={(event) => {
                 setMedicationName(event.target.value);
-                console.log("medicationName: ", medicationName);
+    
               }}
             />
           </div>
@@ -118,7 +136,7 @@ export default function Form(props) {
                 value={dose}
                 onChange={(event) => {
                   setDose(event.target.value);
-                  console.log("dose: ", dose);
+           
                 }}
               />
             </div>
@@ -136,7 +154,7 @@ export default function Form(props) {
          </div>
          <div>
            <ul>
-           {timeList}
+           { timeList }
            </ul>
          </div>
         

@@ -3,15 +3,16 @@ const express = require('express');
 const router = require('express').Router();
 
 module.exports = (db) => {
-  router.get('/:childId', (req, res) => {
+  router.get('/:id', (req, res) => {
     db.query(
-      `SELECT * FROM childrens_medications
+      `SELECT childrens_medications.*, ARRAY[times.time] AS times
+      FROM childrens_medications
       JOIN times ON childrens_medications.id = childrens_medications_id
-      WHERE child_id = $1::integer
-      ORDER BY time
-      ;`, [Number(req.params.childId)] 
-    ).then(({ rows: medication }) => { res.json(medication) });
-  });
+      WHERE childrens_medications.id = $1::integer
+      GROUP BY childrens_medications.id, time;`, [Number(req.params.id)] 
+    ).then(({ rows: medication }) => { setTimeout(() => { res.json(medication)} , 3000) }) 
+    .catch(err => console.log('There has been an ERROR: ', err));
+  })
 
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
@@ -33,29 +34,47 @@ module.exports = (db) => {
               )
             })
           ).then(() => {
-            res.send( { status: 'good'} )
+            setTimeout(() => { res.send({ status: "good"}, 3000) })
           }).catch(err => console.log('There has been an ERROR: ', err));
         }).catch(err => console.log('There has been an ERROR: ', err));
   });
 
   router.put('/:med_id/edit', (req, res) => {
-    const { dose, name, with_food } = req.body;
-
-    db.query(
-      `UPDATE childrens_medications
-      SET name = $1,
-      with_food = $2,
-      dose = $3
-      WHERE id = $4;`, [name, with_food, dose, req.params.med_id]
-      ).then(()=> { res.send({ status: 'good' }) });
+    const { dose, name, with_food, times } = req.body;
+    const medId = req.params.med_id;
+    console.log(times);
+    Promise.all([
+      db.query(
+        `DELETE FROM times
+        WHERE childrens_medications_id = $1;`, [medId]
+        ),
+      db.query(
+        `UPDATE childrens_medications
+        SET name = $1,
+        with_food = $2,
+        dose = $3
+        WHERE id = $4;`, [name, with_food, dose, medId]
+        )
+    ]).then(() => {
+      Promise.all([
+        times.map((time) => {
+          db.query(
+            `INSERT INTO times
+            (time, childrens_medications_id)
+            VALUES ($1, $2);`, [time, medId]
+          )
+        })
+      ]).then(() => { setTimeout(() => { res.send({ status: "good"}) },3000) });
+    }).catch((err) => { console.log('There was an ERROR: ', err) });
   });
 
   router.delete('/:medId/delete', (req, res) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    ).then(()=> { res.send({ status: 'good' }) })
+    ).then(()=> { setTimeout(() => { res.send({ status: "good" }) }, 3000) })
   });
 
   return router;
 }
+

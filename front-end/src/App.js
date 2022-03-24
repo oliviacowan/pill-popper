@@ -20,9 +20,11 @@ function App(props) {
   const CALENDAR = "CALENDAR";
   const CHILDLIST = "CHILDLIST";
   const CREATE = "CREATE";
-  const EDIT = 'EDIT';
+  const EDIT = "EDIT";
+  const LOADING = "LOADING";
+  const SAVING = "SAVING"
   const { mode, transition } = useVisualMode(NONE)
-console.log("EEEEEEEEEEEEEE")
+
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -30,13 +32,15 @@ console.log("EEEEEEEEEEEEEE")
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
 
+  console.log("Rendering App")
 
   const [state, setState] = useState({
     medications:[],
     child: "",
     children: {},
   });
-console.log(state.children)
+
+
   const hasValue = Object.keys(state.children).length !== 0;
 
   const setSectedChild = (child) => setState({ ...state, child });
@@ -56,12 +60,12 @@ console.log(state.children)
       });
   }, []);
 
-  // state.children
-  useEffect(() => {
+  const loaderMedications = ()=>{
     axios
       .get("users/1/medications")
       .then((response) => {
-        // console.log(response);
+
+        console.log(response);
         setMedications((prev) => [
           {
             ...prev,
@@ -73,18 +77,27 @@ console.log(state.children)
       .catch((error) => {
         console.log(error.message);
       });
+  }
+  // state.children
+  useEffect(() => {
+    loaderMedications()
   }, []);
   
   function editor(medication) {
-     setSelectedMed({
-       childName: medication.child_name,
-       childId: medication.child_id,
-       medName: medication.name,
-       medId: medication.id,
-       withFood: medication.with_food,
-       dose: medication.dose
-     })
-     transition(EDIT);
+    axios.get(`medications/${medication.id}`)
+    .then((res) => {
+      const data = res.data[0];
+      setSelectedMed({
+        childName: medication.child_name,
+        childId: data.child_id,
+        medName: data.name,
+        medId: data.id,
+        withFood: data.with_food,
+        dose: data.dose,
+        times: data.times
+      })
+      transition(EDIT);
+    });
   }
 
   
@@ -108,14 +121,18 @@ console.log(state.children)
           <ChildrenList children={Object.values(state.children)} value={state.child}
               onChange={setSectedChild}/>
             )}
-            
+          { mode === LOADING && <Status message='LOADING' /> }
+          { mode === SAVING && < Status message='SAVING' /> }
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
-          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} />}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode}/> }
-          { mode !== CREATE && mode !== EDIT && <footer>
+
+          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications}/>}
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications} loaderMedications={loaderMedications}/> }
+          { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
+            <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
-          </footer> }
-       { medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ editor } />}
+            </footer> }
+          { mode !== SAVING && mode !== LOADING && medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ editor } />}
+          
       </span>
     </main>
   );
