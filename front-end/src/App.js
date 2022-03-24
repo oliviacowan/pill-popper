@@ -40,6 +40,7 @@ function App(props) {
     children: {},
   });
 
+
   const hasValue = Object.keys(state.children).length !== 0;
 
   const setSectedChild = (child) => setState({ ...state, child });
@@ -63,7 +64,8 @@ function App(props) {
     axios
       .get("users/1/medications")
       .then((response) => {
-        // console.log(response);
+
+        console.log(response);
         setMedications((prev) => [
           {
             ...prev,
