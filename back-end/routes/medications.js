@@ -34,7 +34,7 @@ module.exports = (db) => {
               )
             })
           ).then(() => {
-            setTimeout(() => { res.send({ status: "good"}, 3000) })
+            setTimeout(() => { res.send({ status: "good" }) }, 3000)
           }).catch(err => console.log('There has been an ERROR: ', err));
         }).catch(err => console.log('There has been an ERROR: ', err));
   });
