@@ -7,7 +7,7 @@ export default function Status(props) {
   
   return (
     <section className="status__card">
-      <h1>LOADING/SAVING</h1>
+      <h1>{ props.message }</h1>
       <div className="animated">
         <div className="bottle-container">
           <FontAwesomeIcon icon={faPrescriptionBottleMedical} className="status-icon bottle"/>
