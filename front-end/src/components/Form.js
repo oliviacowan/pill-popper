@@ -6,7 +6,7 @@ import Time from "./Time"
 export default function Form(props) {
   let childNames;
   let children;
-  console.log(props);
+
   if (props.children){
     children = Object.values(props.children)
   } else {
@@ -41,11 +41,12 @@ export default function Form(props) {
         times: savedTime,
       })
       .then(() => {
-        
+        props.loaderMedications()
         console.log('Medication added successfully!')
         props.transition("NONE");
       })
       .catch(err => console.log('There has been an ERROR: ', err));
+
     } else if (mode === "EDIT") {
       axios.put(`/medications/${props.medId}/edit`, {
         child_id: childId,
@@ -55,7 +56,18 @@ export default function Form(props) {
         times: savedTime
       })
       .then((res) => {
-      
+        props.loaderMedications()
+        // props.loaderMedications()
+      //   console.log("medID",props.medId)
+      //   const medicationsNew = [...props.medications]
+      //   medicationsNew[0]["medications"][props.medId] = {...medicationsNew[props.medId], 
+      //     child_id: childId,
+      //     name: medicationName,
+      //     dose: dose,
+      //     with_food: withFood,
+      //     time: savedTime}
+      //  console.log("MEDICATIONS",medicationsNew[0]["medications"][props.medId])
+      //   // props.setMedications((prev)=> [...prev, medicationsNew])
         console.log('Medication changed successfully!')
         props.transition("NONE");
       })
@@ -74,7 +86,7 @@ export default function Form(props) {
       return <option key={child.id} value={child.id} >{child.name}</option>
     }))
   }
-  console.log(savedTime);
+
   const timeList = savedTime.map(time => (
     <div>
      <span>{ time }</span>
@@ -110,7 +122,7 @@ export default function Form(props) {
               value={medicationName}
               onChange={(event) => {
                 setMedicationName(event.target.value);
-                console.log("medicationName: ", medicationName);
+    
               }}
             />
           </div>
@@ -124,7 +136,7 @@ export default function Form(props) {
                 value={dose}
                 onChange={(event) => {
                   setDose(event.target.value);
-                  console.log("dose: ", dose);
+           
                 }}
               />
             </div>
