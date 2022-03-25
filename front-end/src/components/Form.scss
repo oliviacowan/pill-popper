@@ -1,4 +1,4 @@
-
+@import '../styles/variables.scss';
 .time {
   display: flex;
   flex-direction: row;
@@ -13,6 +13,7 @@
 input {
   border-radius: 4px;
   border: none;
+  border: 1px solid $background-color;
 }
 .medication-form{
   display: flex;
@@ -27,4 +28,23 @@ input {
 
 .form-button{
   padding: 0 20px 0 20px;
+}
+// .fa-circle-xmark{
+
+// }
+
+.each-time{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+}
+
+label {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.medication__form {
+  color: rgb(114, 111, 107);
 }
