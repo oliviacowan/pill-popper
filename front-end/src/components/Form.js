@@ -12,12 +12,16 @@ export default function Form(props) {
   } else {
     childNames = <option key={props.childId} value={props.childId} >{props.childName}</option>
   }
+const now = new Date();
+now.getHours()
+now.getMinutes()
+const timeNow = `${now.getHours()}:${now.getMinutes()}`
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState(props.childId || "");
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
-  const [times, setTime] = useState('10:00' || props.time);
+  const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
