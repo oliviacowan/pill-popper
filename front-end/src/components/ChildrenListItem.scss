@@ -22,15 +22,15 @@
 
     &--selected {
 
-      // border-radius: 16px;
+      border-radius: 10px;
       // background-color: red;
       display: flex;
       align-items: center;
       user-select: none;
       // height: 2.5em;
       // width: 2.5em;
-      // border-radius: 50%;
-      border: 2px black;
+     
+      // border: solid 2px rgb(167, 201, 179);
     }
 
     &--selected &-image {
@@ -124,4 +124,9 @@
   margin-bottom: .5em;
 }
 
+
+
+  .fa-check{
+    margin-top: 8px;
+  }
 

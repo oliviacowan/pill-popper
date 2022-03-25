@@ -31,8 +31,9 @@
 .add-button {
   // margin-top: 10px;
   margin: 1em;
-  width: auto;
-  padding: 0 40px 0 40px;
+  // width: auto;
+  // padding: 0 40px 0 40px;
+  width: 6em;
   // height: 2em;
   background-color: $background-color;
   color:rgb(87, 104, 98);
@@ -49,11 +50,30 @@
 
 .text--semi-bold{
   margin: 1em 1em 0 1em;
-
+  max-height: 2.5em;
+  // border: $border;
+  border-radius: 10px;
+  border: 2px solid rgb(167, 201, 179);
 }
 
 .children-actions{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.child-form{
+  
+  
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+
+}
+
+.select-color{
+  padding: 2px;
+  font-size: small;
+  max-height: 2.5em;
+  align-self: center;
 }
