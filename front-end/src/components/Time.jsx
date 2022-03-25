@@ -1,4 +1,5 @@
 import TimePicker from 'react-time-picker'
+import './TimePicker.css'
 
 const Time = (props) => {
   

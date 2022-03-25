@@ -1,8 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+// $background-color: #0b6952; 
+// $background-color: rgb(217, 235, 241); 
+// $light-backgound : #119977;
+$background-color: rgb(167, 201, 179);
+// $background-color: #90916e;
 
-$background-color: #0b6952;
-$light-backgound : #119977;
+$light-backgound: white;
 $confirmation-color: #ee5253;
 
 $card-height: 8rem;
-$font-family: 'M PLUS 1'
+// $font-family: 'M PLUS 1';
+$font-family: 'Raleway';
+
+// $border: 3px solid rgb(217, 235, 241);
+$border: 3px solid rgb(167, 201, 179);
