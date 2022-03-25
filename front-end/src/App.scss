@@ -1,6 +1,10 @@
 @import "./styles/variables.scss";
+// @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap');
 
 nav {
+  // font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   width: 100%;
   background-color: $background-color;
   display: flex;
@@ -8,9 +12,11 @@ nav {
   align-items: center;
   margin-bottom: 2em;
   padding-bottom: 1em;
+
 }
 
 .day-name{
+  padding-top: 19px;
   font-size: 2em;
   font-weight: bolder;
 }
@@ -38,13 +44,13 @@ button {
   border-radius: 10px;
   border: none;
   background-color: white;
-  border: 3px solid #0b6952;
+  border: $border;
   cursor: pointer;
 }
 .add-medication{
   border: none;
   background-color: white;
-  border: 3px solid #0b6952;
+  border: $border;
   height: 2.5em;
   width: 90%;
 }

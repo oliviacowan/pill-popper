@@ -21,11 +21,15 @@
 
     &--selected {
 
-      border-radius: 16px;
-      background-color: red;
+      // border-radius: 16px;
+      // background-color: red;
       display: flex;
       align-items: center;
       user-select: none;
+      // height: 2.5em;
+      // width: 2.5em;
+      // border-radius: 50%;
+      border: 2px black;
     }
 
     &--selected &-image {
@@ -40,3 +44,47 @@
     }
   }
 }
+.color-profile{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  // background-color: aquamarine;
+  align-self: center;
+  margin-bottom: .5em;
+  // &--pink{
+  //   background-color: #ffc0cb;
+  // }
+  // &--purple{
+  //   background-color: #9267af
+  // }
+  // &--blue{
+  //   #415ba3
+  // }
+}
+
+.color__class--pink{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #ffc0cb;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--purple{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #9267af;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--blue{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #415ba3;
+  align-self: center;
+  margin-bottom: .5em;
+}
+
+

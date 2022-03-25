@@ -1,19 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import axios from "axios";
 import MedicationItem from "./MedicationItem";
 
+
 export default function MedicationItemList(props) {
+  console.log(props)
   const medications = props.medications[0].medications;
 
 
   const medicationItemList = medications.map((medication) => {
 
+   
+
     const deleteMe = function () {
-
-      // const med = {
-      //   ...props.medications[medication.id]
-      // }
-
 
       axios.delete(`/medications/${medication.id}/delete`)
         .then(() => {
@@ -38,12 +37,14 @@ export default function MedicationItemList(props) {
 
     console.log("medStartDate", medStartDate)
     for (let child in props.childrenState) {
+      // console.log("color", props.childrenState[child].avatar_url);
       const childObj = props.childrenState[child];
       if (medStartDate <= today && medEndDate(medication) >= today) {
 
         if (props.childState && props.childState === childObj.id && childObj.id === medication.child_id) {
           return (
             <MedicationItem
+              color={childObj.avatar_url}
               key={medication.id}
               {...medication}
               destroy={props.destroy}
@@ -58,6 +59,7 @@ export default function MedicationItemList(props) {
           console.log(medication)
           return (
             <MedicationItem
+              color={childObj.avatar_url}
               key={medication.id}
               {...medication}
               destroy={props.destroy}
@@ -72,5 +74,5 @@ export default function MedicationItemList(props) {
     }
   });
 
-  return <>{medicationItemList}</>;
+  return <Fragment>{medicationItemList}</Fragment>;
 }

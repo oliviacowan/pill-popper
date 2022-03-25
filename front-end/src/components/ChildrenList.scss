@@ -1,17 +1,24 @@
+@import "../styles/variables.scss";
 .children {
   display: flex;
+  // justify-content: center;
   flex-direction: column;
-  border: 5px solid #0b6952;
+  border: $border;
   width: 90%;
   margin: 2em;
   
 
   &__header {
-    color: white;
+    padding-top: .5em;
+    color: rgb(167, 201, 179);
   
     text-align: center;
     margin: 0 auto;
 
+  }
+
+  &__header text--light {
+    color: grey;
   }
 
   &__list {
@@ -29,8 +36,15 @@
   // height: 2em;
   display: flex;
   justify-content: center;
+
+  
   // align-content: center;
 }
+
+// .child-list-title{
+//   width: 100%;
+//   align-self: center;
+// }
 
 .text--semi-bold{
   margin: 1em 1em 0 1em;

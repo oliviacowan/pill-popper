@@ -1,10 +1,34 @@
-import react, { useState } from "react";
+import react, { Fragment, useState } from "react";
 import axios from "axios";
 import Confirm from "./medicationActions/Confirm";
 import "./MedicationItem.scss";
+import classNames from "classnames";
 
 export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
+  
+ // const dayClass = classNames("day-list__item", {
+    //   "day-list__item--selected": selected,
+    //   "day-list__item--full": !spots
+    // })
+    // const color = classNames("color", 
+    // { "--pink": props.color === "#ffc0cb"
+    // } )
+  // const color = classNames("medication-item", 
+  //   {"__pink": props.color === "#ffc0cb"},
+  //   {"__purple": props.color === '#9267af'},
+  //   {"__blue": props.color === '415ba3'},
+  // )
+
+  let color;
+if (props.color === "pink") {
+  color = "medication-item__pink";
+} else if (props.color === 'purple') {
+  color = "medication-item__purple";
+} else {
+  color = "medication-item__blue"
+}
+
   
   function getInfo() {
     console.log("clicked info icon", props.id);
@@ -13,7 +37,7 @@ export default function MedicationItem(props) {
   const destroyBoolean = function () {
     if (!destroy) {
       setDestroy(true);
-      console.log("clicked delete icon", props.id);
+      console.log("clicked delete icon", props.color);
     }
   };
 
@@ -25,13 +49,13 @@ export default function MedicationItem(props) {
   // function edit() {
   //   console.log("clicked edit icon", props.id);
   // }
-
+  console.log('coLOUR: ', color)
   return (
     <>
       {destroy ? (
         <Confirm destroy={destroy} setDestroy={setDestroy} deleteMe={props.deleteMe} />
       ) : (
-        <li className="medication-item">
+        <li className={color}>
           <div className="medication-time-name">
             <p className="scheduled-time">
               {props.time} <i className="fa-solid fa-arrow-right-long"></i>{" "}
