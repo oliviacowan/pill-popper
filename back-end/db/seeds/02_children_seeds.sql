@@ -1,9 +1,9 @@
-INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Olivia', 'purple');
+INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Olivia', 'light-blue');
 INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Emma', 'pink');
-INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Ava', 'blue');
-INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Charlotte', 'blue');
-INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Oliver', 'pink');
+INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Ava', 'neutral');
+INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Charlotte', 'green');
+INSERT INTO children (user_id, name, avatar_url) VALUES (1, 'Oliver', 'yellow');
 INSERT INTO children (user_id, name, avatar_url) VALUES (2, 'Charlotte', 'pink');
 INSERT INTO children (user_id, name, avatar_url) VALUES (2, 'Oliver', 'purple');
-INSERT INTO children (user_id, name, avatar_url) VALUES (3, 'Charlotte', 'blue');
-INSERT INTO children (user_id, name, avatar_url) VALUES (3, 'Oliver', 'pink');
+INSERT INTO children (user_id, name, avatar_url) VALUES (3, 'Charlotte', 'pink');
+INSERT INTO children (user_id, name, avatar_url) VALUES (3, 'Oliver', 'blue');

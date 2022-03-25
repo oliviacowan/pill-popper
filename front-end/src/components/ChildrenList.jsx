@@ -35,7 +35,7 @@ const ChildrenList = (props) => {
 return (
  
   <section className="children">
-    <h4 className="children__header text--light">F a m i l y - M e m b e r s</h4>
+    <h4 className="children__header text--light">F a m i l y - M e m b e r s </h4>
     <ul className="children__list">{parsedChildren}</ul>
     <form onSubmit={event => event.preventDefault()}>
           <input

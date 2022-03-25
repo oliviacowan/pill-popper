@@ -31,6 +31,7 @@ const ChildrenListItem = ({ id, name, avatar, selected, setChild, color }) => {
   // });
   return (
     <li className={childrenClass} onClick={()=> setChild(id)}>
+      
       {/* <img
         className="children__item-image"
         src={avatar}

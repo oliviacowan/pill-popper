@@ -4,7 +4,8 @@
   border-radius: 1.5em;
   
   &__item {
-
+    
+    cursor: pointer;
     display:flex;
     margin-left: auto;
     margin-right: auto;
@@ -72,6 +73,7 @@
   background-color: #ffc0cb;
   align-self: center;
   margin-bottom: .5em;
+
 }
 .color__class--purple{
   height: 2em;
@@ -101,7 +103,7 @@
   height: 2em;
   width: 2em;
   border-radius: 50%;
-  background-color: #f7ed65;
+  background-color: #f1edb8;
   align-self: center;
   margin-bottom: .5em;
 }
@@ -117,7 +119,7 @@
   height: 2em;
   width: 2em;
   border-radius: 50%;
-  background-color: rgb(146, 129, 103);
+  background-color: #b1a99d;
   align-self: center;
   margin-bottom: .5em;
 }
