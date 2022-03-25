@@ -92,9 +92,9 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
   }
 
   const timeList = savedTime.map( time => (
-    <div> 
+    <div className="each-time"> 
      <span> { time }</span>
-      <button onClick={() => handleRemoveTime(time)}>x</button>
+      <div onClick={() => handleRemoveTime(time)}><i class="fa-regular fa-circle-xmark"></i></div>
      
     </div>
   ))
@@ -147,7 +147,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
           </div>
           <div>
             <span className="withFood">
-              <label> Take with food?</label>
+              <label> Take with food?  </label>
               <input type="checkbox" value={withFood} onClick={toggleWithFood} defaultChecked={withFood}/>
             </span>
           </div>

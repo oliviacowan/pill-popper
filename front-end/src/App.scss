@@ -44,8 +44,11 @@ button {
   max-height: 2.5em;
   border-radius: 10px;
   border: none;
-  background-color: white;
-  border: $border;
+  // background-color: white;
+  background-color: #a7c9b3;
+  color: #576862;
+  width: 6em;
+  
   cursor: pointer;
 }
 .add-medication{
