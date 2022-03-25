@@ -44,23 +44,26 @@
     }
   }
 }
-.color-profile{
-  height: 2em;
-  width: 2em;
-  border-radius: 50%;
-  // background-color: aquamarine;
-  align-self: center;
-  margin-bottom: .5em;
-  // &--pink{
-  //   background-color: #ffc0cb;
-  // }
-  // &--purple{
-  //   background-color: #9267af
-  // }
-  // &--blue{
-  //   #415ba3
-  // }
-}
+// .color-profile{
+//   height: 2em;
+//   width: 2em;
+//   border-radius: 50%;
+//   // background-color: aquamarine;
+//   align-self: center;
+//   margin-bottom: .5em;
+//   // &--pink{
+//   //   background-color: #ffc0cb;
+//   // }
+//   // &--purple{
+//   //   background-color: #9267af
+//   // }
+//   // &--blue{
+//   //   #415ba3
+//   // }
+// }
+
+
+
 
 .color__class--pink{
   height: 2em;
@@ -83,6 +86,38 @@
   width: 2em;
   border-radius: 50%;
   background-color: #415ba3;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--green{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #41a375;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--yellow{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #f7ed65;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--light-blue{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #a4b4dd;
+  align-self: center;
+  margin-bottom: .5em;
+}
+.color__class--neutral{
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: rgb(146, 129, 103);
   align-self: center;
   margin-bottom: .5em;
 }

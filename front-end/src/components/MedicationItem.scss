@@ -34,6 +34,16 @@
   width: 90%;
   border: 3px solid #9267af;
 }
+.medication-item__yellow {
+  display: flex;
+  background-color: white;
+  border-radius: 12px;
+  height: $card-height;
+  margin: 1em;
+  width: 90%;
+
+  border: 3px solid #f7ed65;
+}
 .medication-item__blue {
   display: flex;
   background-color: white;
@@ -41,8 +51,38 @@
   height: $card-height;
   margin: 1em;
   width: 90%;
-  
+
   border: 3px solid #415ba3;
+}
+.medication-item__light-blue {
+  display: flex;
+  background-color: white;
+  border-radius: 12px;
+  height: $card-height;
+  margin: 1em;
+  width: 90%;
+
+  border: 3px solid #a4b4dd;
+}
+.medication-item__neutral {
+  display: flex;
+  background-color: white;
+  border-radius: 12px;
+  height: $card-height;
+  margin: 1em;
+  width: 90%;
+
+  border: 3px solid rgb(146, 129, 103);
+}
+.medication-item__green {
+  display: flex;
+  background-color: white;
+  border-radius: 12px;
+  height: $card-height;
+  margin: 1em;
+  width: 90%;
+
+  border: 3px solid #41a375;
 }
 
 

@@ -25,10 +25,17 @@ if (props.color === "pink") {
   color = "medication-item__pink";
 } else if (props.color === 'purple') {
   color = "medication-item__purple";
-} else {
-  color = "medication-item__blue"
+} else if (props.color === 'yellow') {
+  color = "medication-item__yellow"
+} else if (props.color === 'green') {
+  color = "medication-item__green"
+} else if (props.color === 'light-blue') {
+    color = "medication-item__light-blue"
+} else if (props.color === 'blue') {
+    color = "medication-item__blue"
+} else if (props.color === 'neutral') {
+    color = "medication-item__neutral"
 }
-
   
   function getInfo() {
     console.log("clicked info icon", props.id);
@@ -41,14 +48,7 @@ if (props.color === "pink") {
     }
   };
 
-  // const deleteMe = function() {
-  //   console.log('click', props.id)
-  //   axios.delete(`/medications/${props.id}/delete`).then(()=> props.setMedications(...props.medication))
-  // }
-
-  // function edit() {
-  //   console.log("clicked edit icon", props.id);
-  // }
+  
   console.log('coLOUR: ', color)
   return (
     <>

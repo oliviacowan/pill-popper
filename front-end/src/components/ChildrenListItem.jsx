@@ -6,15 +6,22 @@ const ChildrenListItem = ({ id, name, avatar, selected, setChild, color }) => {
   const childrenClass = classNames("children__item", {
     "children__item--selected": selected
   });
-  console.log('ahhhhh', color)
+ 
   let colorClass;
   if (color === "pink") {
     colorClass = "color__class--pink";
   } else if (color === 'purple') {
     colorClass = "color__class--purple";
-  } else {
+  } else if (color === 'yellow'){
+    colorClass = "color__class--yellow"
+  } else if (color === 'green'){
+    colorClass = "color__class--green"
+  } else if (color === 'light-blue'){
+    colorClass = "color__class--light-blue"
+  } else if (color === 'neutral'){
+    colorClass = "color__class--neutral"
+  } else if (color === 'blue'){
     colorClass = "color__class--blue"
-    console.log('hereeeeeee');
   }
   
   // const colorClass = classNames("color__class", {
