@@ -7,6 +7,6 @@ CREATE TABLE childrens_medications (
   with_food BOOLEAN DEFAULT false,
   dose SMALLINT NOT NULL DEFAULT 0,
   start_date TIMESTAMPTZ DEFAULT Now(),
-  end_date TIMESTAMP DEFAULT NULL,
+  end_date TIMESTAMP DEFAULT Now(),
   child_id INTEGER REFERENCES children(id)
 );

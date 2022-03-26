@@ -23,6 +23,8 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
   const [withFood, setWithFood] = useState(false || props.withFood);
   const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
+  const [more, setMore] = useState(false || props.more)
+  const [endDate, setEndDate] = useState(new Date || props.endDate)
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
@@ -31,6 +33,14 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
       setWithFood(false);
     } else {
       setWithFood(true);
+    }
+  };
+  
+  const moreThanOnce = function () {
+    if (more) {
+      setMore(false);
+    } else {
+      setMore(true);
     }
   };
 
@@ -43,6 +53,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         dose: dose,
         with_food: withFood,
         times: savedTime,
+        end_date: endDate
       })
       .then(() => {
         props.loaderMedications()
@@ -130,7 +141,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
               }}
             />
           </div>
-
+           
           <div>
             <div className='medication-form'>
               <label>Dosage mg:</label>
@@ -145,10 +156,20 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
               />
             </div>
           </div>
-          <div>
-            <span className="withFood">
+          <div className="with-food">
+            <span >
               <label> Take with food?  </label>
               <input type="checkbox" value={withFood} onClick={toggleWithFood} defaultChecked={withFood}/>
+            </span>
+          </div>
+          <div className="with-food">
+            <span >
+              <label> Take daily?  </label>
+              <input type="checkbox" value={more} onClick={moreThanOnce} defaultChecked={more}/>
+              { more && <div>
+              <label>End date: </label>
+              <input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)}/>
+            </div>}
             </span>
           </div>
         </form>
