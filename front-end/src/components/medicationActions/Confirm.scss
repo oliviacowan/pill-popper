@@ -33,12 +33,11 @@
  height: 1.5em;
  width: auto;
  border: none;
- background-color: rgb(240, 121, 113);
+ background-color: $background-color;
  margin-left: 2em;
  margin-right: 2em;
  cursor: pointer;
- 
-
+ color: black;
 }
 
 .confirm__card--buttons--container {
