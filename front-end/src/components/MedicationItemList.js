@@ -28,14 +28,13 @@ export default function MedicationItemList(props) {
         return new Date(new Date().setFullYear(new Date().getFullYear() + 1))
       }
     }
-    console.log("medication START", medication.start_date)
-    console.log("medEndDate BEEFF", medication.end_date)
+
     const medStartDate = new Date(medication.start_date);
     // const medEndDate = new Date(medication.end_date);
-    console.log("medication END", medEndDate(medication))
+
     const today = props.date;
 
-    console.log("medStartDate", medStartDate)
+
     for (let child in props.childrenState) {
       // console.log("color", props.childrenState[child].avatar_url);
       const childObj = props.childrenState[child];
@@ -56,7 +55,7 @@ export default function MedicationItemList(props) {
         }
 
         else if (!props.childState && childObj.id === medication.child_id) {
-          console.log(medication)
+         
           return (
             <MedicationItem
               color={childObj.avatar_url}
