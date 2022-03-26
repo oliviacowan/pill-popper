@@ -38,7 +38,8 @@ export default function App(props) {
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
-
+  const [search, setSearch] = useState()
+ 
   console.log("Rendering App")
 
   const [state, setState] = useState({
@@ -107,6 +108,9 @@ export default function App(props) {
       });
   }
   
+  function searchResults(data){
+    setSearch(data);
+  }
 
   // state.children
   useEffect(() => {
@@ -174,7 +178,9 @@ export default function App(props) {
             children={Object.values(state.children)} 
             mode={mode} 
             loaderMedications={loaderMedications} 
-            searchApi = { searchApi } /> }
+            searchApi = { searchApi }  
+            searchResults = { searchResults } 
+            searchData = { search }/>}
 
           { mode === EDIT && <Form 
             transition = { transition } 
@@ -183,7 +189,9 @@ export default function App(props) {
             medications={medications} 
             setMedications={setMedications} 
             loaderMedications={loaderMedications} 
-            searchApi = { searchApi } /> }
+            searchApi = { searchApi } 
+            searchResults = { searchResults }
+            searchData = { search }/> }
 
           { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
             <footer>

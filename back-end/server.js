@@ -70,6 +70,7 @@ io.on('connection', (socket) => {
           console.log('Generic');
           resObj[result.id] = result.openfda.generic_name 
         })
+        socket.emit('search-data', resObj);
       } else {
         axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
         .then((res) => {
@@ -78,6 +79,7 @@ io.on('connection', (socket) => {
               console.log('Brand');
               resObj[result.id] = result.openfda.brand_name 
             })
+            socket.emit('search-data', resObj);
           }
         })
       }
