@@ -3,6 +3,8 @@ import axios from 'axios';
 import "./Form.scss";
 import Time from "./Time"
 
+import { searchApi } from "../helpers/apiFunctions";
+
 export default function Form(props) {
   let childNames;
   let children;
@@ -137,7 +139,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
               value={medicationName}
               onChange={(event) => {
                 setMedicationName(event.target.value);
-    
+                searchApi(event.target.value);
               }}
             />
           </div>

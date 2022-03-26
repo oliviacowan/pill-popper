@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 import axios from "axios";
+import { io } from "socket.io-client";
 // For testing:
 
 import ChildrenList from "./components/ChildrenList";
@@ -10,6 +11,7 @@ import ChildrenList from "./components/ChildrenList";
 
 import "./App.scss";
 
+import { searchApi } from './helpers/apiFunctions'
 import useVisualMode from './hooks/useVisualMode'
 import Form from "./components/Form";
 import Status from "./components/Status";
@@ -20,7 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-function App(props) {
+export default function App(props) {
   const NONE = "NONE";
   const CALENDAR = "CALENDAR";
   const CHILDLIST = "CHILDLIST";
@@ -29,7 +31,7 @@ function App(props) {
   const LOADING = "LOADING";
   const SAVING = "SAVING"
   const { mode, transition } = useVisualMode(NONE)
-
+  
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -72,6 +74,8 @@ function App(props) {
   const setSectedChild = (child) => setState({ ...state, child });
  
 
+  
+
   const loadChildren = () => {
     axios
       .get("/users/1/children")
@@ -102,6 +106,8 @@ function App(props) {
         console.log(error.message);
       });
   }
+  
+
   // state.children
   useEffect(() => {
     loadChildren()
@@ -163,8 +169,22 @@ function App(props) {
           { mode === SAVING && < Status message='SAVING' /> }
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
 
-          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications}/>}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications} loaderMedications={loaderMedications}/> }
+          { mode === CREATE && <Form  
+            transition = { transition } 
+            children={Object.values(state.children)} 
+            mode={mode} 
+            loaderMedications={loaderMedications} 
+            searchApi = { searchApi } /> }
+
+          { mode === EDIT && <Form 
+            transition = { transition } 
+            { ...selectedMed } 
+            mode={mode} 
+            medications={medications} 
+            setMedications={setMedications} 
+            loaderMedications={loaderMedications} 
+            searchApi = { searchApi } /> }
+
           { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
             <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
@@ -176,4 +196,4 @@ function App(props) {
   );
 }
 
-export default App;
+
