@@ -59,6 +59,12 @@ const pusher = new Pusher({
   useTLS: true
 });
 
+const addZero = (i) => {
+  if (i < 10) {
+    i = "0" + i
+  }
+  return i;
+}
 cron.schedule('* * * * *', () => {
   const times = db.query(
       `SELECT children.name AS child_name, children.id AS child_id,
@@ -73,18 +79,21 @@ cron.schedule('* * * * *', () => {
       ON childrens_medications.id = childrens_medications_id
       ORDER BY time;`
     )
+
   times.then((response) => {
-    
+   
     const children = response.rows
     const day = new Date()
-    const startTime = day.getHours() + ":" + day.getMinutes();
+    const startTime = (addZero(day.getHours())) + ":" + (addZero(day.getMinutes()));
     let i = 0
     
     for (let child of children) {
-      if (child.time == startTime && i === 0) {
+      console.log(child)
+      if (child.time == startTime && i == 0) {
+       console.log(child)
         i++
         pusher.trigger("my-channel", "my-event", {
-          message: `${child.child_name}, please take ${child.name}`
+          message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food.":""}`
         });
       }
     }

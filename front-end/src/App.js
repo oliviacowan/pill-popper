@@ -52,8 +52,10 @@ function App(props) {
     const pusher = new Pusher('e5acfbcf6043307a71dc', {
       cluster: 'us3'
     });
+    
     const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function (data) {
+      console.log("INSIDE2")
     const notify = () => toast(data.message, {
       
       position: "top-right",
