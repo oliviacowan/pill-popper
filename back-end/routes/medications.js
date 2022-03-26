@@ -17,7 +17,6 @@ module.exports = (db) => {
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
     const { dose, name, with_food, start_date, times} = req.body;
-    console.log(times);
     db.query(
       `INSERT INTO childrens_medications 
       (child_id, name, dose, with_food)
