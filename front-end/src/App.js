@@ -45,6 +45,7 @@ function App(props) {
     children: {},
   });
 
+
   /// Push notifications
   Pusher.logToConsole = false;
   useEffect(() => {
@@ -65,14 +66,13 @@ function App(props) {
     });
     notify()
   });
-},
-  [])
+},[])
   
 
   const setSectedChild = (child) => setState({ ...state, child });
+ 
 
-
-  useEffect(() => {
+  const loadChildren = () => {
     axios
       .get("/users/1/children")
       .then((res) =>
@@ -84,7 +84,7 @@ function App(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }
 
   const loaderMedications = () => {
     axios
@@ -104,9 +104,10 @@ function App(props) {
   }
   // state.children
   useEffect(() => {
+    loadChildren()
     loaderMedications()
-  }, []);
-
+  }, [setMedications]);
+  
   function editor(medication) {
     axios.get(`medications/${medication.id}`)
       .then((res) => {
@@ -142,6 +143,7 @@ function App(props) {
         />
       </nav>
       <span className="component">
+
       <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -153,21 +155,21 @@ function App(props) {
           draggable
           pauseOnHover
         />
-        {mode === CHILDLIST && (
-          <ChildrenList children={Object.values(state.children)} value={state.child}
-            onChange={setSectedChild} />
-        )}
-        {mode === LOADING && <Status message='LOADING' />}
-        {mode === SAVING && < Status message='SAVING' />}
-        {mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
+        { mode === CHILDLIST && (
+          <ChildrenList loadChildren={loadChildren} children={Object.values(state.children)} value={state.child}
+              onChange={setSectedChild}/>
+            )}
+          { mode === LOADING && <Status message='LOADING' /> }
+          { mode === SAVING && < Status message='SAVING' /> }
+          { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
 
-        {mode === CREATE && <Form transition={transition} children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications} />}
-        {mode === EDIT && <Form transition={transition} {...selectedMed} mode={mode} medications={medications} setMedications={setMedications} loaderMedications={loaderMedications} />}
-        {mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
-          <footer>
-            <button className="add-medication" onClick={() => { transition(CREATE) }}>Add Medication</button>
-          </footer>}
-        {mode !== SAVING && mode !== LOADING && medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={editor} />}
+          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications}/>}
+          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications} loaderMedications={loaderMedications}/> }
+          { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
+            <footer>
+            <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
+            </footer> }
+          { mode !== SAVING && mode !== LOADING && medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ editor } />}
 
       </span>
     </main>

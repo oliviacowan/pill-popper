@@ -12,13 +12,19 @@ export default function Form(props) {
   } else {
     childNames = <option key={props.childId} value={props.childId} >{props.childName}</option>
   }
+const now = new Date();
+now.getHours()
+now.getMinutes()
+const timeNow = `${now.getHours()}:${now.getMinutes()}`
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState(props.childId || "");
   const [dose, setDose] = useState("" || props.dose);
   const [withFood, setWithFood] = useState(false || props.withFood);
-  const [times, setTime] = useState('10:00' || props.time);
+  const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
+  const [more, setMore] = useState(false || props.more)
+  const [endDate, setEndDate] = useState(new Date || props.endDate)
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
@@ -27,6 +33,14 @@ export default function Form(props) {
       setWithFood(false);
     } else {
       setWithFood(true);
+    }
+  };
+  
+  const moreThanOnce = function () {
+    if (more) {
+      setMore(false);
+    } else {
+      setMore(true);
     }
   };
 
@@ -39,6 +53,7 @@ export default function Form(props) {
         dose: dose,
         with_food: withFood,
         times: savedTime,
+        end_date: endDate
       })
       .then(() => {
         props.loaderMedications()
@@ -88,9 +103,9 @@ export default function Form(props) {
   }
 
   const timeList = savedTime.map( time => (
-    <div> 
+    <div className="each-time"> 
      <span> { time }</span>
-      <button onClick={() => handleRemoveTime(time)}>x</button>
+      <div onClick={() => handleRemoveTime(time)}><i class="fa-regular fa-circle-xmark"></i></div>
      
     </div>
   ))
@@ -126,7 +141,7 @@ export default function Form(props) {
               }}
             />
           </div>
-
+           
           <div>
             <div className='medication-form'>
               <label>Dosage mg:</label>
@@ -141,10 +156,20 @@ export default function Form(props) {
               />
             </div>
           </div>
-          <div>
-            <span className="withFood">
-              <label> Take with food?</label>
+          <div className="with-food">
+            <span >
+              <label> Take with food?  </label>
               <input type="checkbox" value={withFood} onClick={toggleWithFood} defaultChecked={withFood}/>
+            </span>
+          </div>
+          <div className="with-food">
+            <span >
+              <label> Take daily?  </label>
+              <input type="checkbox" value={more} onClick={moreThanOnce} defaultChecked={more}/>
+              { more && <div>
+              <label>End date: </label>
+              <input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)}/>
+            </div>}
             </span>
           </div>
         </form>
