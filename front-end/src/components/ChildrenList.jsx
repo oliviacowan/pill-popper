@@ -15,7 +15,11 @@ const ChildrenList = (props) => {
       avatar: color,
     })
     // console.log(name)
-    .then(setName(''), setAddAChild(false))
+    .then(() => {
+      setName('');
+      setAddAChild(false); 
+      props.loadChildren();
+    })
     .catch((err) => console.log(err))
   }
 
@@ -67,7 +71,7 @@ return (
               <option value="neutral">Neutral</option> 
               <option value="light-blue">Light Blue</option> 
               </select>
-              <button className="add-button" onClick={addChild} >Add</button>
+              <button className="add-button" type="button" onClick={addChild} >Add</button>
         </form>}
         <section className="children-actions">
         {/* <button className="add-button" onClick={addChild} >Add</button> */}

@@ -41,12 +41,14 @@ function App(props) {
   });
 
 
-  const hasValue = Object.keys(state.children).length !== 0;
+  // const hasValue = Object.keys(state.children).length !== 0;
 
   const setSectedChild = (child) => setState({ ...state, child });
 
   
-  useEffect(() => {
+ 
+
+  const loadChildren = () => {
     axios
       .get("/users/1/children")
       .then((res) =>
@@ -58,9 +60,9 @@ function App(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }
 
-  const loaderMedications = ()=>{
+  const loaderMedications = () => {
     axios
       .get("users/1/medications")
       .then((response) => {
@@ -80,8 +82,9 @@ function App(props) {
   }
   // state.children
   useEffect(() => {
+    loadChildren()
     loaderMedications()
-  }, []);
+  }, [setMedications]);
   
   function editor(medication) {
     axios.get(`medications/${medication.id}`)
@@ -118,7 +121,7 @@ function App(props) {
       </nav>
       <span className="component">
         { mode === CHILDLIST && (
-          <ChildrenList children={Object.values(state.children)} value={state.child}
+          <ChildrenList loadChildren={loadChildren} children={Object.values(state.children)} value={state.child}
               onChange={setSectedChild}/>
             )}
           { mode === LOADING && <Status message='LOADING' /> }
