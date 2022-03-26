@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 import axios from "axios";
+import { io } from "socket.io-client";
 // For testing:
 
 import ChildrenList from "./components/ChildrenList";
@@ -10,6 +11,7 @@ import logo from "./favicon.ico";
 
 import "./App.scss";
 
+import { searchApi } from './helpers/apiFunctions'
 import useVisualMode from './hooks/useVisualMode'
 import Form from "./components/Form";
 import Status from "./components/Status";
@@ -24,7 +26,7 @@ function App(props) {
   const LOADING = "LOADING";
   const SAVING = "SAVING"
   const { mode, transition } = useVisualMode(NONE)
-
+  
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -47,6 +49,7 @@ function App(props) {
 
   
   useEffect(() => {
+    searchApi('word');
     axios
       .get("/users/1/children")
       .then((res) =>
@@ -125,8 +128,22 @@ function App(props) {
           { mode === SAVING && < Status message='SAVING' /> }
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
 
-          { mode === CREATE && <Form  transition = { transition } children={Object.values(state.children)} mode={mode} loaderMedications={loaderMedications}/>}
-          { mode === EDIT && <Form transition = { transition } { ...selectedMed } mode={mode} medications={medications} setMedications={setMedications} loaderMedications={loaderMedications}/> }
+          { mode === CREATE && <Form  
+            transition = { transition } 
+            children={Object.values(state.children)} 
+            mode={mode} 
+            loaderMedications={loaderMedications} 
+            searchApi = { searchApi } /> }
+
+          { mode === EDIT && <Form 
+            transition = { transition } 
+            { ...selectedMed } 
+            mode={mode} 
+            medications={medications} 
+            setMedications={setMedications} 
+            loaderMedications={loaderMedications} 
+            searchApi = { searchApi } /> }
+
           { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
             <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
