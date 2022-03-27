@@ -14,10 +14,11 @@ export default function Form(props) {
   } else {
     childNames = <option key={props.childId} value={props.childId} >{props.childName}</option>
   }
-const now = new Date();
-now.getHours()
-now.getMinutes()
-const timeNow = `${now.getHours()}:${now.getMinutes()}`
+
+  const now = new Date();
+  now.getHours()
+  now.getMinutes()
+  const timeNow = `${now.getHours()}:${now.getMinutes()}`
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState(props.childId || "");
@@ -28,9 +29,15 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
   const [more, setMore] = useState(false || props.more)
   const [endDate, setEndDate] = useState(new Date() || props.endDate)
   const [textMessage, setTextMessage] = useState(false || props.textMessage);
+  const [fdaId, setFdaId] = useState(null)
 
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
+
+  function addFda(id, name) {
+    setMedicationName(name);
+    setFdaId(id);
+  }
   
   const toggleWithFood = function () {
     if (withFood) {
@@ -67,7 +74,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         text_message: textMessage,
         times: savedTime,
         end_date: endDate,
-        fda_id: searchId
+        fda_id: props.searchData.id
       })
       .then(() => {
         props.loaderMedications()
@@ -144,7 +151,8 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
               }}
               />
 
-              { props.searchData.id && <a onClick={ () =>{ setMedicationName(props.searchData.name) } } >{ props.searchData.name }</a> }
+              { props.searchData.id && 
+              <a onClick={ () =>{ addFda(props.searchData.id, props.searchData.name) } } >{ props.searchData.name }</a> }
 
           </div>
            
