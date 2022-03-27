@@ -16,13 +16,13 @@ module.exports = (db) => {
 
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
-    const { dose, name, with_food, start_date, end_date, times} = req.body;
+    const { dose, name, with_food, text_message, start_date, end_date, times} = req.body;
     console.log('bod: ', req.body);
     db.query(
       `INSERT INTO childrens_medications 
-      (child_id, name, dose, with_food, end_date)
-      Values ($1, $2, $3, $4, $5)
-      RETURNING id;`, [childId, name, dose, with_food, end_date]
+      (child_id, name, dose, with_food, text_message, end_date)
+      Values ($1, $2, $3, $4, $5, $6)
+      RETURNING id;`, [childId, name, dose, with_food, text_message, end_date]
       ).then((response)=> {
          const medId = response.rows[0].id;
           Promise.all(
@@ -40,7 +40,7 @@ module.exports = (db) => {
   });
 
   router.put('/:med_id/edit', (req, res) => {
-    const { dose, name, with_food, times } = req.body;
+    const { dose, name, with_food, text_message, times } = req.body;
     const medId = req.params.med_id;
     console.log(times);
     Promise.all([
@@ -52,8 +52,9 @@ module.exports = (db) => {
         `UPDATE childrens_medications
         SET name = $1,
         with_food = $2,
-        dose = $3
-        WHERE id = $4;`, [name, with_food, dose, medId]
+        dose = $3,
+        text_message = $4,
+        WHERE id = $5;`, [name, with_food, dose, text_message, medId]
         )
     ]).then(() => {
       Promise.all([

@@ -39,7 +39,6 @@ export default function App(props) {
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
   const [search, setSearch] = useState()
- 
   console.log("Rendering App")
 
   const [state, setState] = useState({
@@ -130,8 +129,10 @@ export default function App(props) {
           medName: data.name,
           medId: data.id,
           withFood: data.with_food,
+          textMessage: data.text_message,
           dose: data.dose,
           times: data.times
+         
         })
         transition(EDIT);
       });

@@ -8,8 +8,8 @@ import { searchApi } from "../helpers/apiFunctions";
 export default function Form(props) {
   let childNames;
   let children;
-  const searchId = Object.keys(props.searchData)[0];
-  const searchName = props.searchData[searchId][0]
+  // const searchId = Object.keys(props.searchData)[0];
+  // const searchName = props.searchData[searchId][0]
 
   if (props.children){
     children = Object.values(props.children)
@@ -28,7 +28,9 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
   const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
   const [more, setMore] = useState(false || props.more)
-  const [endDate, setEndDate] = useState(new Date || props.endDate)
+  const [endDate, setEndDate] = useState(new Date() || props.endDate)
+  const [textMessage, setTextMessage] = useState(false || props.textMessage);
+
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time))}
   
@@ -39,7 +41,15 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
       setWithFood(true);
     }
   };
-  
+
+  const toggleSendMessage = function () {
+    if (textMessage) {
+      setTextMessage(false);
+    } else {
+      setTextMessage(true);
+    }
+  };
+
   const moreThanOnce = function () {
     if (more) {
       setMore(false);
@@ -56,6 +66,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         name: medicationName,
         dose: dose,
         with_food: withFood,
+        text_message: textMessage,
         times: savedTime,
         end_date: endDate
       })
@@ -72,21 +83,11 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         name: medicationName,
         dose: dose,
         with_food: withFood,
+        text_message: textMessage,
         times: savedTime
       })
       .then((res) => {
         props.loaderMedications()
-        // props.loaderMedications()
-      //   console.log("medID",props.medId)
-      //   const medicationsNew = [...props.medications]
-      //   medicationsNew[0]["medications"][props.medId] = {...medicationsNew[props.medId], 
-      //     child_id: childId,
-      //     name: medicationName,
-      //     dose: dose,
-      //     with_food: withFood,
-      //     time: savedTime}
-      //  console.log("MEDICATIONS",medicationsNew[0]["medications"][props.medId])
-      //   // props.setMedications((prev)=> [...prev, medicationsNew])
         console.log('Medication changed successfully!')
         props.transition("NONE");
       })
@@ -143,7 +144,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
                 searchApi(event.target.value, props.searchResults);
               }}
               />
-              { searchName && <a onClick={ () =>{ setMedicationName(searchName) } } >{ searchName }</a> }
+              {/* { searchName && <a onClick={ () =>{ setMedicationName(searchName) } } >{ searchName }</a> } */}
           </div>
            
           <div>
@@ -164,6 +165,12 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
             <span >
               <label> Take with food?  </label>
               <input type="checkbox" value={withFood} onClick={toggleWithFood} defaultChecked={withFood}/>
+            </span>
+          </div>
+          <div className="with-food">
+            <span >
+              <label> Sent me a text message?  </label>
+              <input type="checkbox" value={textMessage} onClick={toggleSendMessage} defaultChecked={textMessage}/>
             </span>
           </div>
           <div className="with-food">
