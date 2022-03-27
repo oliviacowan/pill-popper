@@ -45,7 +45,7 @@ module.exports = (db) => {
   });
 
   router.put('/:med_id/edit', (req, res) => {
-    const { dose, name, with_food, times } = req.body;
+    const { dose, name, with_food, text_message, times } = req.body;
     const medId = req.params.med_id;
     console.log(times);
     Promise.all([
@@ -57,8 +57,9 @@ module.exports = (db) => {
         `UPDATE childrens_medications
         SET name = $1,
         with_food = $2,
-        dose = $3
-        WHERE id = $4;`, [name, with_food, dose, medId]
+        dose = $3,
+        text_message = $4,
+        WHERE id = $5;`, [name, with_food, dose, text_message, medId]
         )
     ]).then(() => {
       Promise.all([

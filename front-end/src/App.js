@@ -38,9 +38,9 @@ export default function App(props) {
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
+  const [search, setSearch] = useState()
   const [searchId, setSearchId] = useState()
   const [searchName, setSearchName] = useState()
-
 
   console.log("Rendering App")
 
@@ -134,8 +134,10 @@ export default function App(props) {
           medName: data.name,
           medId: data.id,
           withFood: data.with_food,
+          textMessage: data.text_message,
           dose: data.dose,
           times: data.times
+         
         })
         transition(EDIT);
       });

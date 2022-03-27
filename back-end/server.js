@@ -1,7 +1,8 @@
 require('dotenv').config();
+const Pusher = require("pusher");
 const cron = require('node-cron');
 //comment
-const Pusher = require("pusher");
+
 
 const Express = require('express');
 const cors = require('cors');
@@ -14,7 +15,7 @@ const PORT = process.env.PORT || 8081;
 
 const http = require('http');
 const server = http.createServer(app);
-const {Server} = require('socket.io');
+const { Server } = require('socket.io');
 
 const { Pool, Query } = require("pg");
 const dbParams = require("./lib/db");
@@ -25,6 +26,7 @@ const childrenRoutes = require('./routes/children');
 const medRoutes = require('./routes/medications');
 const userRoutes = require('./routes/users');
 //const { application } = require('express');
+
 
 const socketServer = require("./socketServer/socketServer");
 app.use(cors())
@@ -51,51 +53,65 @@ app.use('/users/', childrenRoutes(db));
 app.use('/medications/', medRoutes(db));
 app.use('/users/', userRoutes(db));
 
+// TWILIO 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const phoneNumber = process.env.PHONE_NUMBER;
+const fromPhoneNumber = process.env.FROM_PHONE_NUMBER;
+
+// To enable TWILIO - uncomment the next line out
+// const client = require('twilio')(accountSid, authToken);
+
+
+//Pusher
+const appId = process.env.APP_ID;
+const key = process.env.KEY;
+const sectet = process.env.SECRET;
+
 
 const io = new Server(server, {
-      cors: {
-        origin: "http://localhost:3000",
-        methods: ['GET', 'POST']
-      }
-    });
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ['GET', 'POST']
+  }
+});
 
 io.on('connection', (socket) => {
   console.log('user has connected');
-  socket.on('data', (arg) => { 
+  socket.on('data', (arg) => {
     const resObj = {};
     axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=2`)
-    .then((res) => {
-      if (res.data.results){
-        res.data.results.forEach(result => {
-          console.log('Generic');
-          resObj[result.id] = result.openfda.generic_name 
-        })
-        socket.emit('search-data', resObj);
-      } else {
-        axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
-        .then((res) => {
-          if (res.data.results){
-            res.data.results.forEach(result => {
-              console.log('Brand');
-              resObj[result.id] = result.openfda.brand_name 
+      .then((res) => {
+        if (res.data.results) {
+          res.data.results.forEach(result => {
+            console.log('Generic');
+            resObj[result.id] = result.openfda.generic_name
+          })
+          socket.emit('search-data', resObj);
+        } else {
+          axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
+            .then((res) => {
+              if (res.data.results) {
+                res.data.results.forEach(result => {
+                  console.log('Brand');
+                  resObj[result.id] = result.openfda.brand_name
+                })
+                socket.emit('search-data', resObj);
+              }
             })
-            socket.emit('search-data', resObj);
-          }
-        })
-      }
-      console.log(resObj)
+        }
+        console.log(resObj)
 
-      //axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=5`)
-    })
-    //.then((res) => console.log('Axios response 2: ') )
-    .catch(() => { console.log("ERRROOOOORRR!") });
-   });
+        //axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=5`)
+      })
+      //.then((res) => console.log('Axios response 2: ') )
+      .catch(() => { console.log("ERRROOOOORRR!") });
+  });
 })
 
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on ${PORT}`)
 })
-
 
 
 
@@ -113,9 +129,10 @@ const addZero = (i) => {
   }
   return i;
 }
+
 cron.schedule('* * * * *', () => {
   const times = db.query(
-      `SELECT children.name AS child_name, children.id AS child_id,
+    `SELECT children.name AS child_name, children.id AS child_id,
       childrens_medications.*,
       times.time AS time 
       FROM childrens_medications
@@ -126,23 +143,33 @@ cron.schedule('* * * * *', () => {
       JOIN times
       ON childrens_medications.id = childrens_medications_id
       ORDER BY time;`
-    )
+  )
 
   times.then((response) => {
-   
+
     const children = response.rows
     const day = new Date()
     const startTime = (addZero(day.getHours())) + ":" + (addZero(day.getMinutes()));
     let i = 0
-    
+
     for (let child of children) {
-      //console.log(child)
       if (child.time == startTime && i == 0) {
-       //console.log(child)
         i++
         pusher.trigger("my-channel", "my-event", {
-          message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food.":""}`
+          message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`
         });
+
+       
+          
+        if (child.text_message) {
+          client.messages
+          .create({
+            body: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`,
+            from: fromPhoneNumber,
+            to: phoneNumber,
+          })
+        }
+        
       }
     }
   })
