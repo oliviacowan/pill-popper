@@ -39,7 +39,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
       setWithFood(true);
     }
   };
-
+  
   const toggleSendMessage = function () {
     if (textMessage) {
       setTextMessage(false);
@@ -67,7 +67,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         text_message: textMessage,
         times: savedTime,
         end_date: endDate,
-       // fda_id: searchId,
+        fda_id: searchId
       })
       .then(() => {
         props.loaderMedications()
@@ -170,7 +170,7 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
           </div>
           <div className="with-food">
             <span >
-              <label> Sent me a text message?  </label>
+            <label> Sent me a text message?  </label>
               <input type="checkbox" value={textMessage} onClick={toggleSendMessage} defaultChecked={textMessage}/>
             </span>
           </div>
