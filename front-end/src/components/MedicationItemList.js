@@ -66,6 +66,7 @@ export default function MedicationItemList(props) {
               child={childObj.name}
               deleteMe={deleteMe}
               onEdit={() => { props.edit(medication) }}
+              getFda={ () => { props.getFda(medication.fda_id) } }
             />
           );
         }

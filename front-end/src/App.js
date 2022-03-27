@@ -143,6 +143,10 @@ export default function App(props) {
       });
   }
 
+  function getFda(fdaId){
+    axios.get(`/fda/${ fdaId }`);
+  }
+
 
   return (
     <main className="layout">
@@ -205,7 +209,17 @@ export default function App(props) {
             <footer>
             <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
             </footer> }
-          { mode !== SAVING && mode !== LOADING && medications.length > 0 && <MedicationItemList childState={state.child} childrenState={state.children} medications={medications} date={value} children={state.children} setMedications={setMedications} edit={ editor } />}
+          { mode !== SAVING && mode !== LOADING && medications.length > 0 && 
+          <MedicationItemList 
+            childState={state.child} 
+            childrenState={state.children} 
+            medications={medications} 
+            date={value} 
+            children={state.children} 
+            setMedications={setMedications} 
+            edit={ editor }
+            getFda = { getFda }
+            />}
 
       </span>
     </main>

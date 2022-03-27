@@ -25,6 +25,7 @@ db.connect();
 const childrenRoutes = require('./routes/children');
 const medRoutes = require('./routes/medications');
 const userRoutes = require('./routes/users');
+const fdaRoutes = require('./routes/fda');
 //const { application } = require('express');
 
 
@@ -52,6 +53,7 @@ app.use(Express.static('public'));
 app.use('/users/', childrenRoutes(db));
 app.use('/medications/', medRoutes(db));
 app.use('/users/', userRoutes(db));
+app.use('/fda/', fdaRoutes(db));
 
 // TWILIO 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;

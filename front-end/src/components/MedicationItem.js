@@ -6,7 +6,6 @@ import classNames from "classnames";
 
 export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
-  console.log('MED ITEM: ', props.id)
  // const dayClass = classNames("day-list__item", {
     //   "day-list__item--selected": selected,
     //   "day-list__item--full": !spots
@@ -73,9 +72,9 @@ if (props.color === "pink") {
             <p>
               <i className="fa-solid fa-trash" onClick={destroyBoolean}></i>
             </p>
-            <p onClick={getInfo}>
+            {props.fda_id && <p onClick={props.getFda}>
               <i className="fa-solid fa-circle-info"></i>
-            </p>
+            </p>}
           </section>
         </li>
       )}
