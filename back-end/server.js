@@ -136,9 +136,9 @@ cron.schedule('* * * * *', () => {
     let i = 0
     
     for (let child of children) {
-      console.log(child)
+      //console.log(child)
       if (child.time == startTime && i == 0) {
-       console.log(child)
+       //console.log(child)
         i++
         pusher.trigger("my-channel", "my-event", {
           message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food.":""}`
