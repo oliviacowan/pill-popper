@@ -9,5 +9,6 @@ CREATE TABLE childrens_medications (
   dose SMALLINT NOT NULL DEFAULT 0,
   start_date TIMESTAMPTZ DEFAULT Now(),
   end_date TIMESTAMP DEFAULT Now(),
-  child_id INTEGER REFERENCES children(id)
+  child_id INTEGER REFERENCES children(id),
+  fda_id VARCHAR(100)
 );

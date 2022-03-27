@@ -8,8 +8,6 @@ import { searchApi } from "../helpers/apiFunctions";
 export default function Form(props) {
   let childNames;
   let children;
-  // const searchId = Object.keys(props.searchData)[0];
-  // const searchName = props.searchData[searchId][0]
 
   if (props.children){
     children = Object.values(props.children)
@@ -68,7 +66,8 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
         with_food: withFood,
         text_message: textMessage,
         times: savedTime,
-        end_date: endDate
+        end_date: endDate,
+       // fda_id: searchId,
       })
       .then(() => {
         props.loaderMedications()
@@ -144,7 +143,9 @@ const timeNow = `${now.getHours()}:${now.getMinutes()}`
                 searchApi(event.target.value, props.searchResults);
               }}
               />
-              {/* { searchName && <a onClick={ () =>{ setMedicationName(searchName) } } >{ searchName }</a> } */}
+
+              { props.searchData.id && <a onClick={ () =>{ setMedicationName(props.searchData.name) } } >{ props.searchData.name }</a> }
+
           </div>
            
           <div>
