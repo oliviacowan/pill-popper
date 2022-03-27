@@ -38,8 +38,10 @@ export default function App(props) {
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
-  const [search, setSearch] = useState()
- 
+  const [searchId, setSearchId] = useState()
+  const [searchName, setSearchName] = useState()
+
+
   console.log("Rendering App")
 
   const [state, setState] = useState({
@@ -111,7 +113,9 @@ export default function App(props) {
   }
   
   function searchResults(data){
-    setSearch(data);
+    setSearchId(Object.keys(data)[0]);
+    setSearchName(Object.values(data)[0]);
+    console.log("Name and id from api: ", searchId, searchName)
   }
 
   // state.children
@@ -182,7 +186,7 @@ export default function App(props) {
             loaderMedications={loaderMedications} 
             searchApi = { searchApi }  
             searchResults = { searchResults } 
-            searchData = { search }/>}
+            searchData = { { id: searchId, name: searchName } }/>}
 
           { mode === EDIT && <Form 
             transition = { transition } 
@@ -193,7 +197,7 @@ export default function App(props) {
             loaderMedications={loaderMedications} 
             searchApi = { searchApi } 
             searchResults = { searchResults }
-            searchData = { search }/> }
+            searchData = { { id: searchId, name: searchName } }/> }
 
           { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
             <footer>
