@@ -30,19 +30,25 @@ const MapContainer = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        `/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`
-      )
+    
+  axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${ process.env.REACT_APP_GOOGLE_KEY }`)
+ 
+  .then((res) => {
+    setData((prev) => [
+      {
+        ...prev, 
+        data: res.data.results
+      },
+    ]);
+   
+  })
+  
+  .catch((error) => {console.log(error)})
+}, [currentPosition])
+  
+console.log('dataaaaa:::: ', data)
+  console.log('current: ', currentPosition.lng);
 
-      .then((res) => {
-        setData((prev) => [
-          {
-            ...prev,
-            data: res.data.results,
-          },
-        ]);
-      })
 
       .catch((error) => {
         console.log(error);
@@ -56,6 +62,7 @@ const MapContainer = () => {
     height: "20em",
     width: "90%",
   };
+
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
@@ -103,5 +110,6 @@ const MapContainer = () => {
     </LoadScript>
   );
 };
+
 
 export default MapContainer;
