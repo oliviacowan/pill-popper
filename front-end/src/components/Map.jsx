@@ -13,6 +13,7 @@ const MapContainer = () => {
   const [currentPosition, setCurrentPosition] = useState({});
   const [data, setData] = useState([]);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
+  
 
   console.log("data;;;; ", data);
   console.log("lat type: ", typeof currentPosition.lat);
@@ -61,7 +62,7 @@ console.log('dataaaaa:::: ', data)
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
-      <GoogleMap
+      {currentPosition.lng && <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={15}
         center={currentPosition}
@@ -101,7 +102,7 @@ console.log('dataaaaa:::: ', data)
             </div>
           </InfoWindow>
         )}
-      </GoogleMap>
+      </GoogleMap>}
     </LoadScript>
   );
 };
