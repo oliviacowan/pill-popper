@@ -28,7 +28,7 @@ const MapContainer = () => {
   
   useEffect(() => {
     
-  axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=AIzaSyAQ4OMkMyiWa-0keG1Wu3xENtDWJNc9qRQ`)
+  axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${ process.env.REACT_APP_GOOGLE_KEY }`)
  
   .then((res) => {
     setData((prev) => [
@@ -53,10 +53,10 @@ console.log('dataaaaa:::: ', data)
     width: "90%",
   };
   
-  
+
   return (
     <LoadScript
-    googleMapsApiKey='AIzaSyAQ4OMkMyiWa-0keG1Wu3xENtDWJNc9qRQ'>
+    googleMapsApiKey={ process.env.REACT_APP_GOOGLE_KEY }>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={15}
