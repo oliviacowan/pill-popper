@@ -178,7 +178,7 @@ export default function Form(props) {
           </div>
           <div className="with-food">
             <span >
-            <label> Sent me a text message?  </label>
+            <label> Send me a text message?  </label>
               <input type="checkbox" value={textMessage} onClick={toggleSendMessage} defaultChecked={textMessage}/>
             </span>
           </div>

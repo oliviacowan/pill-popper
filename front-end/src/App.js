@@ -217,6 +217,7 @@ export default function App(props) {
             setMedications={setMedications} 
             edit={ editor }
             />}
+            <h3 className="map-title">Pharmacies near you: </h3>
           <MyComponent />
 
           <header>
