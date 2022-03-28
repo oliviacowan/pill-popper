@@ -22,7 +22,7 @@ export default function MedicationItem(props) {
 
   function getFda(){
     transition(OPTIONS);
-    axios.get(`/fda/${ props.fda_id }`)
+    axios.get(`http://localhost:8081/fda/${ props.fda_id }`)
     .then((res) => { setInfo( res.data[0] ) })
   }
 
