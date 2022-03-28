@@ -1,23 +1,40 @@
 import react, { Fragment, useState } from "react";
 import axios from "axios";
-import Confirm from "./medicationActions/Confirm";
 import "./MedicationItem.scss";
 import classNames from "classnames";
+import useVisualMode from "../hooks/useVisualMode";
+
+import ItemDefault from "./medicationComponents/ItemDefault";
+import Confirm from "./medicationComponents/Confirm";
+import Options from "./medicationComponents/Options";
+import Info from "./medicationComponents/Info";
 
 export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
- // const dayClass = classNames("day-list__item", {
-    //   "day-list__item--selected": selected,
-    //   "day-list__item--full": !spots
-    // })
-    // const color = classNames("color", 
-    // { "--pink": props.color === "#ffc0cb"
-    // } )
-  // const color = classNames("medication-item", 
-  //   {"__pink": props.color === "#ffc0cb"},
-  //   {"__purple": props.color === '#9267af'},
-  //   {"__blue": props.color === '415ba3'},
-  // )
+  const [info, setInfo] = useState({});
+  const [selectedInfo, setSelectedInfo] = useState({})
+
+  const DEFAULT = "DEFAULT";
+  const OPTIONS = "OPTIONS";
+  const INFO = "INFO";
+  const CONFIRM = "Confirm";
+  const { mode, transition } = useVisualMode(DEFAULT);
+
+  function getFda(){
+    transition(OPTIONS);
+    axios.get(`/fda/${ props.fda_id }`)
+    .then((res) => { setInfo( res.data[0] ) })
+  }
+
+  function selectInfo(infoKey){
+    transition(INFO);
+    //console.log(infoKey, " ::: ", info[infoKey]);
+    setSelectedInfo({
+      infoKey: infoKey,
+      info: info[infoKey]
+    })
+  }
+
 
   let color;
 if (props.color === "pink") {
@@ -36,9 +53,6 @@ if (props.color === "pink") {
     color = "medication-item__neutral"
 }
   
-  function getInfo() {
-    console.log("clicked info icon", props.id);
-  }
 
   const destroyBoolean = function () {
     if (!destroy) {
@@ -47,37 +61,25 @@ if (props.color === "pink") {
     }
   };
 
-  
-  console.log('coLOUR: ', color)
   return (
     <>
-      {destroy ? (
-        <Confirm destroy={destroy} setDestroy={setDestroy} deleteMe={props.deleteMe} />
-      ) : (
-        <li className={color}>
-          <div className="medication-time-name">
-            <p className="scheduled-time">
-              {props.time} <i className="fa-solid fa-arrow-right-long"></i>{" "}
-              {props.child}
-            </p>
+    { mode === CONFIRM && 
+      < Confirm destroy={ destroy }
+       setDestroy={ setDestroy } 
+       deleteMe={ props.deleteMe } 
+       transition={ transition } /> }
 
-            <h2 className="medication-name">
-              {props.name} <span className="name-dose">{props.dose}mg</span>
-            </h2>
-          </div>
-          <section className="medication-item-icons">
-            <p onClick={ props.onEdit }>
-              <i className="fa-solid fa-user-pen"></i>
-            </p>
-            <p>
-              <i className="fa-solid fa-trash" onClick={destroyBoolean}></i>
-            </p>
-            {props.fda_id && <p onClick={props.getFda}>
-              <i className="fa-solid fa-circle-info"></i>
-            </p>}
-          </section>
-        </li>
-      )}
+    { mode === DEFAULT && 
+      < ItemDefault { ...props } 
+      transition={ transition } 
+      color={ color } 
+      getFda={ getFda } />  }
+
+    { mode === OPTIONS && 
+      < Options infoKeys = { Object.keys(info) } selectInfo={ selectInfo }  /> }
+
+    { mode === INFO &&
+      < Info info = { selectedInfo } /> }
     </>
   );
 }

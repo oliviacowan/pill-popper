@@ -143,10 +143,6 @@ export default function App(props) {
       });
   }
 
-  function getFda(fdaId){
-    axios.get(`/fda/${ fdaId }`);
-  }
-
 
   return (
     <main className="layout">
@@ -218,7 +214,6 @@ export default function App(props) {
             children={state.children} 
             setMedications={setMedications} 
             edit={ editor }
-            getFda = { getFda }
             />}
 
       </span>

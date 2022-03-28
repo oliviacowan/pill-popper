@@ -2,28 +2,20 @@ import React, { Fragment } from "react";
 import axios from "axios";
 import MedicationItem from "./MedicationItem";
 
-
 export default function MedicationItemList(props) {
-  console.log(props)
+  
   const medications = props.medications[0].medications;
 
-
   const medicationItemList = medications.map((medication) => {
-
-   
-
     const deleteMe = function () {
-
       axios.delete(`/medications/${medication.id}/delete`)
         .then(() => {
           props.setMedications((prev) => [{ ...prev, medications: props.medications[0].medications.filter(med => med.id !== medication.id) }])
         })
     }
     const medEndDate = (medication) => {
-
       if (medication.end_date) {
         return new Date(medication.end_date)
-
       } else {
         return new Date(new Date().setFullYear(new Date().getFullYear() + 1))
       }
@@ -66,7 +58,6 @@ export default function MedicationItemList(props) {
               child={childObj.name}
               deleteMe={deleteMe}
               onEdit={() => { props.edit(medication) }}
-              getFda={ () => { props.getFda(medication.fda_id) } }
             />
           );
         }
