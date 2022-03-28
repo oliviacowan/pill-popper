@@ -2,9 +2,10 @@ import React from "react";
 
 export default function ItemDefault(props) {
 
+  const itemClassName = props.color + " medication-item"
 
   return (
-    <li className={props.color}>
+    <li className={ itemClassName }>
       <div className="medication-time-name">
         <p className="scheduled-time">
           {props.time} <i className="fa-solid fa-arrow-right-long"></i>{" "}

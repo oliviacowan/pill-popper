@@ -1,0 +1,48 @@
+li{
+  list-style-type: none;
+}
+
+.selected-info-card{
+  height: 350px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .selected-info-header{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+
+    button{
+      margin: .5em;
+      position: relative;
+      box-shadow: .0em .1em .1em black;
+    }
+
+    .close{
+      height: 1.5em;
+      width: 1.5em;
+    }
+
+    button:active{
+      box-shadow: none;
+      transform: translateY(.1em);
+    }
+  }
+  .selected-info-section{
+    width: 95%;
+    overflow-y: scroll;
+
+    strong {
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+
+    p{
+      line-height: 1.5em;
+    }
+  }
+}

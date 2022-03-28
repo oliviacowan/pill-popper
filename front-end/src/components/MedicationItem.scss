@@ -10,78 +10,60 @@
   display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
+  max-height: $card-height;
   margin: 1em;
   width: 90%;
 
 }
 
 .medication-item__pink {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
   border: 3px solid #ffc0cb;
 }
 .medication-item__purple {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
   border: 3px solid #9267af;
 }
 .medication-item__yellow {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
 
   border: 3px solid #f1edb8;
 }
 .medication-item__blue {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
-
   border: 3px solid #415ba3;
 }
 .medication-item__light-blue {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
-
   border: 3px solid #a4b4dd;
 }
 .medication-item__neutral {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
-
   border: 3px solid #b1a99d;
 }
 .medication-item__green {
-  display: flex;
   background-color: white;
   border-radius: 12px;
-  height: $card-height;
   margin: 1em;
   width: 90%;
-
   border: 3px solid #41a375;
 }
 

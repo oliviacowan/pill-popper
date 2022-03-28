@@ -76,10 +76,10 @@ if (props.color === "pink") {
       getFda={ getFda } />  }
 
     { mode === OPTIONS && 
-      < Options infoKeys = { Object.keys(info) } selectInfo={ selectInfo }  /> }
+      < Options color={color} infoKeys = { Object.keys(info) } selectInfo={ selectInfo }  transition={ transition } /> }
 
     { mode === INFO &&
-      < Info info = { selectedInfo } /> }
+      < Info color={color} info = { selectedInfo } transition={ transition } /> }
     </>
   );
 }

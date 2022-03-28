@@ -1,0 +1,46 @@
+.options-card {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+
+  .options-header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+
+    h3{
+      margin-left: 2em;
+    }
+
+    button {
+      position: relative;
+      margin-right: 3%;
+      width: 1.5em;
+      height: 1.5em;
+      box-shadow: .0em .1em .1em black;
+    }
+  
+    button:active{
+      box-shadow: none;
+      transform: translateY(.1em);
+    }
+  }
+
+  .options-list{
+    position: relative;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    li{
+      margin: .4em;
+      list-style-type: none;
+    }
+  }
+
+}
