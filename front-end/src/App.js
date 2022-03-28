@@ -145,11 +145,6 @@ export default function App(props) {
       });
   }
 
-  function getFda(fdaId){
-    axios.get(`http://localhost:8081/fda/${ fdaId }`);
-  }
-
-
   return (
     <main className="layout">
       <nav>
@@ -213,15 +208,15 @@ export default function App(props) {
             </footer> }
           { mode !== SAVING && mode !== LOADING && medications.length > 0 && 
           <MedicationItemList 
-          childState={state.child} 
-          childrenState={state.children} 
-          medications={medications} 
-          date={value} 
-          children={state.children} 
-          setMedications={setMedications} 
-          edit={ editor }
-          getFda = { getFda }
-          />}
+
+            childState={state.child} 
+            childrenState={state.children} 
+            medications={medications} 
+            date={value} 
+            children={state.children} 
+            setMedications={setMedications} 
+            edit={ editor }
+            />}
           <MyComponent />
 
       </span>

@@ -15,7 +15,7 @@ export default function Confirm(props) {
       <div className="confirm__card--buttons--container">
         <button
           className="confirm__card--buttons"
-          onClick={cancel}
+          onClick={() => props.trasition("DEFAULT")}
         >
           Cancel
         </button>
