@@ -19,6 +19,7 @@ import MedicationItemList from "./components/MedicationItemList";
 import Pusher from 'pusher-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyComponent from "./components/Map"
 
 
 
@@ -29,7 +30,8 @@ export default function App(props) {
   const CREATE = "CREATE";
   const EDIT = "EDIT";
   const LOADING = "LOADING";
-  const SAVING = "SAVING"
+  const SAVING = "SAVING";
+  const MAP = "MAP";
   const { mode, transition } = useVisualMode(NONE)
   
 
@@ -83,7 +85,7 @@ export default function App(props) {
 
   const loadChildren = () => {
     axios
-      .get("/users/1/children")
+      .get("http://localhost:8081/users/1/children")
       .then((res) =>
         setState((prev) => ({
           ...prev,
@@ -97,7 +99,7 @@ export default function App(props) {
 
   const loaderMedications = () => {
     axios
-      .get("users/1/medications")
+      .get("http://localhost:8081/users/1/medications")
       .then((response) => {
         setMedications((prev) => [
           {
@@ -125,7 +127,7 @@ export default function App(props) {
   }, [setMedications]);
   
   function editor(medication) {
-    axios.get(`medications/${medication.id}`)
+    axios.get(`http://localhost:8081/medications/${medication.id}`)
       .then((res) => {
         const data = res.data[0];
         setSelectedMed({
@@ -143,7 +145,6 @@ export default function App(props) {
       });
   }
 
-
   return (
     <main className="layout">
       <nav>
@@ -151,17 +152,17 @@ export default function App(props) {
         <FontAwesomeIcon
           icon={faUsers}
           className="nav-icon"
-          onClick={() => { transition(CHILDLIST) }}
+          onClick={() => { mode === CHILDLIST ? transition(NONE) : transition(CHILDLIST) }}
         />
+       
         <div className="day-name">{value.toString().substring(0, 15)}</div>
         <FontAwesomeIcon
           icon={faCalendarDays}
           className="nav-icon"
-          onClick={() => { transition(CALENDAR) }}
+          onClick={() => {mode === CALENDAR ? transition(NONE) : transition(CALENDAR) }}
         />
       </nav>
       <span className="component">
-
       <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -172,11 +173,11 @@ export default function App(props) {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-        />
+          />
         { mode === CHILDLIST && (
           <ChildrenList loadChildren={loadChildren} children={Object.values(state.children)} value={state.child}
-              onChange={setSectedChild}/>
-            )}
+          onChange={setSectedChild}/>
+          )}
           { mode === LOADING && <Status message='LOADING' /> }
           { mode === SAVING && < Status message='SAVING' /> }
           { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
@@ -207,6 +208,7 @@ export default function App(props) {
             </footer> }
           { mode !== SAVING && mode !== LOADING && medications.length > 0 && 
           <MedicationItemList 
+
             childState={state.child} 
             childrenState={state.children} 
             medications={medications} 
@@ -215,6 +217,7 @@ export default function App(props) {
             setMedications={setMedications} 
             edit={ editor }
             />}
+          <MyComponent />
 
       </span>
     </main>
