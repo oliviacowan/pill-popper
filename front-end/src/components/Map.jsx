@@ -27,9 +27,9 @@ const MapContainer = () => {
   })
   
   useEffect(() => {
-  axios.get(`/json?location=49.246292,-123.116226&radius=900000&types=pharmacy&key=AIzaSyCMQ-mY_tpOq_SxAEOtfQVZYZihqxtamkE`)
-  // axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=7000&types=pharmacy&key=AIzaSyCMQ-mY_tpOq_SxAEOtfQVZYZihqxtamkE`)
-  
+    
+  axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=AIzaSyAQ4OMkMyiWa-0keG1Wu3xENtDWJNc9qRQ`)
+ 
   .then((res) => {
     setData((prev) => [
       {
@@ -39,10 +39,11 @@ const MapContainer = () => {
     ]);
    
   })
-  .catch((error) => {console.log(error)})
-}, [])
   
-
+  .catch((error) => {console.log(error)})
+}, [currentPosition])
+  
+console.log('dataaaaa:::: ', data)
   console.log('current: ', currentPosition.lng);
 
 
@@ -55,7 +56,7 @@ const MapContainer = () => {
   
   return (
     <LoadScript
-    googleMapsApiKey='AIzaSyCMQ-mY_tpOq_SxAEOtfQVZYZihqxtamkE'>
+    googleMapsApiKey='AIzaSyAQ4OMkMyiWa-0keG1Wu3xENtDWJNc9qRQ'>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={15}
@@ -64,7 +65,7 @@ const MapContainer = () => {
             <Marker 
             key="me" 
             position={{lat: currentPosition.lat, lng: currentPosition.lng}} 
-            icon={{url: "/skatebording.svg"}}/>
+            />
             {selectedPharmacy && (
            <InfoWindow
            position={{lat: selectedPharmacy.geometry.location.lat, lng: selectedPharmacy.geometry.location.lng}} 
