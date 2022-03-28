@@ -50,11 +50,6 @@ console.log('dataaaaa:::: ', data)
   console.log('current: ', currentPosition.lng);
 
 
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [currentPosition]);
-
   console.log("dataaaaa:::: ", data);
   console.log("current: ", currentPosition.lng);
 
