@@ -219,6 +219,11 @@ export default function App(props) {
             />}
           <MyComponent />
 
+          <header>
+            <h3 className="app-title">
+            PILL - POPPER
+              </h3> 
+              </header>
       </span>
     </main>
   );
