@@ -12,7 +12,8 @@ return (
   <Marker 
   key={store.place_id} 
   position={{lat: store.geometry.location.lat, lng: store.geometry.location.lng}} 
-  onClick={() => {setSelectedPharmacy(store); console.log('dis: ', selectedPharmacy)}}
+  onClick={() => {setSelectedPharmacy(store); console.log('dis: ', typeof store.geometry.location.lng)}}
+  // label: {text: `${id}`, color: "blue"}
   />
   ))}
   </>
