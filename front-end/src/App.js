@@ -124,7 +124,7 @@ export default function App(props) {
   useEffect(() => {
     loadChildren()
     loaderMedications()
-  // }, [setMedications]);
+  // }, [setMedications])
   }, [setMedications]);
   
   function editor(medication) {
