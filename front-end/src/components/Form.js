@@ -81,10 +81,11 @@ export default function Form(props) {
         text_message: textMessage,
         times: savedTime,
         end_date: endDate,
-        fda_id: props.searchData.id
+        fda_id: props.searchData.fdaId
       })
         .then(()=>{props.loaderMedications()})
         .then(()=>{props.transition("NONE");})
+        .then(() => props.clearSearch())
         .catch(err => console.log('There has been an ERROR: ', err));
 
     } else if (mode === "EDIT") {
@@ -149,14 +150,14 @@ export default function Form(props) {
               placeholder="Medication"
               value={medicationName}
               onChange={(event) => {
-                props.clearSearch()
+                // props.clearSearch()
                 setMedicationName(event.target.value);
                 searchApi(event.target.value, props.searchResults);
               }}
             />
 
             {props.searchData.id &&
-              <a className="search-result"onClick={() => { addFda(props.searchData.id, props.searchData.name) }} >{props.searchData.name}</a>}
+              <a className="search-result"onClick={() => { addFda(props.searchData.id, props.searchData.name); setMedicationName(props.searchData.name)}} >{props.searchData.name}</a>}
 
           </div>
 
