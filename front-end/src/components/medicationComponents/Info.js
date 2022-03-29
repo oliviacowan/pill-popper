@@ -10,7 +10,7 @@ export default function Info(props) {
     <li className={ infoClassName } >
         <div className="selected-info-header" >
           <button className="back" onClick={() => props.transition("OPTIONS") }>
-            <i class="fa-solid fa-circle-chevron-left back-icon"></i>
+            <i className="fa-solid fa-circle-chevron-left back-icon"></i>
             <strong>BACK</strong>
           </button>
           <button className="close" onClick={() => props.transition("DEFAULT") }>

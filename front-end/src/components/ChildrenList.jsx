@@ -75,7 +75,7 @@ return (
         </form>}
         <section className="children-actions">
         {/* <button className="add-button" onClick={addChild} >Add</button> */}
-        <button className="add-button" onClick={doAddChild} ><i class="fa-solid fa-person-circle-plus"></i></button>
+        <button className="add-button" onClick={doAddChild} ><i className="fa-solid fa-person-circle-plus"></i></button>
         <button className="add-button" onClick={() => props.onChange("")}>View all</button>
         </section>
   </section>
