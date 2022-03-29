@@ -19,6 +19,7 @@ input {
   display: flex;
   flex-direction: column; 
   margin-bottom: 10px;
+ 
 }
 .medication__form--actions{
   display: flex;
@@ -47,6 +48,9 @@ label {
 
 .medication__form {
   color: rgb(114, 111, 107);
+  flex-wrap: wrap;
+  max-width: 60%;
+  align-content: center;
 }
 
 .with-food{
