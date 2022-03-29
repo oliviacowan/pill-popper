@@ -17,7 +17,7 @@ export default function MedicationItem(props) {
   const DEFAULT = "DEFAULT";
   const OPTIONS = "OPTIONS";
   const INFO = "INFO";
-  const CONFIRM = "Confirm";
+  const CONFIRM = "CONFIRM";
   const { mode, transition } = useVisualMode(DEFAULT);
 
   function getFda(){
