@@ -13,10 +13,6 @@ const MapContainer = () => {
   const [currentPosition, setCurrentPosition] = useState({});
   const [data, setData] = useState([]);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
-  
-
-  console.log("data;;;; ", data);
-  console.log("lat type: ", typeof currentPosition.lat);
 
   const success = (position) => {
     const currentPosition = {
@@ -47,13 +43,6 @@ const MapContainer = () => {
   .catch((error) => {console.log(error)})
 }, [currentPosition])
   
-console.log('dataaaaa:::: ', data)
-  console.log('current: ', currentPosition.lng);
-
-
-  console.log("dataaaaa:::: ", data);
-  console.log("current: ", currentPosition.lng);
-
   const mapStyles = {
     height: "20em",
     width: "90%",
