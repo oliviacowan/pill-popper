@@ -10,7 +10,7 @@ module.exports = (db) => {
       JOIN times ON childrens_medications.id = childrens_medications_id
       WHERE childrens_medications.id = $1::integer
       GROUP BY childrens_medications.id, time;`, [Number(req.params.id)] 
-    ).then(({ rows: medication }) => { setTimeout(() => { res.json(medication)} , 3000) }) 
+    ).then(({ rows: medication }) => {  res.json(medication) }) 
     .catch(err => console.log('There has been an ERROR: ', err));
   })
 
