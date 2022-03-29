@@ -124,7 +124,8 @@ export default function App(props) {
   useEffect(() => {
     loadChildren()
     loaderMedications()
-  }, [setMedications]);
+  // }, [setMedications]);
+  }, [setMedications, setState]);
   
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)
