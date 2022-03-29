@@ -32,16 +32,13 @@ export default function Form(props) {
   const [more, setMore] = useState(false || props.more)
   const [endDate, setEndDate] = useState(new Date() || props.endDate)
   const [textMessage, setTextMessage] = useState(false || props.textMessage);
-  const [fdaId, setFdaId] = useState(null)
-  const [fdaName, setFdaName] = useState(null);
-
-  console.log("FDA ID: ", fdaId);
-  console.log("FDA NAME: ", fdaName);
+  const [fdaId, setFdaId] = useState('none')
+  
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time)) }
 
   function addFda(id, name) {
-    setMedicationName(fdaName);
+    setMedicationName(name);
     setFdaId(id);
   }
 
@@ -71,7 +68,8 @@ export default function Form(props) {
   };
 
   const save = (mode) => {
-    props.transition("SAVING");
+    //props.transition("SAVING");
+    console.log(medicationName);
     if (mode === "CREATE") {
       axios.post(`http://localhost:8081/medications/${childId}/new`, {
         child_id: childId,
@@ -81,9 +79,10 @@ export default function Form(props) {
         text_message: textMessage,
         times: savedTime,
         end_date: endDate,
-        fda_id: props.searchData.fdaId
+        fda_id: fdaId
       })
-        .then(()=>{props.loaderMedications()})
+        .then(()=>{
+          props.loaderMedications()})
         .then(()=>{props.transition("NONE");})
         .then(() => props.clearSearch())
         .catch(err => console.log('There has been an ERROR: ', err));
@@ -150,14 +149,18 @@ export default function Form(props) {
               placeholder="Medication"
               value={medicationName}
               onChange={(event) => {
-                // props.clearSearch()
                 setMedicationName(event.target.value);
                 searchApi(event.target.value, props.searchResults);
+                props.clearSearch();
               }}
             />
 
             {props.searchData.id &&
-              <a className="search-result"onClick={() => { addFda(props.searchData.id, props.searchData.name); setMedicationName(props.searchData.name)}} >{props.searchData.name}</a>}
+              <a className="search-result"
+              onClick={ () => { 
+                addFda(props.searchData.id, props.searchData.name); 
+                setMedicationName(props.searchData.name)
+                props.clearName() } } >{props.searchData.name}</a>}
 
           </div>
 

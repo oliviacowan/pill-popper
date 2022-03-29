@@ -128,8 +128,12 @@ export default function App(props) {
   }
 
   function clearSearch(){
-    setSearchId(null)
-    setSearchName(null)
+    setSearchId(null);
+    setSearchName(null);
+  }
+
+  function clearName(){
+    setSearchName(null);
   }
 
   function editor(medication) {
@@ -196,7 +200,8 @@ export default function App(props) {
           searchApi={searchApi}
           searchResults={searchResults}
           searchData={{ id: searchId, name: searchName }} 
-          clearSearch={ clearSearch } />}
+          clearSearch={ clearSearch } 
+          clearName={ clearName } />}
 
         {mode === EDIT && <Form
           transition={transition}

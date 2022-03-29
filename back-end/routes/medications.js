@@ -74,7 +74,7 @@ module.exports = (db) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    ).then(()=> { setTimeout(() => { res.send({ status: "good" }) }, 3000) })
+    ).then(()=> { res.send({ status: "good" }) })
   });
 
   return router;

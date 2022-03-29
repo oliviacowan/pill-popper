@@ -8,13 +8,12 @@ module.exports = (db) => {
     db.query(
       `SELECT * FROM children
       WHERE user_id = $1;`, [Number(req.params.userId)]
-    ).then(({rows: children}) => { setTimeout(() => { 
+    ).then(({rows: children}) => { 
       res.json(
         children.reduce((prev, curr) =>({
           ...prev, [curr.id]: curr
         }), {})
-        );
-    }, 3000)
+      );
     }); 
   });
 
