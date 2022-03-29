@@ -125,7 +125,7 @@ export default function App(props) {
     loadChildren()
     loaderMedications()
   // }, [setMedications]);
-  }, [setMedications, setState]);
+  }, [setMedications]);
   
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)
