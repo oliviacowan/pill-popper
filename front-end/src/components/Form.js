@@ -76,11 +76,8 @@ export default function Form(props) {
         end_date: endDate,
         fda_id: props.searchData.id
       })
-        .then(() => {
-          props.loaderMedications()
-          console.log('Medication added successfully!')
-          props.transition("NONE");
-        })
+        .then(()=>{props.loaderMedications()})
+        .then(()=>{props.transition("NONE");})
         .catch(err => console.log('There has been an ERROR: ', err));
 
     } else if (mode === "EDIT") {
