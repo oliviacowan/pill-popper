@@ -8,6 +8,7 @@ import { searchApi } from "../helpers/apiFunctions";
 export default function Form(props) {
   let childNames;
   let children;
+  let fdaName;
 
   if (props.children) {
     children = Object.values(props.children)
@@ -148,7 +149,7 @@ export default function Form(props) {
             />
 
             {props.searchData.id &&
-              <a onClick={() => { addFda(props.searchData.id, props.searchData.name) }} >{props.searchData.name}</a>}
+              <a className="search-result"onClick={() => { addFda(props.searchData.id, props.searchData.name) }} >{props.searchData.name}</a>}
 
           </div>
 

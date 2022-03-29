@@ -82,14 +82,14 @@ export default function App(props) {
   useEffect(() => {
     loaderMedications()
     return () => {
-      setMedications([]); // This worked for me
+      setMedications([]);
     };
 }, []);
 
 useEffect(() => {
   loadChildren()
   return () => {
-    setSectedChild({}); // This worked for me
+    setSectedChild({}); 
   };
 }, []);
   const loadChildren = () => {
@@ -134,6 +134,7 @@ useEffect(() => {
     loadChildren()
     loaderMedications()
   }, []);
+
   
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)

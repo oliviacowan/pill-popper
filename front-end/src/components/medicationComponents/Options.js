@@ -5,9 +5,9 @@ import "./options.scss";
 
 export default function Options(props) {
   const parsedInfoKeys = props.infoKeys.map(key => <li 
-    className={"list-item"}
+    className={"list-item search-result"}
     key={ key } 
-    onClick={() => props.selectInfo(key)} >{ key }</li>)
+    onClick={() => props.selectInfo(key) } >{ key.split('_').join(' ') }</li>)
 
     const listClassNames = props.color + " options-card"
   return (
