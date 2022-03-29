@@ -43,6 +43,7 @@ module.exports = (db) => {
     const { dose, name, with_food, text_message, times } = req.body;
     const medId = req.params.med_id;
     console.log(times);
+    console.log('medId: ', medId);
     Promise.all([
       db.query(
         `DELETE FROM times
@@ -53,7 +54,7 @@ module.exports = (db) => {
         SET name = $1,
         with_food = $2,
         dose = $3,
-        text_message = $4,
+        text_message = $4
         WHERE id = $5;`, [name, with_food, dose, text_message, medId]
         )
     ]).then(() => {
@@ -66,7 +67,7 @@ module.exports = (db) => {
           )
         })
       ]).then(() => { setTimeout(() => { res.send({ status: "good"}) },3000) });
-    }).catch((err) => { console.log('There was an ERROR: ', err) });
+    }).catch((err) => { console.log(medId); console.log('There was an ERROR: ', err) });
   });
 
   router.delete('/:medId/delete', (req, res) => {
