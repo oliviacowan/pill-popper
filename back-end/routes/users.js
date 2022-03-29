@@ -18,8 +18,8 @@ module.exports = (db) => {
       ON childrens_medications.id = childrens_medications_id
       WHERE users.id = $1
       ORDER BY time;`, [userId]
-    ).then((response) => { setTimeout(() => { res.json(response.rows); }, 3000)
-    }).catch((err) => { console.log('There has been an ERROR: ', err) });
+    ).then((response) => {  res.json(response.rows) })
+    .catch((err) => { console.log('There has been an ERROR: ', err) });
   });
 
   return router;

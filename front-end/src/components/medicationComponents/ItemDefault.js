@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ItemDefault(props) {
-
+  console.log(props.fda_id);
   const itemClassName = props.color + " medication-item"
   return (
     <li className={ itemClassName }>
@@ -22,7 +22,7 @@ export default function ItemDefault(props) {
         <p>
           <i className="fa-solid fa-trash" onClick={() => props.transition("CONFIRM")}></i>
         </p>
-        {props.fda_id && <p onClick={ () => props.getFda() }>
+        {(props.fda_id !== "none") && (props.fda_id) && <p onClick={ () => props.getFda() }>
           <i className="fa-solid fa-circle-info"></i>
         </p>}
       </section>
