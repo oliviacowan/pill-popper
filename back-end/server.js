@@ -78,38 +78,38 @@ const io = new Server(server, {
   }
 });
 
-io.on('connection', (socket) => {
-  console.log('user has connected');
-  socket.on('data', (arg) => {
-    const resObj = {};
-    axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=2`)
-      .then((res) => {
-        if (res.data.results) {
-          res.data.results.forEach(result => {
-            console.log('Generic');
-            resObj[result.id] = result.openfda.generic_name
-          })
-          socket.emit('search-data', resObj);
-        } else {
-          axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
-            .then((res) => {
-              if (res.data.results) {
-                res.data.results.forEach(result => {
-                  console.log('Brand');
-                  resObj[result.id] = result.openfda.brand_name
-                })
-                socket.emit('search-data', resObj);
-              }
-            })
-        }
-        console.log(resObj)
+// io.on('connection', (socket) => {
+//   console.log('user has connected');
+//   socket.on('data', (arg) => {
+//     const resObj = {};
+//     axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=2`)
+//       .then((res) => {
+//         if (res.data.results) {
+//           res.data.results.forEach(result => {
+//             console.log('Generic');
+//             resObj[result.id] = result.openfda.generic_name
+//           })
+//           socket.emit('search-data', resObj);
+//         } else {
+//           axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
+//             .then((res) => {
+//               if (res.data.results) {
+//                 res.data.results.forEach(result => {
+//                   console.log('Brand');
+//                   resObj[result.id] = result.openfda.brand_name
+//                 })
+//                 socket.emit('search-data', resObj);
+//               }
+//             })
+//         }
+//         console.log(resObj)
 
-        //axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=5`)
-      })
-      //.then((res) => console.log('Axios response 2: ') )
-      .catch(() => { console.log("ERRROOOOORRR!") });
-  });
-})
+//         //axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=5`)
+//       })
+//       //.then((res) => console.log('Axios response 2: ') )
+//       .catch(() => { console.log("ERRROOOOORRR!") });
+//   });
+// })
 
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on ${PORT}`)
