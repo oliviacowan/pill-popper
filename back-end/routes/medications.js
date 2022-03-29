@@ -33,9 +33,8 @@ module.exports = (db) => {
                 VALUES ($1, $2);`, [time, medId]
               )
             })
-          // ).then(() => {
-          //   setTimeout(() => { res.send({ status: "good" }) }, 3000)
-          ).then((response) => { setTimeout(() => { res.json(response.rows); }, 3000)
+          ).then(() => {
+            setTimeout(() => { res.send({ status: "good" }) }, 3000)
           }).catch(err => console.log('There has been an ERROR: ', err));
         }).catch(err => console.log('There has been an ERROR: ', err));
   });
