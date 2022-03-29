@@ -127,6 +127,11 @@ export default function App(props) {
     console.log("Name and id from api: ", searchId, searchName)
   }
 
+  function clearSearch(){
+    setSearchId(null)
+    setSearchName(null)
+  }
+
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)
       .then((res) => {
@@ -190,7 +195,8 @@ export default function App(props) {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} />}
+          searchData={{ id: searchId, name: searchName }} 
+          clearSearch={ clearSearch } />}
 
         {mode === EDIT && <Form
           transition={transition}
@@ -201,7 +207,8 @@ export default function App(props) {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} />}
+          searchData={{ id: searchId, name: searchName }} 
+          clearSearch={ clearSearch } />}
 
         {mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
           <footer>

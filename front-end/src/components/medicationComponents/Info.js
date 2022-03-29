@@ -19,7 +19,7 @@ export default function Info(props) {
         </div>
         <div className="selected-info-section">
           <p>
-            <strong>{ props.info.infoKey }: </strong> 
+            <strong>{ props.info.infoKey.split('_').join(' ') }: </strong> 
             { props.info.info }
           </p>
         </div>
