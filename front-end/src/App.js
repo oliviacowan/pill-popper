@@ -44,10 +44,9 @@ export default function App(props) {
   const [searchId, setSearchId] = useState()
   const [searchName, setSearchName] = useState()
 
-  console.log("Rendering App")
 
   const [state, setState] = useState({
-    medications: [],
+    // medications: [],
     child: "",
     children: {},
   });
@@ -62,7 +61,7 @@ export default function App(props) {
     
     const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function (data) {
-      console.log("INSIDE2")
+
     const notify = () => toast(data.message, {
       
       position: "top-right",
@@ -79,15 +78,25 @@ export default function App(props) {
   
 
   const setSectedChild = (child) => setState({ ...state, child });
- 
-
   
+  useEffect(() => {
+    loaderMedications()
+    return () => {
+      setMedications([]);
+    };
+}, []);
 
+useEffect(() => {
+  loadChildren()
+  return () => {
+    setSectedChild({}); 
+  };
+}, []);
   const loadChildren = () => {
     axios
       .get("http://localhost:8081/users/1/children")
       .then((res) =>
-        setState((prev) => ({
+      setState((prev) => ({
           ...prev,
           children: res.data,
         }))
@@ -101,15 +110,12 @@ export default function App(props) {
     axios
       .get("http://localhost:8081/users/1/medications")
       .then((response) => {
-        setMedications((prev) => [
-          {
-            ...prev,
+        setMedications((prev) => 
+          [{...prev,
             medications: response.data,
-          },
-        ]);
-      })
-
-      .catch((error) => {
+          }],
+        )
+      }).catch((error) => {
         console.log(error.message);
       });
   }
@@ -120,12 +126,15 @@ export default function App(props) {
     console.log("Name and id from api: ", searchId, searchName)
   }
 
+
+
+
   // state.children
   useEffect(() => {
     loadChildren()
     loaderMedications()
-  // }, [setMedications])
-  }, [setMedications]);
+  }, []);
+
   
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)

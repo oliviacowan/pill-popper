@@ -6,6 +6,7 @@ export default function MedicationItemList(props) {
   
   const medications = props.medications[0].medications;
 
+
   const medicationItemList = medications.map((medication) => {
     const deleteMe = function () {
       axios.delete(`http://localhost:8081/medications/${medication.id}/delete`)
@@ -28,11 +29,13 @@ export default function MedicationItemList(props) {
 
 
     for (let child in props.childrenState) {
+ 
       // console.log("color", props.childrenState[child].avatar_url);
       const childObj = props.childrenState[child];
       if (medStartDate <= today && medEndDate(medication) >= today) {
 
         if (props.childState && props.childState === childObj.id && childObj.id === medication.child_id) {
+        
           return (
             <MedicationItem
               color={childObj.avatar_url}
@@ -47,7 +50,7 @@ export default function MedicationItemList(props) {
         }
 
         else if (!props.childState && childObj.id === medication.child_id) {
-         
+     
           return (
             <MedicationItem
               color={childObj.avatar_url}
@@ -65,5 +68,5 @@ export default function MedicationItemList(props) {
     }
   });
 
-  return <Fragment>{medicationItemList}</Fragment>;
+  return <>{medicationItemList}</>;
 }
