@@ -33,7 +33,7 @@ export default function App(props) {
   const SAVING = "SAVING";
   const MAP = "MAP";
   const { mode, transition } = useVisualMode(NONE)
-  
+
 
   //const [viewCalendar, setViewCalendar] = useState(false);
   //const [viewUser, setViewUser] = useState(false);
@@ -58,45 +58,45 @@ export default function App(props) {
     const pusher = new Pusher('e5acfbcf6043307a71dc', {
       cluster: 'us3'
     });
-    
+
     const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function (data) {
 
-    const notify = () => toast(data.message, {
-      
-      position: "top-right",
-      autoClose: 10000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      const notify = () => toast(data.message, {
+
+        position: "top-right",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      notify()
     });
-    notify()
-  });
-},[])
-  
+  }, [])
+
 
   const setSectedChild = (child) => setState({ ...state, child });
-  
+
   useEffect(() => {
     loaderMedications()
     return () => {
       setMedications([]);
     };
-}, []);
+  }, []);
 
-useEffect(() => {
-  loadChildren()
-  return () => {
-    setSectedChild({}); 
-  };
-}, []);
+  useEffect(() => {
+    loadChildren()
+    return () => {
+      setSectedChild({});
+    };
+  }, []);
   const loadChildren = () => {
     axios
       .get("http://localhost:8081/users/1/children")
       .then((res) =>
-      setState((prev) => ({
+        setState((prev) => ({
           ...prev,
           children: res.data,
         }))
@@ -110,8 +110,9 @@ useEffect(() => {
     axios
       .get("http://localhost:8081/users/1/medications")
       .then((response) => {
-        setMedications((prev) => 
-          [{...prev,
+        setMedications((prev) =>
+          [{
+            ...prev,
             medications: response.data,
           }],
         )
@@ -119,23 +120,13 @@ useEffect(() => {
         console.log(error.message);
       });
   }
-  
-  function searchResults(data){
+
+  function searchResults(data) {
     setSearchId(Object.keys(data)[0]);
     setSearchName(Object.values(data)[0]);
     console.log("Name and id from api: ", searchId, searchName)
   }
 
-
-
-
-  // state.children
-  useEffect(() => {
-    loadChildren()
-    loaderMedications()
-  }, []);
-
-  
   function editor(medication) {
     axios.get(`http://localhost:8081/medications/${medication.id}`)
       .then((res) => {
@@ -149,7 +140,7 @@ useEffect(() => {
           textMessage: data.text_message,
           dose: data.dose,
           times: data.times
-         
+
         })
         transition(EDIT);
       });
@@ -158,22 +149,22 @@ useEffect(() => {
   return (
     <main className="layout">
       <nav>
- 
+
         <FontAwesomeIcon
           icon={faUsers}
           className="nav-icon"
           onClick={() => { mode === CHILDLIST ? transition(NONE) : transition(CHILDLIST) }}
         />
-       
+
         <div className="day-name">{value.toString().substring(0, 15)}</div>
         <FontAwesomeIcon
           icon={faCalendarDays}
           className="nav-icon"
-          onClick={() => {mode === CALENDAR ? transition(NONE) : transition(CALENDAR) }}
+          onClick={() => { mode === CALENDAR ? transition(NONE) : transition(CALENDAR) }}
         />
       </nav>
       <span className="component">
-      <ToastContainer
+        <ToastContainer
           position="top-right"
           autoClose={5000}
           hideProgressBar={false}
@@ -183,58 +174,58 @@ useEffect(() => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          />
-        { mode === CHILDLIST && (
+        />
+        {mode === CHILDLIST && (
           <ChildrenList loadChildren={loadChildren} children={Object.values(state.children)} value={state.child}
-          onChange={setSectedChild}/>
-          )}
-          { mode === LOADING && <Status message='LOADING' /> }
-          { mode === SAVING && < Status message='SAVING' /> }
-          { mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
+            onChange={setSectedChild} />
+        )}
+        {mode === LOADING && <Status message='LOADING' />}
+        {mode === SAVING && < Status message='SAVING' />}
+        {mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
 
-          { mode === CREATE && <Form  
-            transition = { transition } 
-            children={Object.values(state.children)} 
-            mode={mode} 
-            loaderMedications={loaderMedications} 
-            searchApi = { searchApi }  
-            searchResults = { searchResults } 
-            searchData = { { id: searchId, name: searchName } }/>}
+        {mode === CREATE && <Form
+          transition={transition}
+          children={Object.values(state.children)}
+          mode={mode}
+          loaderMedications={loaderMedications}
+          searchApi={searchApi}
+          searchResults={searchResults}
+          searchData={{ id: searchId, name: searchName }} />}
 
-          { mode === EDIT && <Form 
-            transition = { transition } 
-            { ...selectedMed } 
-            mode={mode} 
-            medications={medications} 
-            setMedications={setMedications} 
-            loaderMedications={loaderMedications} 
-            searchApi = { searchApi } 
-            searchResults = { searchResults }
-            searchData = { { id: searchId, name: searchName } }/> }
+        {mode === EDIT && <Form
+          transition={transition}
+          {...selectedMed}
+          mode={mode}
+          medications={medications}
+          setMedications={setMedications}
+          loaderMedications={loaderMedications}
+          searchApi={searchApi}
+          searchResults={searchResults}
+          searchData={{ id: searchId, name: searchName }} />}
 
-          { mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
-            <footer>
-            <button className="add-medication" onClick={ () => { transition(CREATE) } }>Add Medication</button>
-            </footer> }
-          { mode !== SAVING && mode !== LOADING && medications.length > 0 && 
-          <MedicationItemList 
+        {mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
+          <footer>
+            <button className="add-medication" onClick={() => { transition(CREATE) }}>Add Medication</button>
+          </footer>}
+        {mode !== SAVING && mode !== LOADING && medications.length > 0 &&
+          <MedicationItemList
 
-            childState={state.child} 
-            childrenState={state.children} 
-            medications={medications} 
-            date={value} 
-            children={state.children} 
-            setMedications={setMedications} 
-            edit={ editor }
-            />}
-            <h3 className="map-title">Pharmacies near you: </h3>
-          <MyComponent />
+            childState={state.child}
+            childrenState={state.children}
+            medications={medications}
+            date={value}
+            children={state.children}
+            setMedications={setMedications}
+            edit={editor}
+          />}
+        <h3 className="map-title">Pharmacies near you: </h3>
+        <MyComponent />
 
-          <header>
-            <h3 className="app-title">
+        <header>
+          <h3 className="app-title">
             PILL - POPPER
-              </h3> 
-              </header>
+          </h3>
+        </header>
       </span>
     </main>
   );
