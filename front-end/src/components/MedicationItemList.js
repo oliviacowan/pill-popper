@@ -18,7 +18,7 @@ export default function MedicationItemList(props) {
       if (medication.end_date) {
         return new Date(medication.end_date)
       } else {
-        return new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+        return new Date()
       }
     }
 
@@ -42,7 +42,7 @@ export default function MedicationItemList(props) {
      
     // const today = new Date(new Date().getTime() + 2 * 60000)
     console.log("MEDICATION", medication) // here exists
-    console.log("TODAY", today)
+    console.log("DATE", props.date)
     console.log("medEndDate(medication)", medEndDate(medication))
     console.log("medStartDate", medStartDate)
 
@@ -51,7 +51,7 @@ export default function MedicationItemList(props) {
 
       // console.log("color", props.childrenState[child].avatar_url);
       const childObj = props.childrenState[child];
-      if (medStartDate <= today && medEndDate(medication) >= today) {
+      if (medStartDate <= props.date && medEndDate(medication) >= props.date) {
         console.log("FIRST IF", medication)
         if (props.childState && props.childState === childObj.id && childObj.id === medication.child_id) {
           console.log("SECOND ELSE MEDICATOON", medication) // with food null

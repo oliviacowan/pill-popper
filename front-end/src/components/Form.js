@@ -23,6 +23,14 @@ export default function Form(props) {
   now.getMinutes()
   const timeNow = `${now.getHours()}:${now.getMinutes()}`
 
+
+  function addHours(date, hours) {
+    const newDate = new Date(date);
+    newDate.setHours(newDate.getHours() + hours);
+    return newDate;
+  }
+  
+
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState(props.childId || "");
   const [dose, setDose] = useState("" || props.dose);
@@ -30,7 +38,7 @@ export default function Form(props) {
   const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
   const [more, setMore] = useState(false || props.more)
-  const [endDate, setEndDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString() || props.endDate)
+  const [endDate, setEndDate] = useState(addHours(new Date(), 1) || props.endDate)
   const [textMessage, setTextMessage] = useState(false || props.textMessage);
   const [fdaId, setFdaId] = useState('none')
   
