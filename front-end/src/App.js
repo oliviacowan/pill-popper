@@ -79,19 +79,19 @@ export default function App(props) {
 
   const setSectedChild = (child) => setState({ ...state, child });
 
-  useEffect(() => {
-    loaderMedications()
-    return () => {
-      setMedications([]);
-    };
-  }, []);
+  // useEffect(() => {
+  //   loaderMedications()
+  //   return () => {
+  //     setMedications([]);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    loadChildren()
-    return () => {
-      setSectedChild({});
-    };
-  }, []);
+  // useEffect(() => {
+  //   loadChildren()
+  //   return () => {
+  //     setSectedChild({});
+  //   };
+  // }, []);
   const loadChildren = () => {
     axios
       .get("http://localhost:8081/users/1/children")
@@ -113,6 +113,7 @@ export default function App(props) {
         setMedications((prev) =>
           [{
             ...prev,
+            
             medications: response.data,
           }],
         )
@@ -120,6 +121,11 @@ export default function App(props) {
         console.log(error.message);
       });
   }
+
+useEffect(() => {
+  loadChildren()
+  loaderMedications()
+},[])
 
   function searchResults(data) {
     setSearchId(Object.keys(data)[0]);
