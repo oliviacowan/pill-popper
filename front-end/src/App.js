@@ -88,7 +88,7 @@ export default function App(props) {
           ...prev,
           children: res.data,
         }))
-        transition(NONE)
+        transition(CHILDLIST)
       })
       .catch((error) => {
         console.log(error);
