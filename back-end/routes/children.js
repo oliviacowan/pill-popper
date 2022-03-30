@@ -24,7 +24,7 @@ module.exports = (db) => {
     db.query(
       `INSERT INTO children (name, user_id, avatar_url)
       VALUES ($1, $2, $3);`, [name, userId, avatar]
-    ).then(()=> { setTimeout(() => { res.send({ status: "good" }) }, 3000) });
+    ).then(()=> { res.send({ status: "good" }) });
   });
   return router;
 }
