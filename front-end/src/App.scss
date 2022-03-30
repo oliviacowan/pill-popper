@@ -89,8 +89,23 @@ button {
   cursor: pointer;
 }
 
+.close-component{
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  width: 1.5em;
+  height: 1.5em;
+  box-shadow: 1px 2px 5px black;
+}
+
+.close-component:active{
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
 .search-result:hover{
   background-color: rgb(68, 116, 248);
   color: #fff;
   cursor: pointer;
 }
+
