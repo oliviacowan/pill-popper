@@ -28,7 +28,7 @@ export default function Form(props) {
   const [times, setTime] = useState(timeNow || props.time);
   const [savedTime, setSavedTime] = useState(props.times || []);
   const [more, setMore] = useState(false || props.more)
-  const [endDate, setEndDate] = useState(new Date() || props.endDate)
+  const [endDate, setEndDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString() || props.endDate)
   const [textMessage, setTextMessage] = useState(false || props.textMessage);
   const [fdaId, setFdaId] = useState(null)
 
