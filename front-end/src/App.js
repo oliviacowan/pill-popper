@@ -80,6 +80,7 @@ export default function App(props) {
   const setSectedChild = (child) => setState({ ...state, child });
 
   useEffect(() => {
+    transition(LOADING)
     loaderMedications()
     return () => {
       setMedications([]);
@@ -87,6 +88,7 @@ export default function App(props) {
   }, []);
 
   useEffect(() => {
+    transition(LOADING);
     loadChildren()
     return () => {
       setSectedChild({});
@@ -95,12 +97,13 @@ export default function App(props) {
   const loadChildren = () => {
     axios
       .get("http://localhost:8081/users/1/children")
-      .then((res) =>
+      .then((res) => {
         setState((prev) => ({
           ...prev,
           children: res.data,
         }))
-      )
+        transition(NONE)
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -110,6 +113,7 @@ export default function App(props) {
     axios
       .get("http://localhost:8081/users/1/medications")
       .then((response) => {
+        transition(NONE);
         setMedications((prev) =>
           [{
             ...prev,

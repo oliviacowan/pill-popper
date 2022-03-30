@@ -68,7 +68,7 @@ export default function Form(props) {
   };
 
   const save = (mode) => {
-    //props.transition("SAVING");
+    props.transition("SAVING");
     console.log(medicationName);
     if (mode === "CREATE") {
       axios.post(`http://localhost:8081/medications/${childId}/new`, {
@@ -159,7 +159,7 @@ export default function Form(props) {
               <a className="search-result"
               onClick={ () => { 
                 addFda(props.searchData.id, props.searchData.name); 
-                setMedicationName(props.searchData.name)
+                setMedicationName(props.searchData.name[0])
                 props.clearName() } } >{props.searchData.name}</a>}
 
           </div>

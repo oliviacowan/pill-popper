@@ -8,6 +8,7 @@ import ItemDefault from "./medicationComponents/ItemDefault";
 import Confirm from "./medicationComponents/Confirm";
 import Options from "./medicationComponents/Options";
 import Info from "./medicationComponents/Info";
+import Status from "./medicationComponents/Status";
 
 export default function MedicationItem(props) {
   const [destroy, setDestroy] = useState(false);
@@ -18,12 +19,17 @@ export default function MedicationItem(props) {
   const OPTIONS = "OPTIONS";
   const INFO = "INFO";
   const CONFIRM = "CONFIRM";
+  const STATUS = "STATUS"
   const { mode, transition } = useVisualMode(DEFAULT);
 
   function getFda(){
-    transition(OPTIONS);
+    transition(STATUS)
+    
     axios.get(`http://localhost:8081/fda/${ props.fda_id }`)
-    .then((res) => { setInfo( res.data[0] ) })
+    .then((res) => { 
+      setTimeout(() => transition(OPTIONS), 1500)
+      setInfo( res.data[0] ) 
+    })
   }
 
   function selectInfo(infoKey){
@@ -63,23 +69,26 @@ if (props.color === "pink") {
 
   return (
     <>
-    { mode === CONFIRM && 
-      < Confirm destroy={ destroy }
-       setDestroy={ setDestroy } 
-       deleteMe={ props.deleteMe } 
-       transition={ transition } /> }
+      { mode === CONFIRM && 
+        < Confirm destroy={ destroy }
+        setDestroy={ setDestroy } 
+        deleteMe={ props.deleteMe } 
+        transition={ transition } /> }
 
-    { mode === DEFAULT && 
-      < ItemDefault { ...props } 
-      transition={ transition } 
-      color={ color } 
-      getFda={ getFda } />  }
+      { mode === DEFAULT && 
+        < ItemDefault { ...props } 
+        transition={ transition } 
+        color={ color } 
+        getFda={ getFda } />  }
 
-    { mode === OPTIONS && 
-      < Options color={color} infoKeys = { Object.keys(info) } selectInfo={ selectInfo }  transition={ transition } /> }
+      { mode === OPTIONS && 
+        < Options color={color} infoKeys = { Object.keys(info) } selectInfo={ selectInfo }  transition={ transition } /> }
 
-    { mode === INFO &&
-      < Info color={color} info = { selectedInfo } transition={ transition } /> }
+      { mode === INFO &&
+        < Info color={color} info = { selectedInfo } transition={ transition } /> }
+
+      { mode === STATUS && < Status color={ color } /> }
     </>
+
   );
 }
