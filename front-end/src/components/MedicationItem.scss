@@ -22,6 +22,7 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #ffc0cb;
+  animation-timing-function: ease-in;
 }
 .medication-item__purple {
   background-color: white;
@@ -29,14 +30,15 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #9267af;
+  animation-timing-function: ease-in;
 }
 .medication-item__yellow {
   background-color: white;
   border-radius: 12px;
   margin: 1em;
   width: 90%;
-
   border: 3px solid #f1edb8;
+  animation-timing-function: ease-in;
 }
 .medication-item__blue {
   background-color: white;
@@ -44,6 +46,7 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #415ba3;
+  animation-timing-function: ease-in;
 }
 .medication-item__light-blue {
   background-color: white;
@@ -51,6 +54,7 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #a4b4dd;
+  animation-timing-function: ease-in;
 }
 .medication-item__neutral {
   background-color: white;
@@ -58,6 +62,7 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #b1a99d;
+  animation-timing-function: ease-in;
 }
 .medication-item__green {
   background-color: white;
@@ -65,6 +70,8 @@
   margin: 1em;
   width: 90%;
   border: 3px solid #41a375;
+  animation-timing-function: ease-in;
+  animation-duration: .5s;
 }
 
 
