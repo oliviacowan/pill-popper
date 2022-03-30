@@ -16,13 +16,13 @@ module.exports = (db) => {
 
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
-    const { dose, name, with_food, start_date, end_date, fda_id, times } = req.body;
+    const { dose, name, with_food, start_date, end_date, fda_id, times, text_message } = req.body;
     console.log("FDAID: ", fda_id);
     db.query(
       `INSERT INTO childrens_medications 
-      (child_id, name, dose, with_food, end_date, fda_id)
-      Values ($1, $2, $3, $4, $5, $6)
-      RETURNING id;`, [childId, name, dose, with_food, end_date, fda_id]
+      (child_id, name, dose, with_food, end_date, fda_id, text_message)
+      Values ($1, $2, $3, $4, $5, $6,$7)
+      RETURNING id;`, [childId, name, dose, with_food, end_date, fda_id, text_message]
       ).then((response)=> {
          const medId = response.rows[0].id;
           Promise.all(
