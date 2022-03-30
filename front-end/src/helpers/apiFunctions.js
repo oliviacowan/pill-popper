@@ -5,11 +5,11 @@ import axios from "axios";
 
 export function searchApi(searchTerm, setSearch) {
   const resObj = {};
-    axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${searchTerm}"&limit=2`)
+    axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${searchTerm}"&limit=2`)
       .then((response) => {
           response.data.results.forEach(result => {
             console.log('Generic');
-            resObj[result.id] = result.openfda.generic_name
+            resObj[result.id] = result.openfda.brand_name
           })
           setSearch(resObj);
         })
