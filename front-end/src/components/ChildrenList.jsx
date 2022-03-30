@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useState } from "react"
 import "./ChildrenList.scss"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import ChildrenListItem from "./ChildrenListItem"
 
@@ -78,6 +80,9 @@ return (
         <button className="add-button" onClick={doAddChild} ><i className="fa-solid fa-person-circle-plus"></i></button>
         <button className="add-button" onClick={() => props.onChange("")}>View all</button>
         </section>
+    <button className='close-component' onClick={ () => props.transition('NONE') } >
+        <FontAwesomeIcon icon={faXmark } />
+    </button>
   </section>
 )
 

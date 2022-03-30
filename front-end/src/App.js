@@ -183,11 +183,11 @@ useEffect(() => {
         />
         {mode === CHILDLIST && (
           <ChildrenList loadChildren={loadChildren} children={Object.values(state.children)} value={state.child}
-            onChange={setSectedChild} />
+            onChange={setSectedChild} transition={transition} />
         )}
         {mode === LOADING && <Status message='LOADING' />}
         {mode === SAVING && < Status message='SAVING' />}
-        {mode === CALENDAR && <Calendar onChange={onChange} value={value} />}
+        {mode === CALENDAR && <Calendar onChange={onChange} value={value} transition={transition} />}
 
         {mode === CREATE && <Form
           transition={transition}

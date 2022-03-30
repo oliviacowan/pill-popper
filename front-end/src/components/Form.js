@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./Form.scss";
 import Time from "./Time"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { searchApi } from "../helpers/apiFunctions";
 
@@ -217,6 +219,9 @@ export default function Form(props) {
         <button className="form-button" onClick={() => save(props.mode)}>Save</button>
         <button className="form-button" onClick={cancel}>Cancel</button>
       </section>
+      <button className='close-component' onClick={ () => props.transition('NONE') } >
+        <FontAwesomeIcon icon={faXmark } />
+      </button>
     </main>
   );
 }
