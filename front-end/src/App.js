@@ -79,22 +79,8 @@ export default function App(props) {
 
   const setSectedChild = (child) => setState({ ...state, child });
 
-  useEffect(() => {
-    transition(LOADING)
-    loaderMedications()
-    return () => {
-      setMedications([]);
-    };
-  }, []);
-
-  useEffect(() => {
-    transition(LOADING);
-    loadChildren()
-    return () => {
-      setSectedChild({});
-    };
-  }, []);
   const loadChildren = () => {
+    transition(LOADING)
     axios
       .get("http://localhost:8081/users/1/children")
       .then((res) => {
@@ -110,6 +96,7 @@ export default function App(props) {
   }
 
   const loaderMedications = () => {
+     transition(LOADING);
     axios
       .get("http://localhost:8081/users/1/medications")
       .then((response) => {
@@ -117,6 +104,7 @@ export default function App(props) {
         setMedications((prev) =>
           [{
             ...prev,
+            
             medications: response.data,
           }],
         )
@@ -124,6 +112,11 @@ export default function App(props) {
         console.log(error.message);
       });
   }
+
+useEffect(() => {
+  loadChildren()
+  loaderMedications()
+},[])
 
   function searchResults(data) {
     setSearchId(Object.keys(data)[0]);

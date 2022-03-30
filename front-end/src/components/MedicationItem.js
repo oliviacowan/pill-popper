@@ -66,7 +66,7 @@ if (props.color === "pink") {
       console.log("clicked delete icon", props.color);
     }
   };
-
+console.log("PROPS", props)
   return (
     <>
       { mode === CONFIRM && 

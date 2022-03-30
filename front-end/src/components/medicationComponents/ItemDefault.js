@@ -3,6 +3,7 @@ import React from "react";
 export default function ItemDefault(props) {
   console.log(props.fda_id);
   const itemClassName = props.color + " medication-item"
+
   return (
     <li className={ itemClassName }>
       <div className="medication-time-name">
