@@ -4,15 +4,25 @@
 import axios from "axios";
 
 export function searchApi(searchTerm, setSearch) {
-  const resObj = {};
+  const resArray = [];
     axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${searchTerm}"&limit=2`)
       .then((response) => {
           response.data.results.forEach(result => {
             console.log('Generic');
-            resObj[result.id] = result.openfda.brand_name
+            resArray.push({ id: [result.id][0], name: result.openfda.brand_name[0]});
           })
-          setSearch(resObj);
-        })
-      .catch(() => { console.log("ERRROOOOORRR!") });
-}
+          console.log("SEARCHED ARRAY: ", resArray)
+          setSearch(resArray);
+        }, (res) => { axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${searchTerm}"&limit=2`)
+        .then((response) => {
+            response.data.results.forEach(result => {
+              console.log('Generic');
+              resArray.push({ id: [result.id][0], name: result.openfda.generic_name[0]});
+            })
+            setSearch(resArray)
+          })
+           .catch(() => { console.log("ERRROOOOORRR!") });
+        }
+      
+      )}
 
