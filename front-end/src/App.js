@@ -40,10 +40,11 @@ export default function App(props) {
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
-  const [search, setSearch] = useState()
+  const [search, setSearch] = useState([])
   const [searchId, setSearchId] = useState()
   const [searchName, setSearchName] = useState()
 
+  console.log('SEARCh: ', search)
 
   const [state, setState] = useState({
     // medications: [],
@@ -119,14 +120,11 @@ useEffect(() => {
 },[])
 
   function searchResults(data) {
-    setSearchId(Object.keys(data)[0]);
-    setSearchName(Object.values(data)[0]);
-    console.log("Name and id from api: ", searchId, searchName)
+    setSearch(data)
   }
 
   function clearSearch(){
-    setSearchId(null);
-    setSearchName(null);
+    setSearch([]);
   }
 
   function clearName(){
@@ -196,7 +194,7 @@ useEffect(() => {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} 
+          searchData={ search } 
           clearSearch={ clearSearch } 
           clearName={ clearName } />}
 
@@ -209,7 +207,7 @@ useEffect(() => {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} 
+          searchData={ search } 
           clearSearch={ clearSearch } />}
 
         {mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&

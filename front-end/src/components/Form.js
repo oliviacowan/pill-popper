@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { searchApi } from "../helpers/apiFunctions";
+import { SearchItem } from './formComponents/Search'
 
 export default function Form(props) {
   let childNames;
   let children;
   //let fdaName;
-  console.log("SEARCHDATA",props.searchData.name, props.searchData.id)
   //let fdaId = props.searchData.name;
 
   if (props.children) {
@@ -134,6 +134,23 @@ export default function Form(props) {
 
     </div>
   ))
+  //console.log('FORM search data: ', props.searchData)
+
+  const parsedSearchData = props.searchData.map((data) => {
+    const id = data.id;
+    const name = data.name;
+
+    return (< SearchItem className='search-result'
+      key={ id } 
+      name={ name }
+      onClick={ () => { 
+        addFda(id, name); 
+        props.clearSearch()  }}
+      />
+    ); 
+  })
+
+    console.log('Parsed Search Data: ', parsedSearchData)
 
   return (
     <main className="medication__form">
@@ -165,12 +182,7 @@ export default function Form(props) {
               }}
             />
 
-            {props.searchData.id &&
-              <a className="search-result"
-              onClick={ () => { 
-                addFda(props.searchData.id, props.searchData.name); 
-                setMedicationName(props.searchData.name[0])
-                props.clearName() } } >{props.searchData.name}</a>}
+            { parsedSearchData.length > 0 &&  parsedSearchData  }
 
           </div>
 
