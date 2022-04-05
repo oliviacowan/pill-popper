@@ -25,7 +25,7 @@ export default function MedicationItem(props) {
   function getFda(){
     transition(STATUS)
     
-    axios.get(`http://localhost:8081/fda/${ props.fda_id }`)
+    axios.get(`/fda/${ props.fda_id }`)
     .then((res) => { 
       setTimeout(() => transition(OPTIONS), 1500)
       setInfo( res.data[0] ) 
