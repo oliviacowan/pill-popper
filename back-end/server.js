@@ -66,9 +66,9 @@ const fromPhoneNumber = process.env.FROM_PHONE_NUMBER;
 
 
 //Pusher
-const appId = process.env.APP_ID;
-const key = process.env.KEY;
-const sectet = process.env.SECRET;
+const pusherAppId = process.env.APP_ID;
+const pusherKey = process.env.KEY;
+const pusherSectet = process.env.SECRET;
 
 
 const io = new Server(server, {
@@ -116,11 +116,10 @@ server.listen(PORT, "0.0.0.0", () => {
 })
 
 
-
 const pusher = new Pusher({
-  appId: "1366969",
-  key: "e5acfbcf6043307a71dc",
-  secret: "e291731caee542ae8d27",
+  appId: pusherAppId,
+  key: pusherKey,
+  secret: pusherSectet,
   cluster: "us3",
   useTLS: true
 });

@@ -16,7 +16,7 @@ const ChildrenList = (props) => {
       name: name,
       avatar: color,
     })
-    // console.log(name)
+  
     .then(() => {
       setName('');
       setAddAChild(false); 
@@ -76,7 +76,6 @@ return (
               <button className="add-button" type="button" onClick={addChild} >Add</button>
         </form>}
         <section className="children-actions">
-        {/* <button className="add-button" onClick={addChild} >Add</button> */}
         <button className="add-button" onClick={doAddChild} ><i className="fa-solid fa-person-circle-plus"></i></button>
         <button className="add-button" onClick={() => props.onChange("")}>View all</button>
         </section>

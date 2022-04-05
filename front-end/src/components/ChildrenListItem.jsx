@@ -27,19 +27,9 @@ const ChildrenListItem = ({ id, name, avatar, selected, setChild, color }) => {
   const select = () => {
     setChild()
   }
-  // const colorClass = classNames("color__class", {
-  //   "color__class--pink": selected,
-  //   "color__class--purple": selected,
-  //   "color__class--purple": selected,
-  // });
+  
   return (
     <li className={childrenClass} onClick={()=> setChild(id)}>
-      
-      {/* <img
-        className="children__item-image"
-        src={avatar}
-        alt={name}
-      /> */}
       {selected ? <div onClick={select} className={colorClass}><i className="fa-solid fa-check"></i></div> : <div onClick={select} className={colorClass}></div>}
       {name}
     </li>

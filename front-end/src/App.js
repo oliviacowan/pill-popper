@@ -4,7 +4,6 @@ import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 import axios from "axios";
 import { io } from "socket.io-client";
-// For testing:
 
 import ChildrenList from "./components/ChildrenList";
 
@@ -35,8 +34,6 @@ export default function App(props) {
   const { mode, transition } = useVisualMode(NONE)
 
 
-  //const [viewCalendar, setViewCalendar] = useState(false);
-  //const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
@@ -44,10 +41,8 @@ export default function App(props) {
   const [searchId, setSearchId] = useState()
   const [searchName, setSearchName] = useState()
 
-  console.log('SEARCh: ', search)
 
   const [state, setState] = useState({
-    // medications: [],
     child: "",
     children: {},
   });

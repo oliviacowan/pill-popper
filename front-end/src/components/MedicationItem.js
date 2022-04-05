@@ -34,7 +34,7 @@ export default function MedicationItem(props) {
 
   function selectInfo(infoKey){
     transition(INFO);
-    //console.log(infoKey, " ::: ", info[infoKey]);
+ 
     setSelectedInfo({
       infoKey: infoKey,
       info: info[infoKey]
@@ -63,10 +63,9 @@ if (props.color === "pink") {
   const destroyBoolean = function () {
     if (!destroy) {
       setDestroy(true);
-      console.log("clicked delete icon", props.color);
     }
   };
-console.log("PROPS", props)
+
   return (
     <>
       { mode === CONFIRM && 
