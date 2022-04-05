@@ -11,8 +11,6 @@ import { SearchItem } from './formComponents/Search'
 export default function Form(props) {
   let childNames;
   let children;
-  //let fdaName;
-  //let fdaId = props.searchData.name;
 
   if (props.children) {
     children = Object.values(props.children)
@@ -79,7 +77,6 @@ export default function Form(props) {
 
   const save = (mode) => {
     props.transition("SAVING");
-    console.log(medicationName);
     if (mode === "CREATE") {
       axios.post(`http://localhost:8081/medications/${childId}/new`, {
         child_id: childId,
@@ -108,7 +105,6 @@ export default function Form(props) {
       })
         .then((res) => {
           props.loaderMedications()
-          console.log('Medication changed successfully!')
           props.transition("NONE");
         })
         .catch(err => console.log('There has been an ERROR: ', err));
@@ -134,7 +130,6 @@ export default function Form(props) {
 
     </div>
   ))
-  //console.log('FORM search data: ', props.searchData)
 
   const parsedSearchData = props.searchData.map((data) => {
     const id = data.id;
@@ -150,7 +145,6 @@ export default function Form(props) {
     ); 
   })
 
-    console.log('Parsed Search Data: ', parsedSearchData)
 
   return (
     <main className="medication__form">
@@ -162,9 +156,6 @@ export default function Form(props) {
 
               <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
                 <option value="select">Select</option>
-                {/* <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option> */}
                 {childNames}
               </select>}
             {props.mode === "EDIT" && <div><p>{props.childName}</p></div>}

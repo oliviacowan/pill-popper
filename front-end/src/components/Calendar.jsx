@@ -6,7 +6,6 @@ import {useState} from 'react'
 
 const Calendar = ({value, onChange, transition}) => {
 
-  // const [value, onChange] = useState(new Date());
 
   return (
   <> 

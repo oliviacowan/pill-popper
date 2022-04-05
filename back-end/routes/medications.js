@@ -17,7 +17,7 @@ module.exports = (db) => {
   router.post('/:childId/new', (req, res) => {
     childId = Number(req.params.childId);
     const { dose, name, with_food, start_date, end_date, fda_id, times, text_message } = req.body;
-    console.log("FDAID: ", fda_id);
+    
     db.query(
       `INSERT INTO childrens_medications 
       (child_id, name, dose, with_food, end_date, fda_id, text_message)
@@ -42,8 +42,6 @@ module.exports = (db) => {
   router.put('/:med_id/edit', (req, res) => {
     const { dose, name, with_food, text_message, times } = req.body;
     const medId = req.params.med_id;
-    console.log(times);
-    console.log('medId: ', medId);
     Promise.all([
       db.query(
         `DELETE FROM times
@@ -67,7 +65,7 @@ module.exports = (db) => {
           )
         })
       ]).then(() => { setTimeout(() => { res.send({ status: "good"}) },3000) });
-    }).catch((err) => { console.log(medId); console.log('There was an ERROR: ', err) });
+    }).catch((err) => { console.log('There was an ERROR: ', err) });
   });
 
   router.delete('/:medId/delete', (req, res) => {

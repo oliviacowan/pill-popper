@@ -7,15 +7,14 @@ export default function Pin({data, setSelectedPharmacy, selectedPharmacy}) {
 
 
 return (
-<>
-  { data.length > 0 && data[0].data.map((store) => (
-  <Marker 
-  key={store.place_id} 
-  position={{lat: store.geometry.location.lat, lng: store.geometry.location.lng}} 
-  onClick={() => {setSelectedPharmacy(store); console.log('dis: ', typeof store.geometry.location.lng)}}
-  // label: {text: `${id}`, color: "blue"}
-  />
-  ))}
+  <>
+    { data.length > 0 && data[0].data.map((store) => (
+      <Marker 
+      key={store.place_id} 
+      position={{lat: store.geometry.location.lat, lng: store.geometry.location.lng}} 
+      onClick={() => {setSelectedPharmacy(store);}}
+      />
+    ))}
   </>
-)
+);
 }
